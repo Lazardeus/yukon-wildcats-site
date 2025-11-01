@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin - Yukon Wildcats Contracting</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script defer src="js/particles-config.js"></script>
+<script defer src="js/script.js"></script>
+</head>
+<body>
+<div id="particles-js"></div>
+
+<header>
+  <img src="assets/logo.png" alt="Yukon Wildcats Logo">
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="contact.html">Contact</a>
+    <a href="community.html">Community</a>
+    <a href="documents.html">Documents</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1 class="fade-in">Admin Panel</h1>
+</section>
+
+<section class="card-container">
+  <form id="adminLogin" class="card hover-glow">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+
+    <button type="submit" class="cta-button pulse">Login</button>
+  </form>
+
+  <div class="card hover-glow">
+    <h3>Submissions Stored Locally</h3>
+    <pre id="submissionList"></pre>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Yukon Wildcats Contracting | Whitehorse, Yukon</p>
+</footer>
+
+<script>
+// Admin login
+const adminLogin = document.getElementById('adminLogin');
+const submissionList = document.getElementById('submissionList');
+const adminUsername = 'admin';
+const adminPassword = 'wildcats2025';
+
+adminLogin.addEventListener('submit', e => {
+  e.preventDefault();
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+
+  if(username === adminUsername && password === adminPassword){
+    alert('Login successful!');
+    const submissions = JSON.parse(localStorage.getItem('yw_submissions_v1')) || [];
+    submissionList.textContent = JSON.stringify(submissions, null, 2);
+  } else {
+    alert('Invalid username or password.');
+  }
+});
+</script>
+</body>
+</html>

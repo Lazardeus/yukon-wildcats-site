@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact - Yukon Wildcats Contracting</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script defer src="js/particles-config.js"></script>
+<script defer src="js/script.js"></script>
+</head>
+<body>
+<div id="particles-js"></div>
+
+<header>
+  <img src="assets/logo.png" alt="Yukon Wildcats Logo">
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="contact.html">Contact</a>
+    <a href="community.html">Community</a>
+    <a href="documents.html">Documents</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1 class="fade-in">Contact Us</h1>
+  <p class="fade-in delay-1">Request a quote, apply for a job, or get in touch.</p>
+</section>
+
+<section class="card-container">
+  <form id="contactForm" class="card hover-glow">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="service">Service:</label>
+    <select id="service" name="service" required>
+      <option value="">-- Select a Service --</option>
+      <option value="Snow Removal">Snow Removal</option>
+      <option value="Towing">Towing</option>
+      <option value="Excavation">Excavation</option>
+      <option value="Dump Trucking">Dump Trucking</option>
+      <option value="Housing Contracts">Housing Contracts</option>
+      <option value="Lawn Mowing">Lawn Mowing</option>
+    </select>
+
+    <label for="message">Message / Job Details:</label>
+    <textarea id="message" name="message" placeholder="Describe what you need..." required></textarea>
+
+    <button type="submit" class="cta-button pulse">Submit</button>
+  </form>
+</section>
+
+<footer>
+  <p>© 2025 Yukon Wildcats Contracting | Whitehorse, Yukon</p>
+</footer>
+
+<script>
+// Contact form submission to Google Sheets
+const form = document.getElementById('contactForm');
+const googleScriptURL = 'https://script.google.com/macros/s/AKfycbwspcRJeN8zAURiiGTEj-ic6blmzQ-V7mOB8zR2-fjsMzD9BjN0kr-4fst4jbLYW4cE/exec';
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+
+  // Save to localStorage first
+  const submissions = JSON.parse(localStorage.getItem('yw_submissions_v1')) || [];
+  submissions.push({
+    name: form.name.value,
+    email: form.email.value,
+    service: form.service.value,
+    message: form.message.value,
+    date: new Date().toLocaleString()
+  });
+  localStorage.setItem('yw_submissions_v1', JSON.stringify(submissions));
+
+  // Send to Google Sheets
+  fetch(googleScriptURL, { method: 'POST', body: new FormData(form) })
+    .then(() => {
+      alert('Form submitted successfully!');
+      form.reset();
+    })
+    .catch(() => alert('Error submitting form.'));
+});
+</script>
+</body>
+</html>
