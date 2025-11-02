@@ -236,7 +236,9 @@
     </footer>
 
     <script>
-        const API_URL = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '/api';
+        // Use the production API on GitHub Pages. If you need to test locally,
+        // change this to 'http://localhost:3000/api' temporarily.
+        const API_URL = 'https://yukon-wildcats-api.onrender.com/api';
         let authToken = localStorage.getItem('yw_auth_token');
         let userRole = localStorage.getItem('yw_user_role');
 
