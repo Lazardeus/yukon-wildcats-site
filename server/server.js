@@ -60,6 +60,43 @@ const authenticateToken = (req, res, next) => {
 };
 
 // Routes
+app.post('/api/submissions', async (req, res) => {
+  const submission = req.body;
+  
+  try {
+    // Save to data/submissions.json
+    const submissionsPath = path.join(__dirname, 'data', 'submissions.json');
+    let submissions = [];
+    
+    if (fs.existsSync(submissionsPath)) {
+      submissions = JSON.parse(fs.readFileSync(submissionsPath));
+    }
+    
+    submissions.push(submission);
+    fs.writeFileSync(submissionsPath, JSON.stringify(submissions, null, 2));
+    
+    res.json({ message: 'Submission saved successfully' });
+  } catch (error) {
+    console.error('Error saving submission:', error);
+    res.status(500).json({ message: 'Error saving submission' });
+  }
+});
+
+app.get('/api/submissions', authenticateToken, async (req, res) => {
+  try {
+    const submissionsPath = path.join(__dirname, 'data', 'submissions.json');
+    if (!fs.existsSync(submissionsPath)) {
+      return res.json([]);
+    }
+    
+    const submissions = JSON.parse(fs.readFileSync(submissionsPath));
+    res.json(submissions);
+  } catch (error) {
+    console.error('Error reading submissions:', error);
+    res.status(500).json({ message: 'Error reading submissions' });
+  }
+});
+
 app.post('/api/login', (req, res) => {
   const { username, password } = req.body;
   

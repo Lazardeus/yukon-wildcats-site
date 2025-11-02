@@ -48,50 +48,35 @@ document.addEventListener('DOMContentLoaded', () => {
   // === Contact Form Submission ===
   const contactForm = document.getElementById('contactForm');
   if(contactForm){
-    const googleScriptURL = 'https://script.google.com/macros/s/AKfycbwspcRJeN8zAURiiGTEj-ic6blmzQ-V7mOB8zR2-fjsMzD9BjN0kr-4fst4jbLYW4cE/exec';
-
-    contactForm.addEventListener('submit', e => {
+    contactForm.addEventListener('submit', async e => {
       e.preventDefault();
 
-      // Save to localStorage
-      const submissions = JSON.parse(localStorage.getItem('yw_submissions_v1')) || [];
-      submissions.push({
+      const formData = {
         name: contactForm.name.value,
         email: contactForm.email.value,
         service: contactForm.service.value,
         message: contactForm.message.value,
         date: new Date().toLocaleString()
-      });
-      localStorage.setItem('yw_submissions_v1', JSON.stringify(submissions));
+      };
 
-      // Send to Google Sheets
-      fetch(googleScriptURL, { method: 'POST', body: new FormData(contactForm) })
-        .then(() => {
+      try {
+        const response = await fetch('/api/submissions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        });
+
+        if (response.ok) {
           alert('Form submitted successfully!');
           contactForm.reset();
-        })
-        .catch(() => alert('Error submitting form.'));
-    });
-  }
-
-  // === Admin Panel Login Handling ===
-  const adminLogin = document.getElementById('adminLogin');
-  const submissionList = document.getElementById('submissionList');
-  const adminUsername = 'admin';
-  const adminPassword = 'wildcats2025';
-
-  if(adminLogin){
-    adminLogin.addEventListener('submit', e => {
-      e.preventDefault();
-      const username = document.getElementById('username').value;
-      const password = document.getElementById('password').value;
-
-      if(username === adminUsername && password === adminPassword){
-        alert('Login successful!');
-        const submissions = JSON.parse(localStorage.getItem('yw_submissions_v1')) || [];
-        submissionList.textContent = JSON.stringify(submissions, null, 2);
-      } else {
-        alert('Invalid username or password.');
+        } else {
+          throw new Error('Form submission failed');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Error submitting form. Please try again.');
       }
     });
   }
