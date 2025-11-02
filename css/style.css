@@ -518,6 +518,26 @@ footer {
   position: relative;
 }
 
+.typing-text {
+  border-right: 2px solid #ffd700;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 4s steps(50) infinite, blink 0.5s step-end infinite alternate;
+  margin: 0 auto;
+  max-width: fit-content;
+}
+
+@keyframes typing {
+  0% { width: 0 }
+  50% { width: 100% }
+  90% { width: 100% }
+  100% { width: 0 }
+}
+
+@keyframes blink {
+  50% { border-color: transparent }
+}
+
 footer a.footer-admin {
   position: absolute;
   right: 1rem;
