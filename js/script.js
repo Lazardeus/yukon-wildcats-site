@@ -25,6 +25,11 @@ function initializeAnnouncement() {
   }
 }
 
+// Set default announcement if none exists
+if (!localStorage.getItem('yw_announcement')) {
+  localStorage.setItem('yw_announcement', 'NOTICE: Currently only offering Web Development Services. Other services coming soon!');
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize announcement banner
   initializeAnnouncement();
@@ -95,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
-      const response = await fetch('/api/submissions', {
+      const response = await fetch('https://yukon-wildcats-api.onrender.com/api/submissions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -144,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Send email notification (you'll need to set this up in your server)
       try {
-        const response = await fetch('/api/web-quote', {
+        const response = await fetch('https://yukon-wildcats-api.onrender.com/api/web-quote', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

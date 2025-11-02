@@ -407,15 +407,27 @@
                 });
 
                 if (response.ok) {
+                    const data = await response.json();
                     alert('Team member updated successfully!');
                     teamForm.reset();
-                    loadTeamData();
+                    
+                    // Update team preview
+                    const teamPreview = document.querySelector('#teamPreview');
+                    const team = data.team || [];
+                    teamPreview.innerHTML = team.map(member => `
+                        <div class="team-member">
+                            <img src="${member.photo || 'assets/default-profile.png'}" alt="${member.name}" class="preview-image">
+                            <h4>${member.name}</h4>
+                            <p>${member.title}</p>
+                        </div>
+                    `).join('');
                 } else {
-                    alert('Failed to update team member');
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'Failed to update team member');
                 }
             } catch (error) {
                 console.error('Team update failed:', error);
-                alert('Failed to update team member');
+                alert(error.message || 'Failed to update team member. Please try again.');
             }
         });
 

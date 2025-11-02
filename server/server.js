@@ -114,7 +114,7 @@ app.post('/api/login', (req, res) => {
   }
 });
 
-app.post('/api/upload', authenticateToken, upload.single('image'), (req, res) => {
+app.post('/api/upload', authenticateToken, upload.single('file'), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ message: 'No file uploaded' });
   }
@@ -122,6 +122,63 @@ app.post('/api/upload', authenticateToken, upload.single('image'), (req, res) =>
     message: 'File uploaded successfully',
     filepath: `/uploads/${req.file.filename}`
   });
+});
+
+app.post('/api/team', authenticateToken, upload.single('photo'), async (req, res) => {
+  try {
+    const { member, title } = req.body;
+    const teamPath = path.join(__dirname, 'data', 'team.json');
+    let team = [];
+    
+    if (fs.existsSync(teamPath)) {
+      team = JSON.parse(fs.readFileSync(teamPath));
+    }
+    
+    const existingMemberIndex = team.findIndex(m => m.id === member);
+    const updateData = {
+      id: member,
+      name: member.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
+      title: title,
+      photo: req.file ? `/uploads/${req.file.filename}` : undefined
+    };
+
+    if (existingMemberIndex !== -1) {
+      // Update existing member
+      team[existingMemberIndex] = {
+        ...team[existingMemberIndex],
+        ...updateData,
+        photo: updateData.photo || team[existingMemberIndex].photo
+      };
+    } else {
+      // Add new member
+      team.push(updateData);
+    }
+
+    if (!fs.existsSync(path.join(__dirname, 'data'))) {
+      fs.mkdirSync(path.join(__dirname, 'data'));
+    }
+    fs.writeFileSync(teamPath, JSON.stringify(team, null, 2));
+    
+    res.json({ message: 'Team member updated successfully', team });
+  } catch (error) {
+    console.error('Error updating team member:', error);
+    res.status(500).json({ message: 'Error updating team member' });
+  }
+});
+
+app.get('/api/team', async (req, res) => {
+  try {
+    const teamPath = path.join(__dirname, 'data', 'team.json');
+    if (!fs.existsSync(teamPath)) {
+      return res.json([]);
+    }
+    
+    const team = JSON.parse(fs.readFileSync(teamPath));
+    res.json(team);
+  } catch (error) {
+    console.error('Error reading team data:', error);
+    res.status(500).json({ message: 'Error reading team data' });
+  }
 });
 
 app.post('/api/content', authenticateToken, (req, res) => {
