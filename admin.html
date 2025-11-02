@@ -28,7 +28,8 @@
 </section>
 
 <section class="card-container">
-  <form id="adminLogin" class="card hover-glow">
+  <form id="adminLogin" class="card hover-glow admin-form">
+    <h3>Admin Login</h3>
     <label for="username">Username:</label>
     <input type="text" id="username" name="username" required>
 
@@ -38,9 +39,158 @@
     <button type="submit" class="cta-button pulse">Login</button>
   </form>
 
-  <div class="card hover-glow">
-    <h3>Submissions Stored Locally</h3>
-    <pre id="submissionList"></pre>
+  <div id="adminPanel" class="admin-panel" style="display: none;">
+    <!-- Navigation Tabs -->
+    <div class="admin-tabs">
+      <button class="tab-button active" data-tab="content">Content</button>
+      <button class="tab-button" data-tab="team">Team</button>
+      <button class="tab-button" data-tab="photos">Photos</button>
+      <button class="tab-button" data-tab="submissions">Submissions</button>
+    </div>
+
+    <!-- Content Management Tab -->
+    <div id="contentTab" class="tab-content active">
+      <div class="card hover-glow admin-form">
+        <h3>Update Website Content</h3>
+        <form id="contentUpdateForm">
+          <label for="contentLocation">Select Section:</label>
+          <select id="contentLocation" name="contentLocation" required>
+            <option value="">Choose section...</option>
+            <option value="hero">Hero Section</option>
+            <option value="services">Services Section</option>
+            <option value="community">Community Section</option>
+            <option value="contact">Contact Section</option>
+            <option value="about">About Section</option>
+          </select>
+
+          <label for="updateType">Update Type:</label>
+          <select id="updateType" name="updateType" required>
+            <option value="">Choose type...</option>
+            <option value="heading">Heading</option>
+            <option value="text">Text Content</option>
+          </select>
+
+          <div id="textUpdateSection">
+            <label for="textContent">New Content:</label>
+            <textarea id="textContent" name="textContent" rows="4"></textarea>
+          </div>
+
+          <button type="submit" class="cta-button">Update Content</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Team Management Tab -->
+    <div id="teamTab" class="tab-content">
+      <div class="card hover-glow admin-form">
+        <h3>Team Members</h3>
+        <div class="team-cards">
+          <!-- Lazarus Card -->
+          <div class="team-edit-card">
+            <h4>Lazarus Vanbibber</h4>
+            <form class="team-member-form" data-member="lazarus">
+              <label for="lazarus-title">Title:</label>
+              <input type="text" id="lazarus-title" value="Founder">
+              
+              <label for="lazarus-photo">Photo:</label>
+              <input type="file" id="lazarus-photo" accept="image/*">
+              
+              <label for="lazarus-bio">Bio:</label>
+              <textarea id="lazarus-bio" rows="3"></textarea>
+              
+              <button type="submit" class="cta-button">Update</button>
+            </form>
+          </div>
+
+          <!-- Micah Card -->
+          <div class="team-edit-card">
+            <h4>Micah Wolfe</h4>
+            <form class="team-member-form" data-member="micah">
+              <label for="micah-title">Title:</label>
+              <input type="text" id="micah-title" value="Co-founder">
+              
+              <label for="micah-photo">Photo:</label>
+              <input type="file" id="micah-photo" accept="image/*">
+              
+              <label for="micah-bio">Bio:</label>
+              <textarea id="micah-bio" rows="3"></textarea>
+              
+              <button type="submit" class="cta-button">Update</button>
+            </form>
+          </div>
+
+          <!-- Elias Card -->
+          <div class="team-edit-card">
+            <h4>Elias Wolfe</h4>
+            <form class="team-member-form" data-member="elias">
+              <label for="elias-title">Title:</label>
+              <input type="text" id="elias-title" value="Co-founder">
+              
+              <label for="elias-photo">Photo:</label>
+              <input type="file" id="elias-photo" accept="image/*">
+              
+              <label for="elias-bio">Bio:</label>
+              <textarea id="elias-bio" rows="3"></textarea>
+              
+              <button type="submit" class="cta-button">Update</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Photos Management Tab -->
+    <div id="photosTab" class="tab-content">
+      <div class="card hover-glow admin-form">
+        <h3>Website Photos</h3>
+        <div class="photo-grid">
+          <!-- Service Icons -->
+          <div class="photo-item">
+            <h4>Snow Removal Icon</h4>
+            <img src="assets/snow_icon.png" alt="Snow Removal">
+            <input type="file" accept="image/*" data-photo="snow_icon">
+            <button class="cta-button small">Update</button>
+          </div>
+
+          <div class="photo-item">
+            <h4>Towing Icon</h4>
+            <img src="assets/tow_icon.png" alt="Towing">
+            <input type="file" accept="image/*" data-photo="tow_icon">
+            <button class="cta-button small">Update</button>
+          </div>
+
+          <div class="photo-item">
+            <h4>Excavator Icon</h4>
+            <img src="assets/excavator_icon.png" alt="Excavation">
+            <input type="file" accept="image/*" data-photo="excavator_icon">
+            <button class="cta-button small">Update</button>
+          </div>
+
+          <div class="photo-item">
+            <h4>Dump Truck Icon</h4>
+            <img src="assets/dumptruck_icon.png" alt="Dump Truck">
+            <input type="file" accept="image/*" data-photo="dumptruck_icon">
+            <button class="cta-button small">Update</button>
+          </div>
+
+          <!-- Logo -->
+          <div class="photo-item">
+            <h4>Company Logo</h4>
+            <img src="assets/logo.png" alt="Logo">
+            <input type="file" accept="image/*" data-photo="logo">
+            <button class="cta-button small">Update</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Submissions Tab -->
+    <div id="submissionsTab" class="tab-content">
+      <div class="card hover-glow">
+        <h3>Form Submissions</h3>
+        <pre id="submissionList"></pre>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -49,25 +199,154 @@
 </footer>
 
 <script>
-// Admin login
-const adminLogin = document.getElementById('adminLogin');
-const submissionList = document.getElementById('submissionList');
-const adminUsername = 'admin';
-const adminPassword = 'wildcats2025';
+const API_URL = '/api';
+let authToken = localStorage.getItem('yw_auth_token');
 
-adminLogin.addEventListener('submit', e => {
+// DOM Elements
+const adminLogin = document.getElementById('adminLogin');
+const adminPanel = document.getElementById('adminPanel');
+const submissionList = document.getElementById('submissionList');
+const contentUpdateForm = document.getElementById('contentUpdateForm');
+const updateType = document.getElementById('updateType');
+const imageUploadSection = document.getElementById('imageUploadSection');
+const textUpdateSection = document.getElementById('textUpdateSection');
+const contentPreview = document.getElementById('contentPreview');
+
+// Check if already logged in
+if (authToken) {
+  adminLogin.style.display = 'none';
+  adminPanel.style.display = 'block';
+  loadCurrentContent();
+  loadSubmissions();
+}
+
+// Handle login
+adminLogin.addEventListener('submit', async (e) => {
   e.preventDefault();
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
 
-  if(username === adminUsername && password === adminPassword){
-    alert('Login successful!');
-    const submissions = JSON.parse(localStorage.getItem('yw_submissions_v1')) || [];
-    submissionList.textContent = JSON.stringify(submissions, null, 2);
-  } else {
-    alert('Invalid username or password.');
+  try {
+    const response = await fetch(`${API_URL}/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ username, password })
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      authToken = data.token;
+      localStorage.setItem('yw_auth_token', authToken);
+      adminLogin.style.display = 'none';
+      adminPanel.style.display = 'block';
+      loadCurrentContent();
+      loadSubmissions();
+    } else {
+      alert('Invalid username or password.');
+    }
+  } catch (error) {
+    alert('Error connecting to server. Please try again.');
+    console.error('Login error:', error);
   }
 });
+
+// Handle update type selection
+updateType.addEventListener('change', () => {
+  imageUploadSection.style.display = updateType.value === 'image' ? 'block' : 'none';
+  textUpdateSection.style.display = updateType.value === 'text' ? 'block' : 'none';
+});
+
+// Handle content updates
+contentUpdateForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const location = document.getElementById('contentLocation').value;
+  const type = updateType.value;
+
+  try {
+    if (type === 'image') {
+      const file = document.getElementById('imageFile').files[0];
+      if (file) {
+        const formData = new FormData();
+        formData.append('image', file);
+
+        const uploadResponse = await fetch(`${API_URL}/upload`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${authToken}`
+          },
+          body: formData
+        });
+
+        if (uploadResponse.ok) {
+          const uploadData = await uploadResponse.json();
+          await saveContent(location, 'image', uploadData.filepath);
+        }
+      }
+    } else if (type === 'text') {
+      const text = document.getElementById('textContent').value;
+      await saveContent(location, 'text', text);
+    }
+  } catch (error) {
+    alert('Error updating content. Please try again.');
+    console.error('Update error:', error);
+  }
+});
+
+// Save content to server
+async function saveContent(location, type, content) {
+  try {
+    const response = await fetch(`${API_URL}/content`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${authToken}`
+      },
+      body: JSON.stringify({ location, type, content })
+    });
+
+    if (response.ok) {
+      alert('Content updated successfully!');
+      loadCurrentContent();
+    } else {
+      alert('Error saving content. Please try again.');
+    }
+  } catch (error) {
+    alert('Error connecting to server. Please try again.');
+    console.error('Save error:', error);
+  }
+}
+
+// Load and display current content
+async function loadCurrentContent() {
+  try {
+    const response = await fetch(`${API_URL}/content`);
+    const contentData = await response.json();
+    contentPreview.innerHTML = '';
+
+    Object.entries(contentData).forEach(([location, data]) => {
+      const preview = document.createElement('div');
+      preview.className = 'content-preview-item';
+      preview.innerHTML = `
+        <h4>${location}</h4>
+        ${data.type === 'image' 
+          ? `<img src="${data.content}" alt="${location}" style="max-width: 200px;">`
+          : `<p>${data.content}</p>`
+        }
+      `;
+      contentPreview.appendChild(preview);
+    });
+  } catch (error) {
+    console.error('Load content error:', error);
+  }
+}
+
+// Load form submissions
+async function loadSubmissions() {
+  const submissions = JSON.parse(localStorage.getItem('yw_submissions_v1')) || [];
+  submissionList.textContent = JSON.stringify(submissions, null, 2);
+}
 </script>
 </body>
 </html>

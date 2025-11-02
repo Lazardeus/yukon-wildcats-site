@@ -130,11 +130,147 @@ nav a:hover {
   padding: 1.5rem;
   border-radius: 15px;
   min-width: 250px;
-  max-width: 300px;
-  text-align: center;
+  max-width: 600px;
+  text-align: left;
   transition: 0.4s;
   backdrop-filter: blur(5px);
   box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+
+.admin-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #ffd700;
+}
+
+.admin-form input[type="text"],
+.admin-form input[type="password"],
+.admin-form textarea,
+.admin-form select {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #ffd700;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.admin-form input[type="text"]:focus,
+.admin-form input[type="password"]:focus,
+.admin-form textarea:focus,
+.admin-form select:focus {
+  outline: none;
+  border-color: #fff;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+.admin-form select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffd700' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1em;
+}
+
+.admin-form select option {
+  background: #111;
+  color: #fff;
+}
+
+.admin-panel {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.admin-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* Admin Panel Tabs */
+.admin-tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.tab-button {
+  padding: 0.8rem 1.5rem;
+  background: rgba(255, 215, 0, 0.1);
+  border: 1px solid #ffd700;
+  border-radius: 5px;
+  color: #ffd700;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.tab-button.active,
+.tab-button:hover {
+  background: #ffd700;
+  color: #111;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* Team Management */
+.team-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.team-edit-card {
+  background: rgba(255, 215, 0, 0.05);
+  padding: 1.5rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.team-member-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Photo Grid */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+}
+
+.photo-item {
+  background: rgba(255, 215, 0, 0.05);
+  padding: 1rem;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.photo-item img {
+  width: 100%;
+  max-width: 150px;
+  height: auto;
+  margin: 1rem 0;
+}
+
+.photo-item input[type="file"] {
+  margin: 1rem 0;
+}
+
+.cta-button.small {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
 }
 
 .card img {
@@ -205,14 +341,24 @@ footer {
   background: rgba(0,0,0,0.6);
   color: #ffd700;
   margin-top: 2rem;
+  position: relative;
 }
 
 footer a.footer-admin {
-  display: block;
-  margin-top: 0.5rem;
-  color: #ffd700;
-  font-size: 0.9rem;
-  text-decoration: underline;
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  opacity: 0.3;
+  transition: opacity 0.3s;
+}
+
+footer a.footer-admin:hover {
+  opacity: 1;
+}
+
+footer a.footer-admin img {
+  width: 24px;
+  height: 24px;
 }
 
 /* === Animations === */
