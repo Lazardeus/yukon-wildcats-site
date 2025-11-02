@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Development Services - Yukon Wildcats</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="particles-js"></div>
+    <header>
+        <img src="assets/logo.png" alt="Yukon Wildcats Logo">
+        <nav class="header-right">
+            <a href="index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="snow.html">Snow Removal</a>
+            <a href="tow.html">Towing</a>
+            <a href="web-services.html">Web Services</a>
+            <a href="community.html">Community</a>
+            <a href="contact.html">Contact</a>
+            <a href="documents.html">Documents</a>
+            <span class="admin-login">
+                <img src="assets/admin.png" alt="Admin Login" height="25">
+            </span>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Professional Web Development Services</h1>
+            <p>Transform your online presence with custom-built, responsive websites</p>
+            <button class="cta-button pulse" onclick="location.href='contact.html'">Get a Quote Today</button>
+        </section>
+
+        <section class="card-container">
+            <div class="card hover-glow">
+                <img src="assets/basic-web.png" alt="Basic Website Package">
+                <h3>Basic Package</h3>
+                <p>Perfect for small businesses and personal sites</p>
+                <ul>
+                    <li>5 Custom Pages</li>
+                    <li>Mobile Responsive Design</li>
+                    <li>Contact Form</li>
+                    <li>Basic SEO Setup</li>
+                    <li>3 Rounds of Revisions</li>
+                </ul>
+            </div>
+
+            <div class="card hover-glow">
+                <img src="assets/premium-web.png" alt="Premium Website Package">
+                <h3>Premium Package</h3>
+                <p>Ideal for growing businesses</p>
+                <ul>
+                    <li>10 Custom Pages</li>
+                    <li>E-commerce Integration</li>
+                    <li>Advanced SEO Setup</li>
+                    <li>Content Management System</li>
+                    <li>Social Media Integration</li>
+                    <li>5 Rounds of Revisions</li>
+                </ul>
+            </div>
+
+            <div class="card hover-glow">
+                <img src="assets/custom-web.png" alt="Custom Website Package">
+                <h3>Custom Solution</h3>
+                <p>Tailored for unique business needs</p>
+                <ul>
+                    <li>Unlimited Pages</li>
+                    <li>Custom Functionality</li>
+                    <li>Advanced Analytics</li>
+                    <li>API Integration</li>
+                    <li>Database Solutions</li>
+                    <li>Unlimited Revisions</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="extra-section">
+            <h2>Why Choose Our Web Services?</h2>
+            <div class="card-container">
+                <div class="card">
+                    <h3>Custom Design</h3>
+                    <p>Every website is uniquely designed to match your brand and business needs.</p>
+                </div>
+                <div class="card">
+                    <h3>Mobile-First</h3>
+                    <p>All our websites are fully responsive and optimized for all devices.</p>
+                </div>
+                <div class="card">
+                    <h3>Fast & Secure</h3>
+                    <p>Built with the latest technologies ensuring speed and security.</p>
+                </div>
+                <div class="card">
+                    <h3>SEO Optimized</h3>
+                    <p>Boost your online visibility with built-in SEO best practices.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-section card-container">
+            <div class="card">
+                <h2>Request a Quote</h2>
+                <form id="quoteForm" class="admin-form">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                    
+                    <label for="email">Email:</label>
+                    <input type="text" id="email" name="email" required>
+                    
+                    <label for="package">Interested Package:</label>
+                    <select id="package" name="package" required>
+                        <option value="basic">Basic Package</option>
+                        <option value="premium">Premium Package</option>
+                        <option value="custom">Custom Solution</option>
+                    </select>
+                    
+                    <label for="requirements">Project Requirements:</label>
+                    <textarea id="requirements" name="requirements" rows="4" required></textarea>
+                    
+                    <button type="submit" class="cta-button">Submit Quote Request</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Yukon Wildcats. All rights reserved.</p>
+        <a href="admin.html" class="footer-admin">
+            <img src="assets/admin.png" alt="Admin" height="20">
+        </a>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="js/particles-config.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

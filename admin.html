@@ -101,8 +101,11 @@
         <nav class="header-right">
             <a href="index.html">Home</a>
             <a href="services.html">Services</a>
-            <a href="contact.html">Contact</a>
+            <a href="snow.html">Snow Removal</a>
+            <a href="tow.html">Towing</a>
+            <a href="web-services.html">Web Services</a>
             <a href="community.html">Community</a>
+            <a href="contact.html">Contact</a>
             <a href="documents.html">Documents</a>
         </nav>
     </header>
@@ -464,7 +467,8 @@
                             <p><strong>Name:</strong> ${sub.name}</p>
                             <p><strong>Email:</strong> ${sub.email}</p>
                             <p><strong>Service:</strong> ${sub.service}</p>
-                            <p><strong>Message:</strong> ${sub.message}</p>
+                            ${sub.package ? `<p><strong>Package:</strong> ${sub.package}</p>` : ''}
+                            <p><strong>Message:</strong> ${sub.message || sub.requirements || ''}</p>
                             <p><strong>Date:</strong> ${sub.date}</p>
                         </div>
                     `).join('');

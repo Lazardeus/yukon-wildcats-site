@@ -10,7 +10,10 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:3000', 'https://lazardeus.github.io'],
+  credentials: true
+}));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..'))); // Serve the main website files
 app.use('/uploads', express.static('uploads'));
@@ -156,6 +159,10 @@ app.get('/api/content', (req, res) => {
 });
 
 // Start server
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
+
+module.exports = app;

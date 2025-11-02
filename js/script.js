@@ -47,37 +47,56 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // === Contact Form Submission ===
   const contactForm = document.getElementById('contactForm');
-  if(contactForm){
-    contactForm.addEventListener('submit', async e => {
-      e.preventDefault();
+  const quoteForm = document.getElementById('quoteForm');
+  
+  const handleFormSubmit = async (form, isQuoteForm = false) => {
+    const formData = {
+      name: form.name.value,
+      email: form.email.value,
+      date: new Date().toLocaleString()
+    };
 
-      const formData = {
-        name: contactForm.name.value,
-        email: contactForm.email.value,
-        service: contactForm.service.value,
-        message: contactForm.message.value,
-        date: new Date().toLocaleString()
-      };
+    if (isQuoteForm) {
+      formData.service = 'Web Development';
+      formData.package = form.package.value;
+      formData.requirements = form.requirements.value;
+    } else {
+      formData.service = form.service.value;
+      formData.message = form.message.value;
+    }
 
-      try {
-        const response = await fetch('/api/submissions', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(formData)
-        });
+    try {
+      const response = await fetch('/api/submissions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
 
-        if (response.ok) {
-          alert('Form submitted successfully!');
-          contactForm.reset();
-        } else {
-          throw new Error('Form submission failed');
-        }
-      } catch (error) {
-        console.error('Error:', error);
-        alert('Error submitting form. Please try again.');
+      if (response.ok) {
+        alert('Form submitted successfully!');
+        form.reset();
+      } else {
+        throw new Error('Form submission failed');
       }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Error submitting form. Please try again.');
+    }
+  };
+
+  if(contactForm){
+    contactForm.addEventListener('submit', e => {
+      e.preventDefault();
+      handleFormSubmit(contactForm);
+    });
+  }
+
+  if(quoteForm){
+    quoteForm.addEventListener('submit', e => {
+      e.preventDefault();
+      handleFormSubmit(quoteForm, true);
     });
   }
 
