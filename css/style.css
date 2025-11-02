@@ -145,25 +145,75 @@ nav a:hover {
 
 .admin-form input[type="text"],
 .admin-form input[type="password"],
+.admin-form input[type="email"],
 .admin-form textarea,
-.admin-form select {
+.admin-form select,
+#contactForm input[type="text"],
+#contactForm input[type="email"],
+#contactForm textarea,
+#contactForm select {
   width: 100%;
   padding: 0.8rem;
   margin-bottom: 1rem;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid #ffd700;
-  border-radius: 5px;
+  background: rgba(20, 20, 20, 0.8);
+  border: 2px solid #ffd700;
+  border-radius: 8px;
   color: #fff;
   font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 .admin-form input[type="text"]:focus,
 .admin-form input[type="password"]:focus,
+.admin-form input[type="email"]:focus,
 .admin-form textarea:focus,
-.admin-form select:focus {
+.admin-form select:focus,
+#contactForm input[type="text"]:focus,
+#contactForm input[type="email"]:focus,
+#contactForm textarea:focus,
+#contactForm select:focus {
   outline: none;
   border-color: #fff;
-  box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+  background: rgba(30, 30, 30, 0.9);
+  transform: translateY(-2px);
+}
+
+#contactForm {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+#contactForm label {
+  color: #ffd700;
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+}
+
+#contactForm textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+#contactForm select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffd700' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1em;
+  padding-right: 2.5rem;
+}
+
+#contactForm .cta-button {
+  width: 100%;
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  padding: 1rem;
 }
 
 .admin-form select {
