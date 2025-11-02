@@ -131,10 +131,29 @@
             <h2>Welcome, <span id="userRole">Admin</span></h2>
             
             <div class="admin-tabs">
-                <button class="tab-button active" data-tab="content">Content</button>
+                <button class="tab-button active" data-tab="announcements">Announcements</button>
+                <button class="tab-button" data-tab="content">Content</button>
                 <button class="tab-button" data-tab="team">Team</button>
                 <button class="tab-button" data-tab="photos">Photos</button>
                 <button class="tab-button" data-tab="submissions">Submissions</button>
+                <button class="tab-button" data-tab="webquotes">Web Quotes</button>
+            </div>
+
+            <!-- Announcements Tab -->
+            <div id="announcementsTab" class="tab-content active">
+                <h3>Manage Site Announcement</h3>
+                <form id="announcementForm" class="admin-form">
+                    <label for="announcementText">Announcement Text:</label>
+                    <input type="text" id="announcementText" required 
+                           value="NOTICE: Currently only offering Web Development Services. Other services coming soon!">
+                    
+                    <label for="announcementEnabled">
+                        <input type="checkbox" id="announcementEnabled" checked>
+                        Show Announcement
+                    </label>
+                    
+                    <button type="submit" class="cta-button">Update Announcement</button>
+                </form>
             </div>
 
             <!-- Content Tab -->
@@ -229,6 +248,14 @@
                 <h3>Form Submissions</h3>
                 <div id="submissionsList" class="submission-list">
                     <!-- Submissions will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Web Quotes Tab -->
+            <div id="webquotesTab" class="tab-content">
+                <h3>Web Development Quotes</h3>
+                <div id="webQuotesList" class="submission-list">
+                    <!-- Web quotes will be loaded here -->
                 </div>
             </div>
         </div>
@@ -454,6 +481,7 @@
         // Load submissions
         async function loadSubmissions() {
             try {
+                // Load regular submissions
                 const response = await fetch(`${API_URL}/submissions`, {
                     headers: {
                         'Authorization': `Bearer ${authToken}`
@@ -462,14 +490,28 @@
 
                 if (response.ok) {
                     const submissions = await response.json();
-                    submissionsList.innerHTML = submissions.map(sub => `
+                    const regularSubmissions = submissions.filter(sub => sub.type !== 'web-development');
+                    submissionsList.innerHTML = regularSubmissions.map(sub => `
                         <div class="submission-item">
                             <p><strong>Name:</strong> ${sub.name}</p>
                             <p><strong>Email:</strong> ${sub.email}</p>
                             <p><strong>Service:</strong> ${sub.service}</p>
-                            ${sub.package ? `<p><strong>Package:</strong> ${sub.package}</p>` : ''}
-                            <p><strong>Message:</strong> ${sub.message || sub.requirements || ''}</p>
+                            <p><strong>Message:</strong> ${sub.message || ''}</p>
                             <p><strong>Date:</strong> ${sub.date}</p>
+                        </div>
+                    `).join('');
+
+                    // Load web development quotes
+                    const webQuotes = submissions.filter(sub => sub.type === 'web-development');
+                    document.getElementById('webQuotesList').innerHTML = webQuotes.map(quote => `
+                        <div class="submission-item">
+                            <p><strong>Name:</strong> ${quote.name}</p>
+                            <p><strong>Email:</strong> ${quote.email}</p>
+                            <p><strong>Phone:</strong> ${quote.phone || 'Not provided'}</p>
+                            <p><strong>Package:</strong> ${quote.package}</p>
+                            <p><strong>Timeline:</strong> ${quote.timeline}</p>
+                            <p><strong>Requirements:</strong> ${quote.requirements}</p>
+                            <p><strong>Date:</strong> ${quote.date}</p>
                         </div>
                     `).join('');
                 }
@@ -532,6 +574,32 @@
             authToken = null;
             userRole = null;
             showLoginForm();
+        }
+
+        // Handle announcement form
+        const announcementForm = document.querySelector('#announcementForm');
+        if (announcementForm) {
+            // Load current announcement settings
+            const currentAnnouncement = localStorage.getItem('yw_announcement');
+            if (currentAnnouncement) {
+                announcementForm.announcementText.value = currentAnnouncement;
+            }
+            
+            announcementForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const text = announcementForm.announcementText.value;
+                const isEnabled = announcementForm.announcementEnabled.checked;
+                
+                if (isEnabled) {
+                    localStorage.setItem('yw_announcement', text);
+                    localStorage.removeItem('yw_announcement_dismissed');
+                } else {
+                    localStorage.removeItem('yw_announcement');
+                    localStorage.removeItem('yw_announcement_dismissed');
+                }
+                
+                alert('Announcement settings updated! Refresh any open pages to see the changes.');
+            });
         }
 
         // Initialize

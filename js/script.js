@@ -1,4 +1,33 @@
+// Announcement Banner Management
+function initializeAnnouncement() {
+  const header = document.querySelector('header');
+  const announcement = localStorage.getItem('yw_announcement');
+  const isDismissed = localStorage.getItem('yw_announcement_dismissed');
+  
+  if (announcement && !isDismissed) {
+    const banner = document.createElement('div');
+    banner.className = 'announcement-banner';
+    banner.innerHTML = `
+      <p class="announcement-text">${announcement}</p>
+      <button class="close-button" aria-label="Close Announcement">&times;</button>
+    `;
+    document.body.insertBefore(banner, document.body.firstChild);
+    header.classList.remove('no-announcement');
+
+    banner.querySelector('.close-button').addEventListener('click', () => {
+      banner.classList.add('hidden');
+      header.classList.add('no-announcement');
+      localStorage.setItem('yw_announcement_dismissed', 'true');
+      setTimeout(() => banner.remove(), 300);
+    });
+  } else {
+    header.classList.add('no-announcement');
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  // Initialize announcement banner
+  initializeAnnouncement();
 
   // === Smooth Scrolling for Nav Links ===
   const navLinks = document.querySelectorAll('header nav a[href^="#"], .cta-button');
@@ -90,6 +119,50 @@ document.addEventListener('DOMContentLoaded', () => {
     contactForm.addEventListener('submit', e => {
       e.preventDefault();
       handleFormSubmit(contactForm);
+    });
+  }
+
+  const webQuoteForm = document.getElementById('webQuoteForm');
+  if(webQuoteForm) {
+    webQuoteForm.addEventListener('submit', async e => {
+      e.preventDefault();
+      const formData = {
+        name: webQuoteForm.name.value,
+        email: webQuoteForm.email.value,
+        phone: webQuoteForm.phone.value,
+        package: webQuoteForm.package.value,
+        timeline: webQuoteForm.timeline.value,
+        requirements: webQuoteForm.requirements.value,
+        date: new Date().toLocaleString(),
+        type: 'web-development'
+      };
+
+      // Store web quotes separately
+      const webQuotes = JSON.parse(localStorage.getItem('yw_web_quotes') || '[]');
+      webQuotes.push(formData);
+      localStorage.setItem('yw_web_quotes', JSON.stringify(webQuotes));
+
+      // Send email notification (you'll need to set this up in your server)
+      try {
+        const response = await fetch('/api/web-quote', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        });
+
+        if (response.ok) {
+          alert('Quote request submitted successfully! We\'ll get back to you soon.');
+          webQuoteForm.reset();
+        } else {
+          throw new Error('Failed to submit quote');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Your quote request has been saved. We\'ll contact you soon!');
+        webQuoteForm.reset();
+      }
     });
   }
 

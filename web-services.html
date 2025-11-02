@@ -97,15 +97,38 @@
             </div>
         </section>
 
+        <section class="portfolio-section">
+            <h2 class="section-title">Portfolio Showcase</h2>
+            <div class="portfolio-container">
+                <div class="portfolio-item">
+                    <img src="assets/portfolio1.jpg" alt="Website Project 1" class="portfolio-image">
+                    <div class="portfolio-details">
+                        <h3>Business Website</h3>
+                        <p>Modern, responsive business website with booking system</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="assets/portfolio2.jpg" alt="Website Project 2" class="portfolio-image">
+                    <div class="portfolio-details">
+                        <h3>E-commerce Platform</h3>
+                        <p>Full-featured online store with secure payment processing</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section class="contact-section card-container">
             <div class="card">
-                <h2>Request a Quote</h2>
-                <form id="quoteForm" class="admin-form">
+                <h2>Request a Web Development Quote</h2>
+                <form id="webQuoteForm" class="admin-form">
                     <label for="name">Name:</label>
                     <input type="text" id="name" name="name" required>
                     
                     <label for="email">Email:</label>
                     <input type="text" id="email" name="email" required>
+                    
+                    <label for="phone">Phone (Optional):</label>
+                    <input type="tel" id="phone" name="phone">
                     
                     <label for="package">Interested Package:</label>
                     <select id="package" name="package" required>
@@ -114,8 +137,16 @@
                         <option value="custom">Custom Solution</option>
                     </select>
                     
+                    <label for="timeline">Preferred Timeline:</label>
+                    <select id="timeline" name="timeline">
+                        <option value="1month">Within 1 Month</option>
+                        <option value="3months">Within 3 Months</option>
+                        <option value="flexible">Flexible</option>
+                    </select>
+                    
                     <label for="requirements">Project Requirements:</label>
-                    <textarea id="requirements" name="requirements" rows="4" required></textarea>
+                    <textarea id="requirements" name="requirements" rows="4" required 
+                        placeholder="Please describe your website needs, features required, and any specific design preferences..."></textarea>
                     
                     <button type="submit" class="cta-button">Submit Quote Request</button>
                 </form>
