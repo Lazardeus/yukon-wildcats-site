@@ -199,8 +199,9 @@
 </footer>
 
 <script>
-const API_URL = '/api';
+const API_URL = 'http://localhost:3000/api';
 let authToken = localStorage.getItem('yw_auth_token');
+let userRole = localStorage.getItem('yw_user_role');
 
 // DOM Elements
 const adminLogin = document.getElementById('adminLogin');
@@ -238,11 +239,21 @@ adminLogin.addEventListener('submit', async (e) => {
     if (response.ok) {
       const data = await response.json();
       authToken = data.token;
+      userRole = data.role;
       localStorage.setItem('yw_auth_token', authToken);
+      localStorage.setItem('yw_user_role', userRole);
       adminLogin.style.display = 'none';
       adminPanel.style.display = 'block';
       loadCurrentContent();
       loadSubmissions();
+
+      // Show role-specific message
+      alert(`Logged in successfully as ${userRole}`);
+
+      // Enable owner-specific features if role is owner
+      if (userRole === 'owner') {
+        document.querySelectorAll('.owner-only').forEach(el => el.style.display = 'block');
+      }
     } else {
       alert('Invalid username or password.');
     }
@@ -344,8 +355,22 @@ async function loadCurrentContent() {
 
 // Load form submissions
 async function loadSubmissions() {
-  const submissions = JSON.parse(localStorage.getItem('yw_submissions_v1')) || [];
-  submissionList.textContent = JSON.stringify(submissions, null, 2);
+  try {
+    const response = await fetch(`${API_URL}/submissions`, {
+      headers: {
+        'Authorization': `Bearer ${authToken}`
+      }
+    });
+    
+    if (response.ok) {
+      const submissions = await response.json();
+      submissionList.textContent = JSON.stringify(submissions, null, 2);
+    } else {
+      console.error('Error loading submissions');
+    }
+  } catch (error) {
+    console.error('Load submissions error:', error);
+  }
 }
 </script>
 </body>
