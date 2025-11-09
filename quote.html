@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get a Quote - Yukon Wildcats Contracting</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script defer src="js/particles-config.js"></script>
+<script defer src="js/script.js"></script>
+</head>
+<body>
+<div id="particles-js"></div>
+
+<header>
+  <div class="header-left">
+    <img src="assets/logo.png" alt="Yukon Wildcats Logo" class="round-logo">
+  </div>
+  <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">☰</button>
+  <nav class="header-right">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="snow.html">Snow Removal</a>
+    <a href="tow.html">Towing</a>
+    <a href="web-services.html">Web Services</a>
+    <a href="community.html">Community</a>
+    <a href="contact.html">Contact</a>
+    <a href="legal.html">Legal Info</a>
+    <a href="admin.html" class="admin-login" title="Admin Login">
+      <img src="assets/admin-icon.svg" alt="Admin" height="25">
+    </a>
+  </nav>
+  <div class="mobile-overlay"></div>
+</header>
+
+<section class="hero">
+  <h1 class="fade-in">Get Your Quote</h1>
+  <p class="fade-in delay-1">Professional, fast, and tailored to your needs.</p>
+</section>
+
+<!-- Quote Methods Section -->
+<section class="quote-methods scroll-section fade-up">
+  <div class="container">
+    <h2>Choose How You'd Like to Get Your Quote</h2>
+    <div class="quote-options">
+      
+      <!-- Instant AI Quote -->
+      <div class="quote-option card hover-glow" id="ai-quote-option">
+        <div class="quote-icon">🤖</div>
+        <h3>Instant AI Quote</h3>
+        <p>Chat with Whitney AI for immediate pricing estimates and service information</p>
+        <button class="cta-button" onclick="openWhitneyQuote()">Start AI Chat</button>
+      </div>
+
+      <!-- Quick Form Quote -->
+      <div class="quote-option card hover-glow" id="form-quote-option">
+        <div class="quote-icon">📋</div>
+        <h3>Quick Form Quote</h3>
+        <p>Fill out our streamlined form for a detailed quote within 24 hours</p>
+        <button class="cta-button" onclick="showQuoteForm()">Fill Form</button>
+      </div>
+
+      <!-- Phone Quote -->
+      <div class="quote-option card hover-glow">
+        <div class="quote-icon">📞</div>
+        <h3>Phone Consultation</h3>
+        <p>Speak directly with our team for complex projects and custom solutions</p>
+        <button class="cta-button" onclick="initiatePhoneQuote()">Call Now</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Enhanced Quote Form -->
+<section class="quote-form-section" id="quote-form-section" style="display: none;">
+  <div class="container">
+    <div class="quote-form-container card">
+      <div class="form-header">
+        <h2>Professional Quote Request</h2>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <p class="step-indicator">Step <span id="current-step">1</span> of <span id="total-steps">3</span></p>
+      </div>
+
+      <form id="professionalQuoteForm" class="multi-step-form">
+        
+        <!-- Step 1: Service Selection -->
+        <div class="form-step active" data-step="1">
+          <h3>What service do you need?</h3>
+          <div class="service-grid">
+            <div class="service-card" data-service="snow-removal">
+              <img src="assets/snow_icon.png" alt="Snow Removal">
+              <h4>Snow Removal</h4>
+              <p>Residential & Commercial</p>
+            </div>
+            <div class="service-card" data-service="towing">
+              <img src="assets/tow_icon.png" alt="Towing">
+              <h4>Towing Services</h4>
+              <p>Emergency & Scheduled</p>
+            </div>
+            <div class="service-card" data-service="excavation">
+              <img src="assets/excavator_icon.png" alt="Excavation">
+              <h4>Excavation</h4>
+              <p>Foundation & Landscaping</p>
+            </div>
+            <div class="service-card" data-service="construction">
+              <img src="assets/housing_icon.svg" alt="Construction">
+              <h4>Construction</h4>
+              <p>Residential & Commercial</p>
+            </div>
+            <div class="service-card" data-service="web-development">
+              <img src="assets/basic-web.png" alt="Web Development">
+              <h4>Web Development</h4>
+              <p>Professional Websites</p>
+            </div>
+            <div class="service-card" data-service="other">
+              <div class="other-icon">❓</div>
+              <h4>Other Service</h4>
+              <p>Custom Request</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Project Details -->
+        <div class="form-step" data-step="2">
+          <h3>Tell us about your project</h3>
+          <div class="form-group">
+            <label for="project-description">Project Description</label>
+            <textarea id="project-description" name="description" rows="4" 
+                     placeholder="Describe your project in detail..."></textarea>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="project-timeline">When do you need this completed?</label>
+              <select id="project-timeline" name="timeline">
+                <option value="urgent">ASAP (Emergency)</option>
+                <option value="1week">Within 1 Week</option>
+                <option value="1month">Within 1 Month</option>
+                <option value="3months">Within 3 Months</option>
+                <option value="flexible">Timeline Flexible</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="project-budget">Estimated Budget Range</label>
+              <select id="project-budget" name="budget">
+                <option value="under-500">Under $500</option>
+                <option value="500-1000">$500 - $1,000</option>
+                <option value="1000-2500">$1,000 - $2,500</option>
+                <option value="2500-5000">$2,500 - $5,000</option>
+                <option value="5000-10000">$5,000 - $10,000</option>
+                <option value="10000-plus">$10,000+</option>
+                <option value="not-sure">Not Sure</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="project-location">Project Location</label>
+            <input type="text" id="project-location" name="location" 
+                   placeholder="Address or general area (Whitehorse, Haines Junction, etc.)">
+          </div>
+        </div>
+
+        <!-- Step 3: Contact Information -->
+        <div class="form-step" data-step="3">
+          <h3>How can we reach you?</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="contact-name">Full Name</label>
+              <input type="text" id="contact-name" name="name" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="contact-email">Email Address</label>
+              <input type="email" id="contact-email" name="email" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="contact-phone">Phone Number</label>
+              <input type="tel" id="contact-phone" name="phone">
+            </div>
+            
+            <div class="form-group">
+              <label for="contact-method">Preferred Contact Method</label>
+              <select id="contact-method" name="contactMethod">
+                <option value="email">Email</option>
+                <option value="phone">Phone Call</option>
+                <option value="text">Text Message</option>
+                <option value="any">Any Method</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="best-time">Best Time to Contact</label>
+            <select id="best-time" name="bestTime">
+              <option value="morning">Morning (8 AM - 12 PM)</option>
+              <option value="afternoon">Afternoon (12 PM - 5 PM)</option>
+              <option value="evening">Evening (5 PM - 8 PM)</option>
+              <option value="anytime">Anytime</option>
+            </select>
+          </div>
+
+          <div class="quote-summary" id="quote-summary">
+            <!-- Summary will be populated here -->
+          </div>
+        </div>
+
+        <!-- Form Navigation -->
+        <div class="form-navigation">
+          <button type="button" id="prev-btn" onclick="changeStep(-1)" style="display: none;">Previous</button>
+          <button type="button" id="next-btn" onclick="changeStep(1)">Next</button>
+          <button type="submit" id="submit-btn" style="display: none;">Submit Quote Request</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Whitney AI Quote Chat -->
+<div id="whitney-quote-modal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>🤖 Whitney AI - Instant Quote Assistant</h3>
+      <span class="close" onclick="closeWhitneyQuote()">&times;</span>
+    </div>
+    <div class="modal-body">
+      <div id="whitney-quote-chat" class="chat-container">
+        <div class="chat-messages" id="whitney-quote-messages">
+          <div class="message ai-message">
+            <div class="message-content">
+              <div class="typing-indicator">
+                <span></span><span></span><span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="chat-input-container">
+          <input type="text" id="whitney-quote-input" placeholder="Ask me about pricing, services, or get an instant quote...">
+          <button onclick="sendWhitneyQuoteMessage()">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Phone Quote Modal -->
+<div id="phone-quote-modal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>📞 Phone Consultation</h3>
+      <span class="close" onclick="closePhoneQuote()">&times;</span>
+    </div>
+    <div class="modal-body">
+      <div class="phone-options">
+        <div class="phone-option">
+          <h4>Call Lazarus (Founder)</h4>
+          <p>Speak directly with our founder</p>
+          <a href="tel:1-867-332-0223" class="cta-button">📞 1-867-332-0223</a>
+        </div>
+        <div class="phone-option">
+          <h4>Call Micah (Co-founder)</h4>
+          <p>Speak with our co-founder</p>
+          <a href="tel:1-867-332-4551" class="cta-button">📞 1-867-332-4551</a>
+        </div>
+        <div class="phone-option">
+          <h4>Request Callback</h4>
+          <p>We'll call you back within 2 hours during business hours</p>
+          <button class="cta-button" onclick="requestCallback()">Request Callback</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3>Yukon Wildcats Contracting</h3>
+      <p>Reliable, fast, and futuristic contracting services</p>
+    </div>
+    <div class="footer-section">
+      <h4>Founders</h4>
+      <p><strong>Lazarus Vanbibber</strong> - Founder</p>
+      <p>📧 lazarus.vanbibber@icloud.com | lazarusvanbibber@yukon-wildcats.ca</p>
+      <p>📞 1-867-332-0223</p>
+      <p><strong>Micah Wolfe</strong> - Co-founder</p>
+      <p>📧 Micahsage4444@gmail.com | 📞 1-867-332-4551</p>
+    </div>
+    <div class="footer-section">
+      <h4>Service Areas</h4>
+      <p>Whitehorse, Yukon</p>
+      <p>Haines Junction, Yukon</p>
+    </div>
+    <div class="footer-section">
+      <h4>Legal</h4>
+      <p><a href="legal.html">Terms & Conditions</a></p>
+      <p><a href="legal.html">Safety Information</a></p>
+    </div>
+  </div>
+  <p>&copy; 2025 Yukon Wildcats Contracting. All rights reserved.</p>
+  <a href="admin.html" class="footer-admin">
+    <img src="assets/admin.png" alt="Admin" height="20">
+  </a>
+</footer>
+
+</body>
+</html>

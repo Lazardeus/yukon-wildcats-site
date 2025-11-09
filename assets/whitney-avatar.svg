@@ -1,0 +1,19 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="20" cy="20" r="20" fill="#FFD700"/>
+<!-- Hair -->
+<path d="M8 18C8 12 12 8 20 8C28 8 32 12 32 18C32 16 30 14 28 14C26 14 24 15 22 15C18 15 16 14 14 14C10 14 8 16 8 18Z" fill="#8B4513"/>
+<!-- Face -->
+<ellipse cx="20" cy="22" rx="12" ry="14" fill="#FFDBAC"/>
+<!-- Eyes -->
+<circle cx="15" cy="18" r="1.5" fill="#111"/>
+<circle cx="25" cy="18" r="1.5" fill="#111"/>
+<circle cx="15.5" cy="17.5" r="0.5" fill="#FFF"/>
+<circle cx="25.5" cy="17.5" r="0.5" fill="#FFF"/>
+<!-- Nose -->
+<ellipse cx="20" cy="21" rx="0.8" ry="1.2" fill="#FFB366"/>
+<!-- Mouth -->
+<path d="M17 25C18 27 19 27 20 27C21 27 22 27 23 25" stroke="#FF69B4" stroke-width="1.5" stroke-linecap="round"/>
+<!-- Blush -->
+<circle cx="12" cy="22" r="2" fill="#FFB6C1" opacity="0.4"/>
+<circle cx="28" cy="22" r="2" fill="#FFB6C1" opacity="0.4"/>
+</svg>

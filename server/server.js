@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://lazardeus.github.io'],
+  origin: true, // Allow all origins for local development
   credentials: true
 }));
 app.use(express.json());
@@ -37,16 +37,37 @@ const upload = multer({ storage: storage });
 // Admin users
 const adminUsers = {
   owner: {
-    username: process.env.OWNER_USERNAME || 'owner',
-    password: process.env.OWNER_PASSWORD || 'yukon2025owner',
+    username: process.env.OWNER_USERNAME || 'admin',
+    password: process.env.OWNER_PASSWORD || 'yukonwildcats2024',
     role: 'owner'
   },
   admin: {
-    username: process.env.ADMIN_USERNAME || 'admin',
-    password: process.env.ADMIN_PASSWORD || 'wildcats2025',
+    username: process.env.ADMIN_USERNAME || 'manager',
+    password: process.env.ADMIN_PASSWORD || 'wildcats2024',
     role: 'admin'
   }
 };
+
+// Parse additional admins from environment
+console.log('ADDITIONAL_ADMINS env var:', process.env.ADDITIONAL_ADMINS);
+if (process.env.ADDITIONAL_ADMINS) {
+  const additionalAdmins = process.env.ADDITIONAL_ADMINS.split(',');
+  console.log('Split admins:', additionalAdmins);
+  additionalAdmins.forEach((adminStr, index) => {
+    const [username, password, role] = adminStr.split(':');
+    console.log(`Processing admin ${index}: username="${username}", password="${password ? '***' : 'empty'}", role="${role}"`);
+    if (username && password) {
+      adminUsers[`additional_${index}`] = {
+        username: username.trim(),
+        password: password.trim(),
+        role: role?.trim() || 'admin'
+      };
+    }
+  });
+}
+
+// Debug: Log loaded admin users (remove passwords for security)
+console.log('Loaded admin users:', Object.values(adminUsers).map(u => ({ username: u.username, role: u.role })));
 
 // Authentication middleware
 const authenticateToken = (req, res, next) => {
@@ -100,16 +121,28 @@ app.get('/api/submissions', authenticateToken, async (req, res) => {
   }
 });
 
+// Test endpoint to check API connectivity
+app.get('/api/test', (req, res) => {
+  res.json({ 
+    status: 'API is working', 
+    timestamp: new Date().toISOString(),
+    availableUsers: Object.values(adminUsers).map(u => ({ username: u.username, role: u.role }))
+  });
+});
+
 app.post('/api/login', (req, res) => {
   const { username, password } = req.body;
+  console.log(`Login attempt: username="${username}", password="${password ? '***' : 'empty'}"`);
   
   // Check both admin and owner credentials
   const user = Object.values(adminUsers).find(u => u.username === username && u.password === password);
   
   if (user) {
     const token = jwt.sign({ username, role: user.role }, process.env.JWT_SECRET);
+    console.log(`Login successful for user: ${username} (${user.role})`);
     res.json({ token, role: user.role });
   } else {
+    console.log(`Login failed for username: ${username}`);
     res.status(401).json({ message: 'Invalid credentials' });
   }
 });
@@ -217,8 +250,10 @@ app.get('/api/content', (req, res) => {
 
 // Start server
 if (require.main === module) {
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server running on all interfaces at port ${PORT}`);
+    console.log(`Local access: http://localhost:${PORT}`);
+    console.log(`Network access: http://192.168.12.87:${PORT}`);
   });
 }
 

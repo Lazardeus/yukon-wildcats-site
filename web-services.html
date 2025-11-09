@@ -5,11 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Development Services - Yukon Wildcats</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script defer src="js/particles-config.js"></script>
+    <script defer src="js/script.js"></script>
 </head>
 <body>
     <div id="particles-js"></div>
     <header>
-        <img src="assets/logo.png" alt="Yukon Wildcats Logo">
+        <div class="header-left">
+            <img src="assets/logo.png" alt="Yukon Wildcats Logo">
+        </div>
+        <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">☰</button>
         <nav class="header-right">
             <a href="index.html">Home</a>
             <a href="services.html">Services</a>
@@ -18,18 +24,19 @@
             <a href="web-services.html">Web Services</a>
             <a href="community.html">Community</a>
             <a href="contact.html">Contact</a>
-            <a href="documents.html">Documents</a>
-            <span class="admin-login">
-                <img src="assets/admin.png" alt="Admin Login" height="25">
-            </span>
+            <a href="legal.html">Legal Info</a>
+            <a href="admin.html" class="admin-login" title="Admin Login">
+                <img src="assets/admin-icon.svg" alt="Admin" height="25">
+            </a>
         </nav>
+        <div class="mobile-overlay"></div>
     </header>
 
     <main>
         <section class="hero">
             <h1>Professional Web Development Services</h1>
             <p>Transform your online presence with custom-built, responsive websites</p>
-            <button class="cta-button pulse" onclick="location.href='contact.html'">Get a Quote Today</button>
+            <button class="cta-button pulse" onclick="location.href='quote.html'">Get Professional Quote</button>
         </section>
 
         <section class="card-container">

@@ -10,13 +10,15 @@
 <script defer src="js/script.js"></script>
 </head>
 <body>
-<!-- Particle Background -->
+<!-- Enhanced Particle Background -->
 <div id="particles-js"></div>
+<div class="particle-overlay"></div>
 
 <header>
   <div class="header-left">
-    <img src="assets/logo.png" alt="Yukon Wildcats Logo">
+    <img src="assets/logo.png" alt="Yukon Wildcats Logo" class="round-logo">
   </div>
+  <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">☰</button>
   <nav class="header-right">
     <a href="index.html">Home</a>
     <a href="services.html">Services</a>
@@ -25,22 +27,27 @@
     <a href="web-services.html">Web Services</a>
     <a href="community.html">Community</a>
     <a href="contact.html">Contact</a>
-    <a href="documents.html">Documents</a>
+    <a href="quote.html">Get Quote</a>
+    <a href="legal.html">Legal Info</a>
     <a href="admin.html" class="admin-login" title="Admin Login">
       <img src="assets/admin-icon.svg" alt="Admin" height="25">
     </a>
   </nav>
+  <div class="mobile-overlay"></div>
 </header>
 
 <section class="hero">
+  <div class="hero-logo">
+    <img src="assets/logo.png" alt="Yukon Wildcats Logo" class="fade-in">
+  </div>
   <h1 class="fade-in">Yukon Wildcats Contracting</h1>
-  <p class="fade-in delay-1">Fast. Reliable. Futuristic. Your trusted contracting team in Whitehorse, Yukon.</p>
-  <a href="contact.html" class="cta-button pulse">Request a Quote</a>
+  <p class="fade-in delay-1">Fast. Reliable. Futuristic. Your trusted contracting team serving Whitehorse and Haines Junction.</p>
+  <a href="quote.html" class="cta-button pulse">Get Professional Quote</a>
 </section>
 
-<section class="services-highlight">
+<section class="services-highlight scroll-section">
   <h1>Our Expertise</h1>
-  <div class="card-container">
+  <div class="card-container stagger-animation">
     <div class="card hover-glow">
       <img src="assets/snow_icon.png" alt="Snow Removal">
       <h3>Snow Removal</h3>
@@ -52,7 +59,7 @@
       <p>Emergency towing and vehicle transport across Yukon.</p>
     </div>
     <div class="card hover-glow">
-      <img src="assets/excavator_icon.png" alt="Excavation">
+      <img src="assets/logo.png" alt="Excavation">
       <h3>Excavation</h3>
       <p>Expert excavation services for homes and businesses.</p>
     </div>
@@ -62,49 +69,192 @@
       <p>Efficient hauling of materials with professional drivers.</p>
     </div>
     <div class="card hover-glow">
-      <img src="assets/logo.png" alt="Housing Contracts">
+      <img src="assets/housing_icon.svg" alt="Housing Contracts">
       <h3>Housing Contracts</h3>
       <p>Complete housing construction and contracting services.</p>
     </div>
     <div class="card hover-glow">
-      <img src="assets/logo.png" alt="Lawn Mowing">
+      <img src="assets/lawn_icon.svg" alt="Lawn Mowing">
       <h3>Lawn Mowing</h3>
       <p>Seasonal lawn maintenance for residential and commercial properties.</p>
     </div>
   </div>
 </section>
 
-<section class="team-container">
+<div class="section-divider"></div>
+
+<section class="team-container scroll-section">
   <h2>Meet Our Team</h2>
-  <div class="card-container">
+  <div class="card-container stagger-animation">
     <div class="card hover-glow">
-      <img src="assets/lazarus.png" alt="Lazarus Vanbibber">
+      <img src="assets/team-placeholder.png" alt="Lazarus Vanbibber">
       <h3>Lazarus Vanbibber</h3>
       <p>Founder</p>
     </div>
     <div class="card hover-glow">
-      <img src="assets/micah.png" alt="Micah Wolfe">
+      <img src="assets/team-placeholder.png" alt="Micah Wolfe">
       <h3>Micah Wolfe</h3>
       <p>Co-founder</p>
     </div>
     <div class="card hover-glow">
-      <img src="assets/elias.png" alt="Elias Wolfe">
+      <img src="assets/team-placeholder.png" alt="Elias Wolfe">
       <h3>Elias Wolfe</h3>
-      <p>Co-founder</p>
+      <p>Contractor</p>
+    </div>
+    <div class="card hover-glow">
+      <img src="assets/team-placeholder.png" alt="Noah Bucknell">
+      <h3>Noah Bucknell</h3>
+      <p>Contractor</p>
+    </div>
+    <div class="card hover-glow">
+      <img src="assets/team-placeholder.png" alt="Lily Menicoche">
+      <h3>Lily Menicoche</h3>
+      <p>Contractor</p>
     </div>
   </div>
 </section>
 
-<section class="extra-section">
-  <h2>Why Choose Us?</h2>
-  <p>We combine Yukon expertise, advanced technology, and unmatched reliability. From snow removal to housing projects, we guarantee professional results every time.</p>
+<div class="section-divider"></div>
+
+<section class="extra-section scroll-section fade-up">
+  <h2>Why Choose Yukon Wildcats?</h2>
+  <div class="why-choose-content">
+    <div class="feature-grid">
+      <div class="feature-item">
+        <div class="feature-icon">🏔️</div>
+        <h3>Yukon Born & Raised</h3>
+        <p>Deep understanding of local conditions in Whitehorse and Haines Junction areas, including weather patterns and regulations.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">⚡</div>
+        <h3>Fast & Reliable Service</h3>
+        <p>Quick response times and dependable service delivery, because we know time is money in the North.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🔧</div>
+        <h3>Professional Excellence</h3>
+        <p>Licensed, insured, and committed to delivering quality workmanship that exceeds expectations.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">💎</div>
+        <h3>Competitive Pricing</h3>
+        <p>Fair, transparent pricing with no hidden fees. Quality service that fits your budget.</p>
+      </div>
+    </div>
+    <div class="guarantee-section">
+      <h3>Our Guarantee</h3>
+      <p>We stand behind our work with a satisfaction guarantee. Your project success is our reputation.</p>
+    </div>
+  </div>
 </section>
 
 <footer>
-  <p>© 2025 Yukon Wildcats Contracting | Whitehorse, Yukon</p>
+  <div class="footer-content">
+    <div class="footer-main">
+      <div class="footer-info">
+        <h4>Yukon Wildcats Contracting</h4>
+        <p>Professional contracting services in Whitehorse and Haines Junction areas</p>
+        <div class="contact-info">
+          <p>📍 Serving Whitehorse & Haines Junction, Yukon Territory</p>
+          <p>📧 Contact us for quotes and inquiries</p>
+        </div>
+        <div class="founder-contacts">
+          <h5>Contact Our Founders</h5>
+          <p><strong>Lazarus Vanbibber</strong> - Founder</p>
+          <p>📧 lazarus.vanbibber@icloud.com | lazarusvanbibber@yukon-wildcats.ca</p>
+          <p>📞 1-867-332-0223</p>
+          <p><strong>Micah Wolfe</strong> - Co-founder</p>
+          <p>📧 Micahsage4444@gmail.com</p>
+          <p>📞 1-867-332-4551</p>
+        </div>
+      </div>
+      
+      <div class="footer-services">
+        <h4>Our Services</h4>
+        <ul>
+          <li>Snow Removal</li>
+          <li>Towing Services</li>
+          <li>Excavation</li>
+          <li>Dump Trucking</li>
+          <li>Housing Contracts</li>
+          <li>Lawn Maintenance</li>
+          <li>Web Development</li>
+        </ul>
+      </div>
+      
+      <div class="footer-legal">
+        <h4>Legal & Documents</h4>
+        <ul>
+          <li><a href="legal.html">Terms & Conditions</a></li>
+          <li><a href="legal.html#service-agreement">Service Agreement</a></li>
+          <li><a href="legal.html#privacy">Privacy Policy</a></li>
+          <li><a href="legal.html#refund">Refund Policy</a></li>
+          <li><a href="legal.html#safety">Safety Information</a></li>
+          <li><a href="legal.html#coc">Certificate of Compliance</a></li>
+          <li><a href="legal.html#liability">Liability Terms</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <div class="copyright">
+        <p>© 2025 Yukon Wildcats Contracting. All Rights Reserved.</p>
+        <p class="legal-notice">Licensed & Insured • Yukon Territory Business License Required • GST/HST: Applicable</p>
+      </div>
+      
+      <div class="footer-disclaimers">
+        <p><strong>Important:</strong> Services available in Whitehorse and Haines Junction areas only. Payment required upon completion. No refunds for completed work without property damage or service failure. Weather-dependent services subject to safety conditions. Travel charges may apply outside Whitehorse city limits.</p>
+      </div>
+    </div>
+  </div>
+  
   <a href="admin.html" class="footer-admin">
     <img src="assets/admin-icon.svg" alt="Admin" height="20">
   </a>
 </footer>
+
+<!-- Whitney AI Chatbot -->
+<div id="whitney-chatbot" class="chatbot-container">
+  <!-- Chat Toggle Button -->
+  <div id="whitney-toggle" class="chatbot-toggle">
+    <img src="assets/whitney-avatar.svg" alt="Whitney AI" class="chatbot-avatar">
+    <div class="notification-badge" id="whitney-notification">1</div>
+  </div>
+  
+  <!-- Chat Interface -->
+  <div id="whitney-chat" class="chat-interface hidden">
+    <div class="chat-header">
+      <img src="assets/whitney-avatar.svg" alt="Whitney AI" class="chat-avatar">
+      <div class="chat-title">
+        <h4>Whitney</h4>
+        <span class="chat-status">AI Assistant</span>
+      </div>
+      <button id="close-chat" class="close-chat">×</button>
+    </div>
+    
+    <div class="chat-messages" id="chat-messages">
+      <!-- Initial greeting will be added by JavaScript -->
+    </div>
+    
+    <div class="chat-input-container">
+      <input type="text" id="chat-input" placeholder="Ask about our services, pricing..." maxlength="500">
+      <button id="send-message" class="send-button">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  
+  <!-- Initial Popup Message -->
+  <div id="whitney-popup" class="chat-popup">
+    <div class="popup-content">
+      <span id="popup-text"></span>
+      <button id="close-popup" class="close-popup">×</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>

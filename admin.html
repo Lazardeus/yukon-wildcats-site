@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Yukon Wildcats Contracting</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script defer src="js/particles-config.js"></script>
+    <script defer src="js/script.js"></script>
     <style>
         .admin-container {
             max-width: 1200px;
@@ -12,7 +15,7 @@
             padding: 20px;
         }
         
-        .admin-login {
+        .admin-login-form {
             max-width: 400px;
             margin: 50px auto;
         }
@@ -87,6 +90,31 @@
             top: 20px;
             right: 20px;
         }
+
+        @media (max-width: 768px) {
+            .admin-container {
+                padding: 10px;
+            }
+            
+            .admin-login-form {
+                margin: 20px auto;
+            }
+            
+            .logout-button {
+                position: relative;
+                top: auto;
+                right: auto;
+                margin-bottom: 20px;
+            }
+            
+            .admin-tabs {
+                flex-direction: column;
+            }
+            
+            .tab-content {
+                padding: 15px;
+            }
+        }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script defer src="js/particles-config.js"></script>
@@ -98,6 +126,7 @@
         <div class="header-left">
             <img src="assets/logo.png" alt="Yukon Wildcats Logo">
         </div>
+        <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">☰</button>
         <nav class="header-right">
             <a href="index.html">Home</a>
             <a href="services.html">Services</a>
@@ -106,13 +135,14 @@
             <a href="web-services.html">Web Services</a>
             <a href="community.html">Community</a>
             <a href="contact.html">Contact</a>
-            <a href="documents.html">Documents</a>
+            <a href="legal.html">Legal Info</a>
         </nav>
+        <div class="mobile-overlay"></div>
     </header>
 
     <div class="admin-container">
         <!-- Login Form -->
-        <div id="loginForm" class="card hover-glow admin-login">
+        <div id="loginForm" class="card hover-glow admin-login-form">
             <h2>Admin Login</h2>
             <form class="admin-form">
                 <label for="username">Username:</label>
@@ -188,6 +218,8 @@
                                 <option value="lazarus">Lazarus Vanbibber</option>
                                 <option value="micah">Micah Wolfe</option>
                                 <option value="elias">Elias Wolfe</option>
+                                <option value="noah">Noah Bucknell</option>
+                                <option value="lily">Lily Menicoche</option>
                             </select>
 
                             <label for="memberTitle">Title:</label>
@@ -266,9 +298,8 @@
     </footer>
 
     <script>
-        // Use the production API on GitHub Pages. If you need to test locally,
-        // change this to 'http://localhost:3000/api' temporarily.
-        const API_URL = 'https://yukon-wildcats-api.onrender.com/api';
+        // Local development API URL
+        const API_URL = 'http://localhost:3000/api';
         let authToken = localStorage.getItem('yw_auth_token');
         let userRole = localStorage.getItem('yw_user_role');
 
