@@ -24,13 +24,19 @@ function initializePageLoader() {
     if(loaderText && steps[step]) loaderText.textContent = steps[step].msg;
   }
 
-  function finalize(){
+  // Exposed finalize so delegated skip handler can invoke even if original listener failed
+  function finalize(skip=false){
     if(!isLoading) return;
     isLoading = false;
-    loader.classList.add('loaded');
+    try { loader.setAttribute('aria-busy','false'); } catch(_){ }
+    loader.classList.add(skip ? 'skip-loaded' : 'loaded');
     document.body.classList.add('page-loaded');
-    setTimeout(()=>{if(loader && loader.parentNode){loader.remove();}},900);
+    // Faster removal when user explicitly skips
+    const removalDelay = skip ? 300 : 900;
+    setTimeout(()=>{if(loader && loader.parentNode){loader.remove();}},removalDelay);
   }
+  // Make globally accessible early
+  window.__pageLoaderFinalize = finalize;
 
   function forceHide(){
     if(loader){loader.classList.add('loader-force-hide');}
@@ -65,8 +71,24 @@ function initializePageLoader() {
 
   // Skip button
   if(skipBtn){
-    skipBtn.addEventListener('click', e=>{e.preventDefault(); finalize();});
-    skipBtn.addEventListener('keydown', e=>{if((e.key==='Enter'||e.key===' ') && isLoading){e.preventDefault(); finalize();}});
+    // Direct binding
+    skipBtn.addEventListener('click', e=>{e.preventDefault(); finalize(true);});
+    skipBtn.addEventListener('keydown', e=>{if((e.key==='Enter'||e.key===' ') && isLoading){e.preventDefault(); finalize(true);}});
+  }
+
+  // Delegated fallback (works even if earlier errors occurred before listener binding)
+  if(!window.__YW_SKIP_DELEGATE){
+    document.addEventListener('click', function(e){
+      const btn = e.target.closest('.skip-loader');
+      if(btn){ e.preventDefault(); if(typeof window.__pageLoaderFinalize==='function'){ window.__pageLoaderFinalize(true); } }
+    });
+    // Keyboard escape as universal skip
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && typeof window.__pageLoaderFinalize==='function'){
+        e.preventDefault(); window.__pageLoaderFinalize(true);
+      }
+    });
+    window.__YW_SKIP_DELEGATE = true;
   }
 
   // Particles failsafe
@@ -1407,7 +1429,7 @@ function initializeWhitneyChatbot() {
     const messageEl = document.createElement('div');
     messageEl.className = `message ${isBot ? 'bot' : 'user'} advanced-message`;
     
-    const contentEl = document.createElement('div');
+    let contentEl = document.createElement('div');
     contentEl.className = 'message-content advanced-content';
     
     if (isBot) {
@@ -1418,7 +1440,7 @@ function initializeWhitneyChatbot() {
         </div>
         <div class="message-content advanced-content"></div>
       `;
-      contentEl = messageEl.querySelector('.message-content');
+  contentEl = messageEl.querySelector('.message-content');
     } else {
       messageEl.innerHTML = `
         <div class="message-content advanced-content"></div>
@@ -1427,7 +1449,7 @@ function initializeWhitneyChatbot() {
           👤
         </div>
       `;
-      contentEl = messageEl.querySelector('.message-content');
+  contentEl = messageEl.querySelector('.message-content');
     }
     
     // Add sparkle effect for bot messages

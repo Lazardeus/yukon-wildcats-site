@@ -30,9 +30,18 @@
   pointer-events: none;
 }
 
+/* Faster skip transition */
+.page-loader.skip-loaded {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(1.05);
+  transition: all 0.3s ease!important;
+  pointer-events: none;
+}
+
 /* Skip Loader Button (moved from inline) */
 .skip-loader {
-  position: absolute;
+  position: fixed; /* ensure always visible in viewport */
   bottom: 20px;
   right: 20px;
   background: rgba(255,215,0,0.15);
@@ -45,7 +54,8 @@
   letter-spacing: 0.5px;
   backdrop-filter: blur(4px);
   transition: all 0.3s ease;
-  z-index: 15;
+  z-index: 10001; /* above loader content */
+  pointer-events: auto;
 }
 .skip-loader:hover,
 .skip-loader:focus {
