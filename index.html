@@ -41,7 +41,7 @@ window.addEventListener('DOMContentLoaded', function(){
       <div class="particle"></div>
       <div class="particle"></div>
     </div>
-  <button class="skip-loader" aria-label="Skip loading and show site">Skip Loading</button>
+  <button class="skip-loader" type="button" aria-label="Skip loading and show site" onclick="(function(){try{if(typeof window.__pageLoaderFinalize==='function'){window.__pageLoaderFinalize(true);return false;}}catch(e){}var l=document.getElementById('page-loader');if(l){l.classList.add('skip-loaded');setTimeout(function(){try{l.remove();}catch(err){l.style.display='none';}},300);}return false;})();">Skip Loading</button>
   </div>
 </div>
 
