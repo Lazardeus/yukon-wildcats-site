@@ -583,6 +583,20 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Initialize Scroll Animations
   initializeScrollAnimations();
+
+  // Initialize admin/auth state update for header (if token present)
+  try {
+    const token = localStorage.getItem('yw_auth_token');
+    if (token) {
+      document.body.classList.add('auth-logged-in');
+    }
+  } catch (e) { console.warn('Auth state check failed', e); }
+
+  // Conditional login page enhancements
+  if (document.getElementById('login-page')) {
+    // If global script needs to augment login later (placeholder)
+    console.log('[Login] Page detected. Inline handler active.');
+  }
 });
 
 // === ADVANCED WHITNEY AI CHATBOT SYSTEM ===

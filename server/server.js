@@ -9,9 +9,17 @@ const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const compression = require('compression');
 const nodemailer = require('nodemailer');
+const crypto = require('crypto');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Ensure JWT secret exists to prevent login crashes
+if (!process.env.JWT_SECRET || process.env.JWT_SECRET.trim() === '') {
+  const generated = crypto.randomBytes(32).toString('hex');
+  process.env.JWT_SECRET = generated;
+  console.warn('[SECURITY] JWT_SECRET was missing. Generated a transient secret. Set JWT_SECRET in .env for stable tokens.');
+}
 
 // Security middleware
 app.use(helmet({
