@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout - Service Request - Yukon Wildcats Contracting</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script defer src="js/particles-config.js"></script>
+<script defer src="js/script.js"></script>
+<style>
+/* Checkout page specific styles */
+.checkout-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 2rem;
+  min-height: 80vh;
+}
+
+.checkout-main {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 215, 0, 0.2);
+  border-radius: 20px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+}
+
+.checkout-sidebar {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 215, 0, 0.2);
+  border-radius: 20px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  height: fit-content;
+  position: sticky;
+  top: 100px;
+}
+
+.checkout-step {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.checkout-step:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.step-number {
+  background: #ffd700;
+  color: #000;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.step-title {
+  color: #ffd700;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  color: #ffd700;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 8px;
+  padding: 0.75rem;
+  color: #fff;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #ffd700;
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.required {
+  color: #ff4757;
+}
+
+.service-summary {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.service-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border-left: 3px solid #ffd700;
+}
+
+.service-item:last-child {
+  margin-bottom: 0;
+}
+
+.service-info h4 {
+  margin: 0 0 0.25rem 0;
+  color: #ffd700;
+}
+
+.service-info p {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.service-price {
+  font-weight: bold;
+  color: #4CAF50;
+}
+
+.checkout-total {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 215, 0, 0.2));
+  border: 1px solid #ffd700;
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.checkout-total h3 {
+  color: #ffd700;
+  margin: 0;
+}
+
+.submit-request {
+  width: 100%;
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  color: white;
+  border: none;
+  padding: 1.2rem 2rem;
+  border-radius: 15px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+.submit-request:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(76, 175, 80, 0.4);
+}
+
+.submit-request:disabled {
+  background: #666;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.terms-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin: 1rem 0;
+  padding: 1rem;
+  background: rgba(255, 69, 0, 0.1);
+  border: 1px solid #ff4500;
+  border-radius: 8px;
+}
+
+.terms-checkbox input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+}
+
+.terms-checkbox label {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #fff;
+}
+
+.terms-checkbox a {
+  color: #ffd700;
+  text-decoration: underline;
+}
+
+.payment-note {
+  background: rgba(76, 175, 80, 0.1);
+  border: 1px solid #4CAF50;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.payment-note h4 {
+  color: #4CAF50;
+  margin: 0 0 0.5rem 0;
+}
+
+.empty-cart-message {
+  text-align: center;
+  padding: 3rem;
+  color: #999;
+}
+
+.empty-cart-message i {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.continue-shopping {
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  color: #000;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.continue-shopping:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(255, 215, 0, 0.4);
+}
+
+.process-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  min-width: 120px;
+  transition: all 0.3s ease;
+}
+
+.process-badge:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 215, 0, 0.5);
+}
+
+.process-badge i {
+  font-size: 1.2rem;
+}
+
+.process-badge span {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #fff;
+}
+
+.checkout-progress {
+  margin: 2rem 0;
+  padding: 1rem;
+  background: rgba(255, 215, 0, 0.1);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.progress-steps {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  position: relative;
+}
+
+.progress-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  right: -50%;
+  width: 100%;
+  height: 2px;
+  background: rgba(255, 215, 0, 0.3);
+  z-index: 1;
+}
+
+.progress-step.completed::after {
+  background: #ffd700;
+}
+
+.progress-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #fff;
+  z-index: 2;
+  position: relative;
+}
+
+.progress-step.completed .progress-circle {
+  background: #ffd700;
+  border-color: #ffd700;
+  color: #000;
+}
+
+.progress-label {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #fff;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .checkout-container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  .checkout-sidebar {
+    position: static;
+  }
+  
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .checkout-badges {
+    gap: 1rem !important;
+  }
+  
+  .process-badge {
+    min-width: 100px;
+    padding: 0.5rem;
+  }
+  
+  .progress-steps {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .progress-step::after {
+    display: none;
+  }
+}
+</style>
+</head>
+<body>
+<div id="particles-js"></div>
+
+<header>
+  <div class="header-left">
+    <img src="assets/logo.png" alt="Yukon Wildcats Logo" class="round-logo">
+  </div>
+  <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">☰</button>
+  <nav class="header-right">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="snow.html">Snow Removal</a>
+    <a href="tow.html">Towing</a>
+    <a href="web-services.html">Web Services</a>
+    <a href="community.html">Community</a>
+    <a href="contact.html">Contact</a>
+    <a href="quote.html">Get Quote</a>
+    <a href="payment.html">Payment</a>
+    <a href="legal.html">Legal Info</a>
+    <a href="#" class="service-cart" onclick="toggleServiceCart()" title="Service Requests">
+      <i class="fas fa-clipboard-list"></i>
+      <span class="cart-count" id="cartCount">0</span>
+    </a>
+    <a href="login.html" class="admin-login" title="Login / Create Account">
+      <i class="fas fa-sign-in-alt"></i>
+      <span>Login</span>
+    </a>
+  </nav>
+  <div class="mobile-overlay"></div>
+</header>
+
+<!-- Service Cart Dropdown -->
+<div class="cart-dropdown" id="cartDropdown">
+  <div class="cart-header">
+    <h3><i class="fas fa-clipboard-list"></i> Service Requests</h3>
+    <button class="cart-close" onclick="toggleServiceCart()">×</button>
+  </div>
+  
+  <div class="cart-items" id="cartItems"></div>
+  
+  <div class="cart-footer" id="cartFooter" style="display: none;">
+    <div class="cart-total" id="cartTotal">
+      Total Services: <span id="serviceCount">0</span>
+    </div>
+    <button class="cart-checkout" onclick="proceedToCheckout()">
+      <i class="fas fa-arrow-right"></i>
+      Proceed to Checkout
+    </button>
+  </div>
+</div>
+
+<section class="hero" style="padding: 2rem; text-align: center;">
+  <h1><i class="fas fa-clipboard-check"></i> Service Request Checkout</h1>
+  <p>Complete your service request and we'll contact you within 24 hours to finalize contract details</p>
+  
+  <!-- Security & Process Indicators -->
+  <div class="checkout-badges" style="display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; flex-wrap: wrap;">
+    <div class="process-badge">
+      <i class="fas fa-shield-alt" style="color: #4CAF50;"></i>
+      <span>Secure Process</span>
+    </div>
+    <div class="process-badge">
+      <i class="fas fa-file-contract" style="color: #ffd700;"></i>
+      <span>Contract Protected</span>
+    </div>
+    <div class="process-badge">
+      <i class="fas fa-clock" style="color: #2196F3;"></i>
+      <span>24hr Response</span>
+    </div>
+    <div class="process-badge">
+      <i class="fas fa-dollar-sign" style="color: #FF9800;"></i>
+      <span>No Payment Required</span>
+    </div>
+  </div>
+</section>
+
+<div class="checkout-container" id="checkoutContainer">
+  <!-- This will be populated by JavaScript -->
+</div>
+
+<footer>
+  <div class="footer-content">
+    <div class="footer-contact">
+      <h4>Contact Information</h4>
+      <p>📍 Whitehorse & Haines Junction, Yukon Territory</p>
+      <p>📞 Phone: <a href="tel:+18673324695">(867) 332-4695</a></p>
+      <p>✉️ Email: <a href="mailto:info@yukonwildcats.ca">info@yukonwildcats.ca</a></p>
+      <p>📧 Contracts: <a href="mailto:contracts@yukonwildcats.ca">contracts@yukonwildcats.ca</a></p>
+    </div>
+    
+    <div class="footer-services">
+      <h4>Our Services</h4>
+      <ul>
+        <li><a href="snow.html">Snow Removal & Plowing</a></li>
+        <li><a href="tow.html">Towing & Recovery</a></li>
+        <li>Excavation Services</li>
+        <li>Equipment Rental</li>
+        <li>Dump Trucking</li>
+        <li>Housing Contracts</li>
+        <li>Lawn Maintenance</li>
+        <li><a href="web-services.html">Web Development</a></li>
+      </ul>
+    </div>
+    
+    <div class="footer-legal">
+      <h4>Legal & Documents</h4>
+      <ul>
+        <li><a href="legal.html">Terms & Conditions</a></li>
+        <li><a href="legal.html#service-agreement">Service Agreement</a></li>
+        <li><a href="legal.html#privacy">Privacy Policy</a></li>
+        <li><a href="legal.html#refund">Refund Policy</a></li>
+        <li><a href="legal.html#safety">Safety Information</a></li>
+        <li><a href="legal.html#coc">Certificate of Compliance</a></li>
+        <li><a href="quote.html">Get Professional Quote</a></li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer-bottom">
+    <p>&copy; 2025 Yukon Wildcats Contracting. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="legal.html">Terms</a>
+      <a href="legal.html#privacy">Privacy</a>
+      <a href="contact.html">Contact</a>
+      <a href="admin.html" title="Admin Access">
+        <img src="assets/admin-icon.svg" alt="Admin" height="20">
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const serviceCart = JSON.parse(localStorage.getItem('yw_service_cart')) || [];
+  const checkoutContainer = document.getElementById('checkoutContainer');
+  
+  if (serviceCart.length === 0) {
+    // Show empty cart message
+    checkoutContainer.innerHTML = `
+      <div class="empty-cart-message">
+        <i class="fas fa-clipboard-list"></i>
+        <h2>No services in your request</h2>
+        <p>Add some services to your request before proceeding to checkout.</p>
+        <a href="snow.html" class="continue-shopping">
+          <i class="fas fa-arrow-left"></i>
+          Browse Services
+        </a>
+      </div>
+    `;
+    return;
+  }
+  
+  // Generate checkout form
+  checkoutContainer.innerHTML = `
+    <div class="checkout-main">
+      <form id="serviceRequestForm">
+        <!-- Checkout Progress Indicator -->
+        <div class="checkout-progress">
+          <div class="progress-steps">
+            <div class="progress-step completed">
+              <div class="progress-circle">1</div>
+              <div class="progress-label">Contact Info</div>
+            </div>
+            <div class="progress-step">
+              <div class="progress-circle">2</div>
+              <div class="progress-label">Service Location</div>
+            </div>
+            <div class="progress-step">
+              <div class="progress-circle">3</div>
+              <div class="progress-label">Preferences</div>
+            </div>
+            <div class="progress-step">
+              <div class="progress-circle">✓</div>
+              <div class="progress-label">Submit Request</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 1: Contact Information -->
+        <div class="checkout-step">
+          <div class="step-header">
+            <div class="step-number">1</div>
+            <h2 class="step-title">Contact Information</h2>
+          </div>
+          
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="firstName">First Name <span class="required">*</span></label>
+              <input type="text" id="firstName" name="firstName" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="lastName">Last Name <span class="required">*</span></label>
+              <input type="text" id="lastName" name="lastName" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="email">Email Address <span class="required">*</span></label>
+              <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="phone">Phone Number <span class="required">*</span></label>
+              <input type="tel" id="phone" name="phone" required placeholder="(867) 123-4567">
+            </div>
+          </div>
+        </div>
+        
+        <!-- Step 2: Service Location -->
+        <div class="checkout-step">
+          <div class="step-header">
+            <div class="step-number">2</div>
+            <h2 class="step-title">Service Location</h2>
+          </div>
+          
+          <div class="form-group">
+            <label for="address">Street Address <span class="required">*</span></label>
+            <input type="text" id="address" name="address" required placeholder="123 Main Street">
+          </div>
+          
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="city">City <span class="required">*</span></label>
+              <select id="city" name="city" required>
+                <option value="">Select City</option>
+                <option value="Whitehorse">Whitehorse</option>
+                <option value="Haines Junction">Haines Junction</option>
+                <option value="Other">Other (specify in notes)</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="postalCode">Postal Code</label>
+              <input type="text" id="postalCode" name="postalCode" placeholder="Y1A 0A1">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="locationNotes">Location Notes</label>
+            <textarea id="locationNotes" name="locationNotes" rows="3" 
+                     placeholder="Any specific directions, landmarks, or access information..."></textarea>
+          </div>
+        </div>
+        
+        <!-- Step 3: Service Details -->
+        <div class="checkout-step">
+          <div class="step-header">
+            <div class="step-number">3</div>
+            <h2 class="step-title">Service Preferences</h2>
+          </div>
+          
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="serviceDate">Preferred Service Date</label>
+              <input type="date" id="serviceDate" name="serviceDate">
+            </div>
+            
+            <div class="form-group">
+              <label for="urgency">Service Urgency</label>
+              <select id="urgency" name="urgency">
+                <option value="standard">Standard (Next Available)</option>
+                <option value="priority">Priority (Within 24 Hours)</option>
+                <option value="emergency">Emergency (ASAP)</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="specialRequests">Special Requests or Notes</label>
+            <textarea id="specialRequests" name="specialRequests" rows="4" 
+                     placeholder="Any special requirements, concerns, or additional information..."></textarea>
+          </div>
+        </div>
+        
+        <!-- Terms and Conditions -->
+        <div class="terms-checkbox">
+          <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
+          <label for="agreeTerms">
+            I agree that all work requires a signed contract before service begins. I understand that:
+            <br>• A detailed contract will be provided for review and signing
+            <br>• Work will only commence after contract is signed and returned
+            <br>• Payment is due upon completion of services
+            <br>• I agree to the <a href="legal.html" target="_blank">Terms & Conditions</a>
+          </label>
+        </div>
+        
+        <button type="submit" class="submit-request" id="submitButton">
+          <i class="fas fa-paper-plane"></i>
+          Submit Service Request
+        </button>
+      </form>
+    </div>
+    
+    <div class="checkout-sidebar">
+      <h3><i class="fas fa-list"></i> Service Summary</h3>
+      <div class="service-summary">
+        ${serviceCart.map(service => `
+          <div class="service-item">
+            <div class="service-info">
+              <h4>${service.name}</h4>
+              <p>${service.description}</p>
+            </div>
+            <div class="service-price">${service.price}</div>
+          </div>
+        `).join('')}
+      </div>
+      
+      <div class="checkout-total">
+        <h3>Total Services: ${serviceCart.length}</h3>
+        <p>Final pricing will be confirmed in your contract</p>
+      </div>
+      
+      <div class="payment-note">
+        <h4><i class="fas fa-info-circle"></i> Payment Information</h4>
+        <p>• No payment required now</p>
+        <p>• Payment due after service completion</p>
+        <p>• Multiple payment methods accepted</p>
+        <p>• See <a href="payment.html">Payment Options</a></p>
+      </div>
+      
+      <!-- Emergency Contact -->
+      <div class="emergency-contact" style="background: rgba(255, 69, 0, 0.1); border: 1px solid #ff4500; border-radius: 8px; padding: 1rem; margin-top: 1rem;">
+        <h4 style="color: #ff4500; margin: 0 0 0.5rem 0;"><i class="fas fa-phone-alt"></i> Need Immediate Service?</h4>
+        <p style="margin: 0 0 0.5rem 0;">For emergency snow removal or towing:</p>
+        <a href="tel:+18673324695" style="color: #ffd700; font-weight: bold; text-decoration: none; font-size: 1.1rem;">
+          📞 (867) 332-4695
+        </a>
+        <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; opacity: 0.8;">Available 24/7 for urgent services</p>
+      </div>
+      
+      <!-- Business Information -->
+      <div class="business-info" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 215, 0, 0.2); border-radius: 8px; padding: 1rem; margin-top: 1rem;">
+        <h4 style="color: #ffd700; margin: 0 0 0.5rem 0;"><i class="fas fa-building"></i> Yukon Wildcats Contracting</h4>
+        <p style="margin: 0 0 0.25rem 0; font-size: 0.9rem;">📍 Serving Whitehorse & Haines Junction</p>
+        <p style="margin: 0 0 0.25rem 0; font-size: 0.9rem;">📧 contracts@yukonwildcats.ca</p>
+        <p style="margin: 0 0 0.25rem 0; font-size: 0.9rem;">🏆 Licensed & Insured Contractor</p>
+        <p style="margin: 0; font-size: 0.85rem; opacity: 0.8;">Professional contracting services since 2019</p>
+      </div>
+    </div>
+  `;
+  
+  // Handle form submission
+  document.getElementById('serviceRequestForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const submitButton = document.getElementById('submitButton');
+    submitButton.disabled = true;
+    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+    
+    // Collect form data
+    const formData = new FormData(e.target);
+    const requestData = {
+      services: serviceCart,
+      contact: {
+        firstName: formData.get('firstName'),
+        lastName: formData.get('lastName'),
+        email: formData.get('email'),
+        phone: formData.get('phone')
+      },
+      location: {
+        address: formData.get('address'),
+        city: formData.get('city'),
+        postalCode: formData.get('postalCode'),
+        notes: formData.get('locationNotes')
+      },
+      preferences: {
+        serviceDate: formData.get('serviceDate'),
+        urgency: formData.get('urgency'),
+        specialRequests: formData.get('specialRequests')
+      },
+      submittedAt: new Date().toISOString(),
+      requestId: 'REQ-' + Date.now()
+    };
+    
+    // Store request locally
+    const existingRequests = JSON.parse(localStorage.getItem('yw_service_requests')) || [];
+    existingRequests.push(requestData);
+    localStorage.setItem('yw_service_requests', JSON.stringify(existingRequests));
+    
+    // Simulate submission delay
+    setTimeout(() => {
+      // Clear cart
+      localStorage.removeItem('yw_service_cart');
+      
+      // Show success message
+      alert('Service request submitted successfully! We will contact you within 24 hours to discuss your contract and schedule service. Request ID: ' + requestData.requestId);
+      
+      // Redirect to confirmation or home
+      window.location.href = 'index.html';
+    }, 2000);
+  });
+});
+</script>
+
+</body>
+</html>

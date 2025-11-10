@@ -124,8 +124,8 @@ if ! command -v nginx &> /dev/null; then
     # Create Nginx configuration
     cat > /etc/nginx/sites-available/yukon-wildcats << EOL
 server {
-    listen 80;
-    server_name yukon-wildcats.ca www.yukon-wildcats.ca _;
+    listen 80 default_server;
+    server_name _ default;
 
     root $PROJECT_DIR;
     index index.html;

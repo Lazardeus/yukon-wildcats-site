@@ -3,8 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact - Yukon Wildcats Contracting</title>
+<title>📧 Contact Us - Yukon Wildcats Contracting</title>
+<meta name="description" content="Contact Yukon Wildcats Contracting for professional services in Whitehorse and Haines Junction. Get quotes, ask questions, or request emergency services.">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 <script defer src="js/particles-config.js"></script>
 <script defer src="js/script.js"></script>
@@ -14,7 +16,7 @@
 
 <header>
   <div class="header-left">
-    <img src="assets/logo.png" alt="Yukon Wildcats Logo">
+    <img src="assets/logo.png" alt="Yukon Wildcats Logo" class="round-logo">
   </div>
   <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">☰</button>
   <nav class="header-right">
@@ -25,43 +27,156 @@
     <a href="web-services.html">Web Services</a>
     <a href="community.html">Community</a>
     <a href="contact.html">Contact</a>
+    <a href="quote.html">Get Quote</a>
     <a href="legal.html">Legal Info</a>
-    <a href="admin.html" class="admin-login" title="Admin Login">
-      <img src="assets/admin-icon.svg" alt="Admin" height="25">
-    </a>
+    <div class="auth-section">
+      <a href="admin.html" class="admin-access" title="Admin Access">
+        <i class="fas fa-user-shield"></i>
+        <span>Admin</span>
+      </a>
+      <a href="login.html" class="login-link" title="Login / Create Account">
+        <i class="fas fa-sign-in-alt"></i>
+        <span>Login</span>
+      </a>
+    </div>
   </nav>
   <div class="mobile-overlay"></div>
 </header>
 
 <section class="hero">
-  <h1 class="fade-in">Contact Us</h1>
-  <p class="fade-in delay-1">Get in touch with us directly, or use our <a href="quote.html" style="color: #ffd700;">Professional Quote System</a>.</p>
+  <div class="hero-content">
+    <h1 class="hero-title fade-in">📧 Contact Us</h1>
+    <p class="hero-subtitle fade-in delay-1">Get in touch for professional services, quotes, or emergency assistance</p>
+    
+    <div class="contact-options" style="display: flex; justify-content: center; gap: 1rem; margin-top: 2rem; flex-wrap: wrap;">
+      <a href="quote.html" class="cta-button">Get Professional Quote</a>
+      <a href="tel:1-867-332-0223" class="cta-button secondary">Emergency: (867) 332-0223</a>
+    </div>
+  </div>
 </section>
 
-<section class="card-container">
-  <form id="contactForm" class="card hover-glow">
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" required>
+<!-- Contact Methods -->
+<section style="padding: 4rem 2rem; background: rgba(17, 17, 17, 0.9);">
+  <h2 style="text-align: center; color: #ffd700; font-size: 2.5rem; margin-bottom: 3rem;">How to Reach Us</h2>
+  
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto;">
+    
+    <!-- Direct Contact -->
+    <div class="card hover-glow" style="text-align: center;">
+      <i class="fas fa-phone" style="font-size: 3rem; color: #ffd700; margin-bottom: 1rem;"></i>
+      <h3>Direct Contact</h3>
+      <div style="text-align: left; margin: 1.5rem 0;">
+        <p><strong style="color: #ffd700;">Lazarus Vanbibber</strong> - Founder</p>
+        <p><a href="tel:1-867-332-0223" style="color: #fff;">📞 (867) 332-0223</a></p>
+        <p><a href="mailto:lazarus.vanbibber@icloud.com" style="color: #fff;">📧 lazarus.vanbibber@icloud.com</a></p>
+        <hr style="border-color: rgba(255, 215, 0, 0.3); margin: 1rem 0;">
+        <p><strong style="color: #ffd700;">Micah Wolfe</strong> - Co-founder</p>
+        <p><a href="tel:1-867-332-4551" style="color: #fff;">📞 (867) 332-4551</a></p>
+        <p><a href="mailto:Micahsage4444@gmail.com" style="color: #fff;">📧 Micahsage4444@gmail.com</a></p>
+      </div>
+    </div>
+    
+    <!-- Emergency Services -->
+    <div class="card hover-glow" style="text-align: center;">
+      <i class="fas fa-ambulance" style="font-size: 3rem; color: #ff4500; margin-bottom: 1rem;"></i>
+      <h3 style="color: #ff4500;">Emergency Services</h3>
+      <p style="margin: 1rem 0;">24/7 emergency response for:</p>
+      <ul style="text-align: left; color: #ccc; margin: 1rem 0;">
+        <li>🚨 Vehicle breakdowns</li>
+        <li>❄️ Snow removal emergencies</li>
+        <li>🚛 Emergency towing</li>
+        <li>⛑️ Roadside assistance</li>
+      </ul>
+      <a href="tel:1-867-332-0223" class="cta-button" style="background: #ff4500;">Call Emergency Line</a>
+    </div>
+    
+    <!-- Service Areas -->
+    <div class="card hover-glow" style="text-align: center;">
+      <i class="fas fa-map-marker-alt" style="font-size: 3rem; color: #ffd700; margin-bottom: 1rem;"></i>
+      <h3>Service Areas</h3>
+      <ul style="text-align: left; color: #ccc; margin: 1.5rem 0;">
+        <li>🏠 <strong>Whitehorse</strong> (Primary)</li>
+        <li>🏔️ <strong>Haines Junction</strong></li>
+        <li>🛣️ <strong>Alaska Highway</strong> (Km 1-1600)</li>
+        <li>🌲 <strong>Klondike Highway</strong></li>
+        <li>📞 <strong>Custom locations</strong> (call for quote)</li>
+      </ul>
+      <p style="font-style: italic; color: #aaa; margin-top: 1rem;">Travel charges may apply outside city limits</p>
+    </div>
+    
+  </div>
+</section>
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required>
+<!-- Contact Form -->
+<section class="contact-form-section" style="padding: 4rem 2rem;">
+  <h2 style="text-align: center; color: #ffd700; font-size: 2.5rem; margin-bottom: 3rem;">Send Us a Message</h2>
+  
+  <div style="max-width: 600px; margin: 0 auto;">
+    <form id="contactForm" class="card hover-glow" style="padding: 3rem;">
+      <div style="margin-bottom: 2rem;">
+        <label for="name" style="display: block; color: #ffd700; margin-bottom: 0.5rem; font-weight: bold;">Full Name *</label>
+        <input type="text" id="name" name="name" required 
+               style="width: 100%; padding: 1rem; background: rgba(17, 17, 17, 0.8); border: 2px solid rgba(255, 215, 0, 0.3); border-radius: 8px; color: #fff; font-size: 1rem;"
+               placeholder="Enter your full name">
+      </div>
 
-    <label for="service">Service:</label>
-    <select id="service" name="service" required>
-      <option value="">-- Select a Service --</option>
-      <option value="Snow Removal">Snow Removal</option>
-      <option value="Towing">Towing</option>
-      <option value="Excavation">Excavation</option>
-      <option value="Dump Trucking">Dump Trucking</option>
-      <option value="Housing Contracts">Housing Contracts</option>
-      <option value="Lawn Mowing">Lawn Mowing</option>
-    </select>
+      <div style="margin-bottom: 2rem;">
+        <label for="email" style="display: block; color: #ffd700; margin-bottom: 0.5rem; font-weight: bold;">Email Address *</label>
+        <input type="email" id="email" name="email" required
+               style="width: 100%; padding: 1rem; background: rgba(17, 17, 17, 0.8); border: 2px solid rgba(255, 215, 0, 0.3); border-radius: 8px; color: #fff; font-size: 1rem;"
+               placeholder="your.email@example.com">
+      </div>
 
-    <label for="message">Message / Job Details:</label>
-    <textarea id="message" name="message" placeholder="Describe what you need..." required></textarea>
+      <div style="margin-bottom: 2rem;">
+        <label for="phone" style="display: block; color: #ffd700; margin-bottom: 0.5rem; font-weight: bold;">Phone Number</label>
+        <input type="tel" id="phone" name="phone"
+               style="width: 100%; padding: 1rem; background: rgba(17, 17, 17, 0.8); border: 2px solid rgba(255, 215, 0, 0.3); border-radius: 8px; color: #fff; font-size: 1rem;"
+               placeholder="(867) 555-0123 (optional)">
+      </div>
 
-    <button type="submit" class="cta-button pulse">Submit</button>
-  </form>
+      <div style="margin-bottom: 2rem;">
+        <label for="service" style="display: block; color: #ffd700; margin-bottom: 0.5rem; font-weight: bold;">Service Type *</label>
+        <select id="service" name="service" required
+                style="width: 100%; padding: 1rem; background: rgba(17, 17, 17, 0.8); border: 2px solid rgba(255, 215, 0, 0.3); border-radius: 8px; color: #fff; font-size: 1rem;">
+          <option value="">-- Select a Service --</option>
+          <option value="Snow Removal">❄️ Snow Removal</option>
+          <option value="Towing">🚛 Towing & Recovery</option>
+          <option value="Excavation">🏗️ Excavation</option>
+          <option value="Dump Trucking">🚚 Dump Trucking</option>
+          <option value="Housing Contracts">🏠 Housing & Construction</option>
+          <option value="Lawn Mowing">🌱 Lawn Care & Maintenance</option>
+          <option value="Web Services">💻 Web Development</option>
+          <option value="Emergency">🚨 Emergency Service</option>
+          <option value="General Inquiry">❓ General Question</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom: 2rem;">
+        <label for="priority" style="display: block; color: #ffd700; margin-bottom: 0.5rem; font-weight: bold;">Priority Level</label>
+        <select id="priority" name="priority"
+                style="width: 100%; padding: 1rem; background: rgba(17, 17, 17, 0.8); border: 2px solid rgba(255, 215, 0, 0.3); border-radius: 8px; color: #fff; font-size: 1rem;">
+          <option value="Normal">📅 Normal (2-3 business days)</option>
+          <option value="Urgent">⚡ Urgent (Within 24 hours)</option>
+          <option value="Emergency">🚨 Emergency (Immediate response)</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom: 2rem;">
+        <label for="message" style="display: block; color: #ffd700; margin-bottom: 0.5rem; font-weight: bold;">Message / Job Details *</label>
+        <textarea id="message" name="message" required rows="6"
+                  style="width: 100%; padding: 1rem; background: rgba(17, 17, 17, 0.8); border: 2px solid rgba(255, 215, 0, 0.3); border-radius: 8px; color: #fff; font-size: 1rem; resize: vertical;"
+                  placeholder="Please describe your needs, location, timeline, and any special requirements..."></textarea>
+      </div>
+
+      <button type="submit" class="cta-button pulse" style="width: 100%; padding: 1.2rem; font-size: 1.1rem;">
+        <i class="fas fa-paper-plane"></i> Send Message
+      </button>
+      
+      <p style="text-align: center; margin-top: 1rem; color: #aaa; font-size: 0.9rem;">
+        * Required fields | We'll respond within 24 hours
+      </p>
+    </form>
+  </div>
 </section>
 
 <footer>
@@ -124,8 +239,8 @@
     </div>
   </div>
   
-  <a href="admin.html" class="footer-admin">
-    <img src="assets/admin-icon.svg" alt="Admin" height="20">
+  <a href="admin.html" class="footer-admin" title="Team Admin Access">
+    <img src="assets/logo.png" alt="Team Admin" height="24">
   </a>
 </footer>
 

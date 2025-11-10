@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>❄️ Snow Removal Services - Yukon Wildcats Contracting</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script defer src="js/particles-config.js"></script>
+<script defer src="js/script.js"></script>
+<!-- All CSS moved to external style.css file for better performance and maintainability -->
+
+/* Prevent content overflow */
+.container, section, .pricing-section {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+
+</style>
+</head>
+<body>
+<div id="particles-js"></div>
+
+<header>
+  <div class="header-left">
+    <img src="assets/logo.png" alt="Yukon Wildcats Logo" class="round-logo">
+  </div>
+  <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">☰</button>
+  <nav class="header-right">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="snow.html" class="active">Snow Removal</a>
+    <a href="tow.html">Towing</a>
+    <a href="web-services.html">Web Services</a>
+    <a href="community.html">Community</a>
+    <a href="contact.html">Contact</a>
+    <a href="quote.html">Get Quote</a>
+    <a href="payment.html">Payment</a>
+    <a href="legal.html">Legal Info</a>
+    <a href="#" class="service-cart" onclick="toggleServiceCart()" title="Service Requests">
+      <i class="fas fa-clipboard-list"></i>
+      <span class="cart-count" id="cartCount">0</span>
+    </a>
+    <div class="auth-section">
+      <a href="admin.html" class="admin-access" title="Admin Access">
+        <i class="fas fa-user-shield"></i>
+        <span>Admin</span>
+      </a>
+      <a href="login.html" class="login-link" title="Login / Create Account">
+        <i class="fas fa-sign-in-alt"></i>
+        <span>Login</span>
+      </a>
+    </div>
+  </nav>
+  <div class="mobile-overlay"></div>
+</header>
+
+<!-- Service Cart Dropdown -->
+<div class="cart-dropdown" id="cartDropdown">
+  <div class="cart-header">
+    <h3><i class="fas fa-clipboard-list"></i> Service Requests</h3>
+    <button class="cart-close" onclick="toggleServiceCart()">×</button>
+  </div>
+  
+  <div class="cart-items" id="cartItems">
+    <div class="empty-cart" id="emptyCart">
+      <i class="fas fa-clipboard-list"></i>
+      <p>No services added yet</p>
+      <small>Browse our services and add them to create your request</small>
+    </div>
+  </div>
+  
+  <div class="cart-footer" id="cartFooter" style="display: none;">
+    <div class="cart-total" id="cartTotal">
+      Total Services: <span id="serviceCount">0</span>
+    </div>
+    <button class="cart-checkout" onclick="proceedToCheckout()">
+      <i class="fas fa-arrow-right"></i>
+      Proceed to Checkout
+    </button>
+  </div>
+</div>
+
+<section class="hero-snow">
+  <div class="hero-content">
+    <h1 class="hero-title">❄️ Snow Removal Services</h1>
+    <p class="hero-subtitle">Professional winter solutions for Whitehorse & Haines Junction</p>
+    
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-number">24/7</span>
+        <div class="stat-label">Emergency Service</div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">$35+</span>
+        <div class="stat-label">Starting Price</div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">100%</span>
+        <div class="stat-label">Professional Service</div>
+      </div>
+    </div>
+    
+    <div class="cta-buttons-hero">
+      <a href="#pricing" class="cta-btn">
+        <i class="fas fa-calculator"></i>
+        View Pricing
+      </a>
+      <a href="quote.html" class="cta-btn secondary">
+        <i class="fas fa-paper-plane"></i>
+        Get Quote Now
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Weather Conditions Notice -->
+<section class="weather-notice" style="background: rgba(255, 69, 0, 0.1); border: 2px solid #ff4500; border-radius: 15px; margin: 2rem; padding: 2rem;">
+  <div class="notice-content" style="max-width: 1200px; margin: 0 auto; text-align: center;">
+    <div style="font-size: 3rem; margin-bottom: 1rem;">⚠️</div>
+    <h3 style="color: #ff6b6b; margin-bottom: 1rem;">Weather & Safety Notice</h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; text-align: left;">
+      <div>
+        <h4 style="color: #ffd700; margin-bottom: 0.5rem;"><i class="fas fa-exclamation-triangle"></i> Extreme Weather Policy</h4>
+        <p>During severe weather conditions where it's unsafe for our crew to travel (including when we cannot safely exit our own driveway), service may be temporarily suspended for safety reasons.</p>
+      </div>
+      <div>
+        <h4 style="color: #ffd700; margin-bottom: 0.5rem;"><i class="fas fa-clock"></i> Emergency Response</h4>
+        <p>For immediate emergencies requiring urgent snow removal, we will assess conditions and respond as soon as it's safe to do so. Emergency surcharges may apply.</p>
+      </div>
+      <div>
+        <h4 style="color: #ffd700; margin-bottom: 0.5rem;"><i class="fas fa-calendar-alt"></i> Service Resumption</h4>
+        <p>All delayed services will be completed as soon as weather conditions improve and it's safe for our equipment and crew to operate.</p>
+      </div>
+    </div>
+    <p style="margin-top: 2rem; font-size: 0.9rem; opacity: 0.8;">
+      <strong>Safety First:</strong> We prioritize the safety of our crew and customers above all else. Weather-related delays are beyond our control but we will communicate any changes promptly.
+    </p>
+  </div>
+</section>
+
+<section id="pricing" class="pricing-section">
+  <div class="pricing-header">
+    <div class="section-badge">Winter 2025-2026</div>
+    <h2>🏠 Residential Snow Plowing</h2>
+    <p>Professional, reliable service with transparent pricing</p>
+  </div>
+  
+  <div class="pricing-grid-enhanced">
+    <div class="pricing-card-pro popular">
+      <div class="card-header">
+        <div class="card-icon">🚗</div>
+        <h3>Small Driveway</h3>
+        <div class="popular-badge">Most Popular</div>
+      </div>
+      <div class="price-section">
+        <div class="price">$35<span class="price-range">– $50</span></div>
+        <div class="price-period">per visit</div>
+      </div>
+      <div class="features">
+        <div class="feature"><i class="fas fa-check"></i> 1–2 cars (30 ft long)</div>
+        <div class="feature"><i class="fas fa-check"></i> Quick 5–10 min service</div>
+        <div class="feature"><i class="fas fa-check"></i> Same-day availability</div>
+        <div class="feature"><i class="fas fa-check"></i> Professional equipment</div>
+      </div>
+      <button class="add-to-cart-btn" onclick="addToCart('basic-driveway', 'Basic Driveway Service', '$35-$65', 'Up to 100 ft driveway, basic residential snow removal')">
+        <i class="fas fa-plus"></i>
+        Add to Service Request
+      </button>
+    </div>
+    
+    <div class="pricing-card-pro">
+      <div class="card-header">
+        <div class="card-icon">🏘️</div>
+        <h3>Medium Driveway</h3>
+      </div>
+      <div class="price-section">
+        <div class="price">$50<span class="price-range">– $70</span></div>
+        <div class="price-period">per visit</div>
+      </div>
+      <div class="features">
+        <div class="feature"><i class="fas fa-check"></i> 3–4 cars (50 ft long)</div>
+        <div class="feature"><i class="fas fa-check"></i> Typical suburban driveway</div>
+        <div class="feature"><i class="fas fa-check"></i> Snow removal & cleanup</div>
+        <div class="feature"><i class="fas fa-check"></i> Weather tracking</div>
+      </div>
+      <button class="add-to-cart-btn" onclick="addToCart('standard-driveway', 'Standard Driveway Service', '$65-$95', 'Standard suburban driveway with complete snow removal')">
+        <i class="fas fa-plus"></i>
+        Add to Service Request
+      </button>
+    </div>
+    
+    <div class="pricing-card-pro premium">
+      <div class="card-header">
+        <div class="card-icon">🏨</div>
+        <h3>Large Driveway</h3>
+        <div class="premium-badge">Premium</div>
+      </div>
+      <div class="price-section">
+        <div class="price">$70<span class="price-range">– $100+</span></div>
+        <div class="price-period">per visit</div>
+      </div>
+      <div class="features">
+        <div class="feature"><i class="fas fa-check"></i> 70–100+ ft length</div>
+        <div class="feature"><i class="fas fa-check"></i> Includes turning space</div>
+        <div class="feature"><i class="fas fa-check"></i> Priority scheduling</div>
+        <div class="feature"><i class="fas fa-check"></i> 24/7 emergency service</div>
+      </div>
+      <button class="select-plan premium-btn" onclick="location.href='quote.html'">
+        <i class="fas fa-crown"></i> Get Premium Quote
+      </button>
+    </div>
+    
+    <div class="pricing-card-pro addon">
+      <div class="card-header">
+        <div class="card-icon">🚶</div>
+        <h3>Walkway Add-on</h3>
+      </div>
+      <div class="price-section">
+        <div class="price">+$10<span class="price-range">– $20</span></div>
+        <div class="price-period">additional</div>
+      </div>
+      <div class="features">
+        <div class="feature"><i class="fas fa-check"></i> Shovel or snow blower</div>
+        <div class="feature"><i class="fas fa-check"></i> Paths, porches, decks</div>
+        <div class="feature"><i class="fas fa-check"></i> Salt application available</div>
+        <div class="feature"><i class="fas fa-check"></i> Safety-first approach</div>
+      </div>
+      <button class="select-plan addon-btn">
+        <i class="fas fa-plus"></i> Add to Service
+      </button>
+    </div>
+  </div>
+  
+  <div class="seasonal-showcase">
+    <div class="seasonal-header">
+      <h3>� Exclusive Contract Options</h3>
+      <p>Save money with our seasonal plans - lock in your rates now!</p>
+    </div>
+    
+    <div class="contract-comparison">
+      <div class="contract-card-deluxe monthly">
+        <div class="contract-header">
+          <div class="contract-icon">📅</div>
+          <h4>Monthly Contract</h4>
+          <div class="savings-badge">Save 20%</div>
+        </div>
+        <div class="contract-price">
+          <span class="price-big">$180</span>
+          <span class="price-range">– $250</span>
+          <span class="price-period">/month</span>
+        </div>
+        <div class="contract-features">
+          <div class="feature-highlight">✨ All snowfalls included</div>
+          <div class="feature-item">🌨️ Unlimited visits per month</div>
+          <div class="feature-item">📱 SMS notifications</div>
+          <div class="feature-item">🎯 Priority scheduling</div>
+          <div class="feature-item">❄️ Weather monitoring</div>
+        </div>
+        <button class="contract-btn monthly-btn">
+          <i class="fas fa-calendar-alt"></i> Choose Monthly
+        </button>
+      </div>
+      
+      <div class="contract-card-deluxe seasonal featured">
+        <div class="contract-header">
+          <div class="contract-icon">🏆</div>
+          <h4>Full Season Contract</h4>
+          <div class="best-value-badge">Best Value!</div>
+        </div>
+        <div class="contract-price">
+          <span class="price-big">$700</span>
+          <span class="price-range">– $900</span>
+          <span class="price-period">/season</span>
+        </div>
+        <div class="contract-features">
+          <div class="feature-highlight">🎉 Entire winter coverage</div>
+          <div class="feature-item">❄️ Unlimited snow clearing</div>
+          <div class="feature-item">🚨 24/7 emergency service</div>
+          <div class="feature-item">🧂 Free salt application (3x/season)</div>
+          <div class="feature-item">🔒 Price lock guarantee</div>
+          <div class="feature-item">👑 VIP customer status</div>
+        </div>
+        <button class="contract-btn seasonal-btn">
+          <i class="fas fa-snowflake"></i> Lock In Season Rate
+        </button>
+      </div>
+    </div>
+    
+    <div class="early-bird-banner">
+      <div class="banner-content">
+        <div class="banner-icon">🎁</div>
+        <div class="banner-text">
+          <h4>Get Your Quote Today!</h4>
+          <p>Planning ahead? Get your winter service quote for priority scheduling when service begins.</p>
+        </div>
+        <button class="banner-btn" onclick="location.href='quote.html'">
+          Request Quote
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="commercial-pricing">
+  <div class="pricing-header">
+    <span class="section-badge">🏢 COMMERCIAL SERVICES</span>
+    <h2>Commercial Snow Removal</h2>
+    <p>Professional service for businesses and large properties</p>
+  </div>
+  
+  <div class="pricing-grid-enhanced">
+    <!-- Small Commercial -->
+    <div class="pricing-card-pro">
+      <div class="card-header">
+        <i class="card-icon">🏪</i>
+        <h4>Small Commercial Lot</h4>
+        <span class="popular-badge">Popular Choice</span>
+      </div>
+      
+      <div class="price-section">
+        <div class="price-range">$75–$120</div>
+        <span class="price-period">per service</span>
+      </div>
+      
+      <div class="features">
+        <div class="feature">
+          <i class="fas fa-car"></i>
+          <span>Fits 4–8 vehicles</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-ruler-combined"></i>
+          <span>2,000–4,000 sq. ft.</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-snowplow"></i>
+          <span>Professional plowing equipment</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-clock"></i>
+          <span>Same-day service available</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-shield-alt"></i>
+          <span>Fully insured & bonded</span>
+        </div>
+      </div>
+      
+      <button class="select-plan">
+        <i class="fas fa-shopping-cart"></i>
+        Book Small Commercial
+      </button>
+    </div>
+    
+    <!-- Medium Commercial -->
+    <div class="pricing-card-pro premium">
+      <div class="card-header">
+        <i class="card-icon">🏬</i>
+        <h4>Medium Commercial Lot</h4>
+        <span class="best-value-badge">Best Value</span>
+      </div>
+      
+      <div class="price-section">
+        <div class="price-range">$120–$250</div>
+        <span class="price-period">per service</span>
+      </div>
+      
+      <div class="features">
+        <div class="feature">
+          <i class="fas fa-car"></i>
+          <span>Fits 10–20 vehicles</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-ruler-combined"></i>
+          <span>4,000–10,000 sq. ft.</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-truck"></i>
+          <span>Heavy-duty equipment</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-star"></i>
+          <span>Priority service response</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-walking"></i>
+          <span>Sidewalk clearing included</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-camera"></i>
+          <span>Photo documentation</span>
+        </div>
+      </div>
+      
+      <button class="select-plan">
+        <i class="fas fa-crown"></i>
+        Book Medium Commercial
+      </button>
+    </div>
+    
+    <!-- Large Commercial -->
+    <div class="pricing-card-pro">
+      <div class="card-header">
+        <i class="card-icon">🏭</i>
+        <h4>Large Commercial Lot</h4>
+        <span class="premium-badge">Enterprise</span>
+      </div>
+      
+      <div class="price-section">
+        <div class="price-range">$250–$600+</div>
+        <span class="price-period">per service</span>
+      </div>
+      
+      <div class="features">
+        <div class="feature">
+          <i class="fas fa-store"></i>
+          <span>Big stores, yards, lots</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-ruler-combined"></i>
+          <span>10,000+ sq. ft.</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-truck-monster"></i>
+          <span>Industrial-grade equipment</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-bolt"></i>
+          <span>Emergency response (2-4 hrs)</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-clipboard-check"></i>
+          <span>Detailed service reports</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-handshake"></i>
+          <span>Dedicated account manager</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-phone-alt"></i>
+          <span>24/7 emergency support</span>
+        </div>
+      </div>
+      
+      <button class="select-plan premium-btn">
+        <i class="fas fa-rocket"></i>
+        Book Large Commercial
+      </button>
+    </div>
+  </div>
+  
+  <!-- Enhanced Add-on Services -->
+  <div class="add-on-services">
+    <h3>⚙️ Professional Add-on Services</h3>
+    <div class="pricing-grid-enhanced">
+      <div class="pricing-card-pro">
+        <div class="card-header">
+          <i class="card-icon">🧂</i>
+          <h4>Salting & Sanding</h4>
+        </div>
+        
+        <div class="price-section">
+          <div class="price-range">+$20–$50</div>
+          <span class="price-period">materials included</span>
+        </div>
+        
+        <div class="features">
+          <div class="feature">
+            <i class="fas fa-snowflake"></i>
+            <span>Professional ice prevention</span>
+          </div>
+          <div class="feature">
+            <i class="fas fa-shield-alt"></i>
+            <span>Slip-resistant guarantee</span>
+          </div>
+          <div class="feature">
+            <i class="fas fa-leaf"></i>
+            <span>Eco-friendly materials</span>
+          </div>
+        </div>
+        
+        <button class="select-plan addon-btn">
+          <i class="fas fa-plus"></i>
+          Add Salt & Sand
+        </button>
+      </div>
+      
+      <div class="pricing-card-pro">
+        <div class="card-header">
+          <i class="card-icon">❄️</i>
+          <h4>Ice Scraping</h4>
+        </div>
+        
+        <div class="price-section">
+          <div class="price-range">$40–$100</div>
+          <span class="price-period">per hour</span>
+        </div>
+        
+        <div class="features">
+          <div class="feature">
+            <i class="fas fa-tools"></i>
+            <span>Specialized equipment</span>
+          </div>
+          <div class="feature">
+            <i class="fas fa-thermometer-half"></i>
+            <span>Temperature-specific methods</span>
+          </div>
+          <div class="feature">
+            <i class="fas fa-broom"></i>
+            <span>Complete surface cleaning</span>
+          </div>
+        </div>
+        
+        <button class="select-plan addon-btn">
+          <i class="fas fa-plus"></i>
+          Add Ice Scraping
+        </button>
+      </div>
+      
+      <div class="pricing-card-pro">
+        <div class="card-header">
+          <i class="card-icon">🚜</i>
+          <h4>Heavy Equipment</h4>
+        </div>
+        
+        <div class="price-section">
+          <div class="price-range">$100–$180</div>
+          <span class="price-period">per hour</span>
+        </div>
+        
+        <div class="features">
+          <div class="feature">
+            <i class="fas fa-truck-loading"></i>
+            <span>Loader & truck work</span>
+          </div>
+          <div class="feature">
+            <i class="fas fa-mountain"></i>
+            <span>Large volume removal</span>
+          </div>
+          <div class="feature">
+            <i class="fas fa-cogs"></i>
+            <span>Industrial-grade machinery</span>
+          </div>
+        </div>
+        
+        <button class="select-plan addon-btn">
+          <i class="fas fa-plus"></i>
+          Add Heavy Equipment
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hourly-rates">
+  <div class="pricing-header">
+    <span class="section-badge">⚙️ EQUIPMENT SHOWCASE</span>
+    <h2>Professional Equipment & Hourly Rates</h2>
+    <p>State-of-the-art equipment for any snow removal challenge</p>
+  </div>
+  
+  <div class="pricing-grid-enhanced">
+    <div class="pricing-card-pro">
+      <div class="card-header">
+        <i class="card-icon">🏍️</i>
+        <h4>ATV with Plow</h4>
+      </div>
+      
+      <div class="price-section">
+        <div class="price">$65–$85</div>
+        <span class="price-period">per hour</span>
+      </div>
+      
+      <div class="features">
+        <div class="feature">
+          <i class="fas fa-home"></i>
+          <span>Perfect for residential areas</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-route"></i>
+          <span>Tight space navigation</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-leaf"></i>
+          <span>Minimal ground impact</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-clock"></i>
+          <span>Quick setup & operation</span>
+        </div>
+      </div>
+      
+      <button class="select-plan">
+        <i class="fas fa-wrench"></i>
+        Book ATV Service
+      </button>
+    </div>
+    
+    <div class="pricing-card-pro premium">
+      <div class="card-header">
+        <i class="card-icon">🚚</i>
+        <h4>Pickup Truck with Plow</h4>
+        <span class="popular-badge">Most Popular</span>
+      </div>
+      
+      <div class="price-section">
+        <div class="price">$90–$120</div>
+        <span class="price-period">per hour</span>
+      </div>
+      
+      <div class="features">
+        <div class="feature">
+          <i class="fas fa-balance-scale"></i>
+          <span>Perfect balance of power & efficiency</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-road"></i>
+          <span>Excellent for driveways & small lots</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-tachometer-alt"></i>
+          <span>Fast clearing capability</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-shield-alt"></i>
+          <span>Professional grade reliability</span>
+        </div>
+      </div>
+      
+      <button class="select-plan">
+        <i class="fas fa-truck"></i>
+        Book Truck Service
+      </button>
+    </div>
+    
+    <div class="pricing-card-pro">
+      <div class="card-header">
+        <i class="card-icon">🚜</i>
+        <h4>Skid Steer</h4>
+        <span class="premium-badge">Heavy Duty</span>
+      </div>
+      
+      <div class="price-section">
+        <div class="price">$110–$150</div>
+        <span class="price-period">per hour</span>
+      </div>
+      
+      <div class="features">
+        <div class="feature">
+          <i class="fas fa-mountain"></i>
+          <span>Heavy snow & large areas</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-truck-loading"></i>
+          <span>Snow moving & stacking</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-cogs"></i>
+          <span>Multi-attachment capability</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-building"></i>
+          <span>Commercial grade performance</span>
+        </div>
+      </div>
+      
+      <button class="select-plan premium-btn">
+        <i class="fas fa-cogs"></i>
+        Book Skid Steer
+      </button>
+    </div>
+    
+    <div class="pricing-card-pro">
+      <div class="card-header">
+        <i class="card-icon">👷</i>
+        <h4>Manual Labor</h4>
+      </div>
+      
+      <div class="price-section">
+        <div class="price">$30–$45</div>
+        <span class="price-period">per hour</span>
+      </div>
+      
+      <div class="features">
+        <div class="feature">
+          <i class="fas fa-broom"></i>
+          <span>Detailed cleanup work</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-stairs"></i>
+          <span>Steps & walkway clearing</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-hand-paper"></i>
+          <span>Hand shoveling precision</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-heart"></i>
+          <span>Personal touch & care</span>
+        </div>
+      </div>
+      
+      <button class="select-plan addon-btn">
+        <i class="fas fa-hard-hat"></i>
+        Book Manual Service
+      </button>
+    </div>
+  </div>
+</section>
+
+<section class="additional-info">
+  <div class="pricing-header">
+    <span class="section-badge">📋 IMPORTANT INFORMATION</span>
+    <h2>Pricing Details & Service Terms</h2>
+    <p>Transparent pricing with no hidden fees</p>
+  </div>
+  
+  <div class="pricing-grid-enhanced">
+    <div class="pricing-card-pro">
+      <div class="card-header">
+        <i class="card-icon">💰</i>
+        <h4>Additional Charges & Information</h4>
+      </div>
+      
+      <div class="features">
+        <div class="feature">
+          <i class="fas fa-route"></i>
+          <span><strong>Travel Fee:</strong> $1.50–$2/km (15+ km from Whitehorse)</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-exclamation-triangle"></i>
+          <span><strong>Emergency Call-Out:</strong> +25% fee (overnight/storm)</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-handshake"></i>
+          <span><strong>Multi-Service Package:</strong> Combined service options</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-calendar-week"></i>
+          <span><strong>Seasonal Contract:</strong> Priority scheduling available</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-file-signature"></i>
+          <span><strong>Contract Required:</strong> All work requires signed agreement</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-clock"></i>
+          <span><strong>Response Time:</strong> Weather conditions permitting</span>
+        </div>
+      </div>
+      
+      <button class="select-plan">
+        <i class="fas fa-calculator"></i>
+        Calculate Your Savings
+      </button>
+    </div>
+    
+    <div class="pricing-card-pro">
+      <div class="card-header">
+        <i class="card-icon">⚠️</i>
+        <h4>Service Terms & Conditions</h4>
+      </div>
+      
+      <div class="features">
+        <div class="feature">
+          <i class="fas fa-snowflake"></i>
+          <span>Prices vary by snow depth & accessibility</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-shield-alt"></i>
+          <span>Guaranteed reliable & professional service</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-thermometer-half"></i>
+          <span>Weather condition price adjustments possible</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-credit-card"></i>
+          <span>Payment due upon service completion</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-clock"></i>
+          <span>Weather-dependent scheduling for safety</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-file-contract"></i>
+          <span>Written estimates provided upon request</span>
+        </div>
+      </div>
+      
+      <button class="select-plan addon-btn">
+        <i class="fas fa-file-alt"></i>
+        View Full Terms
+      </button>
+    </div>
+    
+    <div class="pricing-card-pro premium">
+      <div class="card-header">
+        <i class="card-icon">🏆</i>
+        <h4>Quality Guarantee</h4>
+        <span class="premium-badge">100% Satisfaction</span>
+      </div>
+      
+      <div class="features">
+        <div class="feature">
+          <i class="fas fa-medal"></i>
+          <span>Professional certified operators</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-insurance"></i>
+          <span>Fully insured & bonded</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-redo-alt"></i>
+          <span>Service satisfaction guarantee</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-phone-alt"></i>
+          <span>24/7 customer support</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-tools"></i>
+          <span>Professional-grade equipment</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-leaf"></i>
+          <span>Eco-friendly practices</span>
+        </div>
+      </div>
+      
+      <button class="select-plan">
+        <i class="fas fa-star"></i>
+        Learn About Our Guarantee
+      </button>
+    </div>
+  </div>
+  
+  <!-- Emergency Services Banner -->
+  <div class="early-bird-banner" style="background: linear-gradient(135deg, #ff6b6b, #ff4757); margin-top: 3rem;">
+    <div class="banner-content">
+      <div class="banner-icon">🚨</div>
+      <div class="banner-text">
+        <h4>Emergency Snow Removal</h4>
+        <p>Available 24/7 during winter storms • Call (867) 332-4695</p>
+      </div>
+      <button class="banner-btn" style="background: white; color: #ff4757;">
+        Emergency Service
+      </button>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-content">
+    <h2>Ready for Winter? Get Your Quote Today!</h2>
+    <p>Book early for the best rates and guaranteed service all winter long</p>
+    <div class="cta-buttons">
+      <a href="quote.html" class="cta-button">Get Professional Quote</a>
+      <a href="contact.html" class="cta-button secondary">Contact Us</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-content">
+    <div class="footer-main">
+      <div class="footer-info">
+        <h4>Yukon Wildcats Contracting</h4>
+        <p>Professional contracting services in Whitehorse and Haines Junction areas</p>
+        <div class="contact-info">
+          <p>📍 Serving Whitehorse & Haines Junction, Yukon Territory</p>
+          <p>📧 Contact us for quotes and inquiries</p>
+        </div>
+        <div class="founder-contacts">
+          <h5>Contact Our Founders</h5>
+          <p><strong>Lazarus Vanbibber</strong> - Founder</p>
+          <p>📧 lazarus.vanbibber@icloud.com | lazarusvanbibber@yukon-wildcats.ca</p>
+          <p>📞 1-867-332-0223</p>
+          <p><strong>Micah Wolfe</strong> - Co-founder</p>
+          <p>📧 Micahsage4444@gmail.com</p>
+          <p>📞 1-867-332-4551</p>
+        </div>
+      </div>
+      
+      <div class="footer-services">
+        <h4>Our Services</h4>
+        <ul>
+          <li><a href="snow.html">Snow Removal</a></li>
+          <li><a href="tow.html">Towing Services</a></li>
+          <li>Excavation</li>
+          <li>Dump Trucking</li>
+          <li>Housing Contracts</li>
+          <li>Lawn Maintenance</li>
+          <li><a href="web-services.html">Web Development</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-legal">
+        <h4>Legal & Documents</h4>
+        <ul>
+          <li><a href="legal.html">Terms & Conditions</a></li>
+          <li><a href="legal.html#service-agreement">Service Agreement</a></li>
+          <li><a href="legal.html#privacy">Privacy Policy</a></li>
+          <li><a href="legal.html#refund">Refund Policy</a></li>
+          <li><a href="legal.html#safety">Safety Information</a></li>
+          <li><a href="legal.html#coc">Certificate of Compliance</a></li>
+          <li><a href="quote.html">Get Professional Quote</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <div class="copyright">
+        <p>© 2025 Yukon Wildcats Contracting. All Rights Reserved.</p>
+        <p class="legal-notice">Licensed & Insured • Yukon Territory Business License Required • GST/HST: Applicable</p>
+      </div>
+      
+      <div class="footer-disclaimers">
+        <p><strong>Important:</strong> Services available in Whitehorse and Haines Junction areas only. Payment required upon completion. No refunds for completed work without property damage or service failure. Weather-dependent services subject to safety conditions. Travel charges may apply outside Whitehorse city limits.</p>
+      </div>
+    </div>
+  </div>
+  
+  <a href="admin.html" class="footer-admin" title="Team Admin Access">
+    <img src="assets/logo.png" alt="Team Admin" height="24">
+  </a>
+</footer>
+
+<!-- Whitney AI Chatbot -->
+<div id="whitney-chatbot" class="chatbot-container">
+  <!-- Chat Toggle Button -->
+  <div id="whitney-toggle" class="chatbot-toggle">
+    <img src="assets/whitney-avatar.svg" alt="Whitney AI" class="chatbot-avatar">
+    <div class="notification-badge" id="whitney-notification">1</div>
+  </div>
+  
+  <!-- Chat Interface -->
+  <div id="whitney-chat" class="chat-interface hidden">
+    <div class="chat-header">
+      <img src="assets/whitney-avatar.svg" alt="Whitney AI" class="chat-avatar">
+      <div class="chat-title">
+        <h4>Whitney</h4>
+        <span class="chat-status">AI Assistant</span>
+      </div>
+      <button id="close-chat" class="close-chat">×</button>
+    </div>
+    
+    <div class="chat-messages" id="chat-messages">
+      <!-- Initial greeting will be added by JavaScript -->
+    </div>
+    
+    <div class="chat-input-container">
+      <input type="text" id="chat-input" placeholder="Ask about snow removal pricing..." maxlength="500">
+      <button id="send-message" class="send-button">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.svg.org/2000/svg">
+          <path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  
+  <!-- Initial Popup Message -->
+  <div id="whitney-popup" class="chat-popup">
+    <div class="popup-content">
+      <span id="popup-text"></span>
+      <button id="close-popup" class="close-popup">×</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

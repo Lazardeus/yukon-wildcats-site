@@ -5,18 +5,74 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
+const rateLimit = require('express-rate-limit');
+const helmet = require('helmet');
+const compression = require('compression');
+const nodemailer = require('nodemailer');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
-app.use(cors({
-  origin: true, // Allow all origins for local development
-  credentials: true
+// Security middleware
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdn.jsdelivr.net"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdn.jsdelivr.net"],
+      imgSrc: ["'self'", "data:", "https:"],
+      connectSrc: ["'self'"]
+    }
+  }
 }));
-app.use(express.json());
-app.use(express.static(path.join(__dirname, '..'))); // Serve the main website files
-app.use('/uploads', express.static('uploads'));
+
+// Rate limiting for API endpoints
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per windowMs
+  message: 'Too many API requests from this IP, please try again later.',
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+const strictLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 20, // More restrictive for form submissions
+  message: 'Too many form submissions from this IP, please try again later.',
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// Apply rate limiting to API routes
+app.use('/api/', apiLimiter);
+
+// Performance middleware
+app.use(compression()); // Enable gzip compression
+
+// Middleware
+const corsOptions = {
+  origin: process.env.NODE_ENV === 'production' 
+    ? ['https://yourdomain.com', 'https://www.yourdomain.com'] // Update with your domain
+    : true, // Allow all origins for local development
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
+
+// Body parsing with size limits
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Static file serving with caching
+app.use(express.static(path.join(__dirname, '..'), {
+  maxAge: process.env.NODE_ENV === 'production' ? '1d' : '0', // Cache static files in production
+  etag: true
+}));
+
+app.use('/uploads', express.static('uploads', {
+  maxAge: process.env.NODE_ENV === 'production' ? '7d' : '0' // Cache uploads longer
+}));
 
 // Configure multer for file uploads
 const storage = multer.diskStorage({
@@ -83,26 +139,76 @@ const authenticateToken = (req, res, next) => {
   });
 };
 
+// Input validation helper
+function validateSubmission(submission) {
+  const errors = [];
+  
+  if (!submission.name || typeof submission.name !== 'string' || submission.name.trim().length < 2) {
+    errors.push('Name must be at least 2 characters long');
+  }
+  
+  if (!submission.email || typeof submission.email !== 'string' || !/\S+@\S+\.\S+/.test(submission.email)) {
+    errors.push('Valid email address is required');
+  }
+  
+  if (!submission.phone || typeof submission.phone !== 'string' || submission.phone.trim().length < 10) {
+    errors.push('Valid phone number is required');
+  }
+  
+  if (!submission.service || typeof submission.service !== 'string') {
+    errors.push('Service selection is required');
+  }
+  
+  // Sanitize inputs
+  if (submission.name) submission.name = submission.name.trim().substring(0, 100);
+  if (submission.email) submission.email = submission.email.trim().toLowerCase().substring(0, 200);
+  if (submission.phone) submission.phone = submission.phone.replace(/[^\d\-\+\(\)\s]/g, '').substring(0, 20);
+  if (submission.message) submission.message = submission.message.trim().substring(0, 2000);
+  
+  return { isValid: errors.length === 0, errors, sanitized: submission };
+}
+
 // Routes
-app.post('/api/submissions', async (req, res) => {
-  const submission = req.body;
+app.post('/api/submissions', strictLimiter, async (req, res) => {
+  const { isValid, errors, sanitized: submission } = validateSubmission(req.body);
+  
+  if (!isValid) {
+    return res.status(400).json({ 
+      message: 'Validation failed', 
+      errors: errors 
+    });
+  }
   
   try {
-    // Save to data/submissions.json
-    const submissionsPath = path.join(__dirname, 'data', 'submissions.json');
-    let submissions = [];
+    // Add timestamp and unique ID
+    submission.timestamp = new Date().toISOString();
+    submission.id = Date.now() + Math.random().toString(36).substr(2, 9);
+    submission.ip = req.ip || 'unknown';
     
+    // Save to data/submissions.json with atomic write
+    const submissionsPath = path.join(__dirname, 'data', 'submissions.json');
+    const tempPath = submissionsPath + '.tmp';
+    
+    let submissions = [];
     if (fs.existsSync(submissionsPath)) {
-      submissions = JSON.parse(fs.readFileSync(submissionsPath));
+      submissions = JSON.parse(fs.readFileSync(submissionsPath, 'utf8'));
     }
     
     submissions.push(submission);
-    fs.writeFileSync(submissionsPath, JSON.stringify(submissions, null, 2));
     
-    res.json({ message: 'Submission saved successfully' });
+    // Atomic write to prevent data corruption
+    fs.writeFileSync(tempPath, JSON.stringify(submissions, null, 2));
+    fs.renameSync(tempPath, submissionsPath);
+    
+    res.json({ 
+      message: 'Submission saved successfully',
+      id: submission.id
+    });
   } catch (error) {
     console.error('Error saving submission:', error);
-    res.status(500).json({ message: 'Error saving submission' });
+    res.status(500).json({ 
+      message: 'Internal server error. Please try again later.' 
+    });
   }
 });
 
@@ -130,7 +236,17 @@ app.get('/api/test', (req, res) => {
   });
 });
 
-app.post('/api/login', (req, res) => {
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+  res.json({ 
+    status: 'healthy', 
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    environment: process.env.NODE_ENV || 'development'
+  });
+});
+
+app.post('/api/login', strictLimiter, (req, res) => {
   const { username, password } = req.body;
   console.log(`Login attempt: username="${username}", password="${password ? '***' : 'empty'}"`);
   
@@ -248,12 +364,307 @@ app.get('/api/content', (req, res) => {
   res.json(contentData);
 });
 
+// Dashboard API Endpoints
+
+// Get user dashboard data
+app.get('/api/dashboard/:userId', authenticateToken, (req, res) => {
+    try {
+        const userId = req.params.userId;
+        
+        // Load service requests
+        const requestsFile = path.join(__dirname, 'data', 'service-requests.json');
+        let requests = [];
+        if (fs.existsSync(requestsFile)) {
+            requests = JSON.parse(fs.readFileSync(requestsFile, 'utf8'));
+        }
+        
+        // Filter user's requests
+        const userRequests = requests.filter(r => r.userId == userId);
+        
+        // Calculate stats
+        const stats = {
+            activeServices: userRequests.filter(r => r.status === 'pending' || r.status === 'in-progress').length,
+            totalContracts: userRequests.filter(r => r.status === 'completed').length,
+            totalSpent: userRequests.reduce((sum, r) => sum + (r.amount || 0), 0),
+            recentActivity: userRequests.slice(-5).reverse()
+        };
+        
+        res.json({
+            success: true,
+            data: stats
+        });
+    } catch (error) {
+        console.error('Dashboard error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Error loading dashboard data'
+        });
+    }
+});
+
+// Email transporter setup
+const createTransporter = () => {
+    // For development, you can use ethereal email or console logging
+    if (process.env.NODE_ENV !== 'production') {
+        return nodemailer.createTransporter({
+            jsonTransport: true // This will log emails to console in development
+        });
+    }
+    
+    // For production, configure with your email service
+    return nodemailer.createTransporter({
+        service: 'gmail', // or your preferred email service
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS
+        }
+    });
+};
+
+// Public service request endpoint (no authentication required)
+app.post('/api/public-service-request', strictLimiter, (req, res) => {
+    try {
+        const { name, email, phone, company, serviceType, packageDetails, timeline, budget, message } = req.body;
+        
+        // Validate required fields
+        if (!name || !email || !serviceType) {
+            return res.status(400).json({
+                success: false,
+                message: 'Name, email, and service type are required'
+            });
+        }
+        
+        // Email validation
+        if (!/\S+@\S+\.\S+/.test(email)) {
+            return res.status(400).json({
+                success: false,
+                message: 'Please provide a valid email address'
+            });
+        }
+        
+        // Load existing requests
+        const requestsFile = path.join(__dirname, 'data', 'service-requests.json');
+        let requests = [];
+        if (fs.existsSync(requestsFile)) {
+            requests = JSON.parse(fs.readFileSync(requestsFile, 'utf8'));
+        }
+        
+        // Create new request
+        const newRequest = {
+            id: Date.now(),
+            name: name.trim(),
+            email: email.trim().toLowerCase(),
+            phone: phone ? phone.trim() : '',
+            company: company ? company.trim() : '',
+            serviceType: serviceType,
+            packageDetails: packageDetails || {},
+            timeline: timeline || '',
+            budget: budget || '',
+            message: message || '',
+            status: 'pending',
+            source: 'website',
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+        };
+        
+        requests.push(newRequest);
+        
+        // Save to file
+        fs.writeFileSync(requestsFile, JSON.stringify(requests, null, 2));
+        
+        // Send email notification
+        try {
+            const transporter = createTransporter();
+            
+            const emailContent = `
+New Service Request from Yukon Wildcats Website
+
+Client Information:
+- Name: ${newRequest.name}
+- Email: ${newRequest.email}
+- Phone: ${newRequest.phone || 'Not provided'}
+- Company: ${newRequest.company || 'Not provided'}
+
+Service Details:
+- Service Type: ${newRequest.serviceType}
+- Package: ${newRequest.packageDetails.title || 'Not specified'}
+- Timeline: ${newRequest.timeline || 'Not specified'}
+- Budget: ${newRequest.budget || 'Not specified'}
+
+Message:
+${newRequest.message || 'No additional message'}
+
+Request ID: ${newRequest.id}
+Submitted: ${new Date(newRequest.createdAt).toLocaleDateString()} at ${new Date(newRequest.createdAt).toLocaleTimeString()}
+            `;
+            
+            const mailOptions = {
+                from: process.env.EMAIL_USER || 'noreply@yukonwildcats.com',
+                to: process.env.BUSINESS_EMAIL || 'info@yukonwildcats.com',
+                subject: `New Service Request: ${newRequest.serviceType} - ${newRequest.name}`,
+                text: emailContent,
+                html: emailContent.replace(/\n/g, '<br>')
+            };
+            
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    console.error('Email notification error:', error);
+                } else {
+                    console.log('Email notification sent:', info.messageId || 'Email logged to console');
+                }
+            });
+            
+        } catch (emailError) {
+            console.error('Email setup error:', emailError);
+        }
+        
+        res.json({
+            success: true,
+            data: { id: newRequest.id },
+            message: 'Service request submitted successfully! We will contact you within 24 hours.'
+        });
+        
+    } catch (error) {
+        console.error('Public service request error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Error submitting service request. Please try again.'
+        });
+    }
+});
+
+// Submit service request (authenticated - for admin use)
+app.post('/api/service-request', authenticateToken, (req, res) => {
+    try {
+        const { userId, serviceType, description, contactInfo } = req.body;
+        
+        // Validate required fields
+        if (!userId || !serviceType) {
+            return res.status(400).json({
+                success: false,
+                message: 'User ID and service type are required'
+            });
+        }
+        
+        // Load existing requests
+        const requestsFile = path.join(__dirname, 'data', 'service-requests.json');
+        let requests = [];
+        if (fs.existsSync(requestsFile)) {
+            requests = JSON.parse(fs.readFileSync(requestsFile, 'utf8'));
+        }
+        
+        // Create new request
+        const newRequest = {
+            id: Date.now(),
+            userId: userId,
+            serviceType: serviceType,
+            description: description || '',
+            contactInfo: contactInfo || {},
+            status: 'pending',
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+        };
+        
+        requests.push(newRequest);
+        
+        // Save to file
+        fs.writeFileSync(requestsFile, JSON.stringify(requests, null, 2));
+        
+        res.json({
+            success: true,
+            data: newRequest,
+            message: 'Service request submitted successfully'
+        });
+        
+    } catch (error) {
+        console.error('Service request error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Error submitting service request'
+        });
+    }
+});
+
+// Get user's service requests
+app.get('/api/service-requests/:userId', authenticateToken, (req, res) => {
+    try {
+        const userId = req.params.userId;
+        
+        const requestsFile = path.join(__dirname, 'data', 'service-requests.json');
+        let requests = [];
+        if (fs.existsSync(requestsFile)) {
+            requests = JSON.parse(fs.readFileSync(requestsFile, 'utf8'));
+        }
+        
+        const userRequests = requests.filter(r => r.userId == userId);
+        
+        res.json({
+            success: true,
+            data: userRequests
+        });
+        
+    } catch (error) {
+        console.error('Get requests error:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Error loading service requests'
+        });
+    }
+});
+
+// Initialize data files
+const dataDir = path.join(__dirname, 'data');
+if (!fs.existsSync(dataDir)) {
+    fs.mkdirSync(dataDir);
+}
+
+const requestsFile = path.join(dataDir, 'service-requests.json');
+if (!fs.existsSync(requestsFile)) {
+    fs.writeFileSync(requestsFile, JSON.stringify([], null, 2));
+}
+
+// Global error handlers
+app.use((req, res, next) => {
+  res.status(404).json({ 
+    error: 'Endpoint not found',
+    message: 'The requested resource does not exist'
+  });
+});
+
+app.use((err, req, res, next) => {
+  console.error('Unhandled error:', err);
+  
+  // Don't leak error details in production
+  const errorMessage = process.env.NODE_ENV === 'production' 
+    ? 'Internal server error' 
+    : err.message;
+    
+  res.status(err.status || 500).json({
+    error: 'Internal Server Error',
+    message: errorMessage,
+    ...(process.env.NODE_ENV !== 'production' && { stack: err.stack })
+  });
+});
+
+// Graceful shutdown handling
+process.on('SIGTERM', () => {
+  console.log('SIGTERM received. Shutting down gracefully...');
+  process.exit(0);
+});
+
+process.on('SIGINT', () => {
+  console.log('SIGINT received. Shutting down gracefully...');
+  process.exit(0);
+});
+
 // Start server
 if (require.main === module) {
   app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running on all interfaces at port ${PORT}`);
     console.log(`Local access: http://localhost:${PORT}`);
     console.log(`Network access: http://192.168.12.87:${PORT}`);
+    console.log(`Dashboard API endpoints available`);
+    console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
   });
 }
 

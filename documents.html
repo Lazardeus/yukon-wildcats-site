@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Documents - Yukon Wildcats Contracting</title>
+<title>Document Management Portal - Yukon Wildcats Contracting</title>
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 <script defer src="js/particles-config.js"></script>
 <script defer src="js/script.js"></script>
@@ -14,7 +15,7 @@
 
 <header>
   <div class="header-left">
-    <img src="assets/logo.png" alt="Yukon Wildcats Logo">
+    <img src="assets/logo.png" alt="Yukon Wildcats Logo" class="round-logo">
   </div>
   <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">☰</button>
   <nav class="header-right">
@@ -25,39 +26,488 @@
     <a href="web-services.html">Web Services</a>
     <a href="community.html">Community</a>
     <a href="contact.html">Contact</a>
-    <a href="documents.html">Documents</a>
-    <a href="admin.html" class="admin-login" title="Admin Login">
-      <img src="assets/admin-icon.svg" alt="Admin" height="25">
-    </a>
+    <a href="quote.html">Get Quote</a>
+    <a href="payment.html">Payment</a>
+    <a href="documents.html" class="active">Documents</a>
+    <a href="legal.html">Legal Info</a>
+    <div class="auth-section">
+      <a href="admin.html" class="admin-access" title="Admin Access">
+        <i class="fas fa-user-shield"></i>
+        <span>Admin</span>
+      </a>
+      <a href="login.html" class="login-link" title="Login / Create Account">
+        <i class="fas fa-sign-in-alt"></i>
+        <span>Login</span>
+      </a>
+    </div>
   </nav>
   <div class="mobile-overlay"></div>
 </header>
 
-<section class="hero">
-  <h1 class="fade-in">Official Documents</h1>
-  <p class="fade-in delay-1">Certificates, insurance, and safety information for Yukon Wildcats Contracting.</p>
+<!-- Hero Section -->
+<section class="documents-hero">
+  <div class="hero-content">
+    <h1 class="hero-title">📁 Document Management Portal</h1>
+    <p class="hero-subtitle">Secure access to contracts, certificates, invoices, and project documentation</p>
+  </div>
 </section>
 
-<section class="card-container">
-  <div class="card hover-glow">
-    <h3>Certificate of Compliance (COC)</h3>
-    <p>Official proof of our compliance with Yukon contracting regulations.</p>
-  </div>
-  <div class="card hover-glow">
-    <h3>Insurance</h3>
-    <p>Valid liability and vehicle insurance for all our services.</p>
-  </div>
-  <div class="card hover-glow">
-    <h3>Safety Information</h3>
-    <p>Health and safety protocols followed on all projects.</p>
+<!-- Document Statistics -->
+<section class="document-stats">
+  <div class="stats-container">
+    <div class="stat-card">
+      <div class="stat-icon">📄</div>
+      <div class="stat-number" data-target="156">0</div>
+      <div class="stat-label">Total Documents</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">📋</div>
+      <div class="stat-number" data-target="42">0</div>
+      <div class="stat-label">Active Contracts</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">🔒</div>
+      <div class="stat-number" data-target="28">0</div>
+      <div class="stat-label">Secure Files</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">📊</div>
+      <div class="stat-number" data-target="89">0</div>
+      <div class="stat-label">Reports Generated</div>
+    </div>
   </div>
 </section>
+
+<!-- Document Search and Filter -->
+<section class="document-search">
+  <div class="search-container">
+    <h2>🔍 Find Documents</h2>
+    <div class="search-controls">
+      <div class="search-bar">
+        <input type="text" id="document-search" placeholder="Search documents by name, project, or client...">
+        <button class="search-btn"><i class="fas fa-search"></i></button>
+      </div>
+      <div class="filter-controls">
+        <select id="document-category">
+          <option value="">All Categories</option>
+          <option value="contracts">Contracts</option>
+          <option value="certificates">Certificates</option>
+          <option value="invoices">Invoices</option>
+          <option value="insurance">Insurance</option>
+          <option value="safety">Safety Documents</option>
+          <option value="photos">Project Photos</option>
+          <option value="reports">Reports</option>
+        </select>
+        <select id="document-status">
+          <option value="">All Status</option>
+          <option value="active">Active</option>
+          <option value="pending">Pending</option>
+          <option value="completed">Completed</option>
+          <option value="archived">Archived</option>
+        </select>
+        <select id="document-access">
+          <option value="">All Access</option>
+          <option value="public">Public</option>
+          <option value="client">Client Access</option>
+          <option value="admin">Admin Only</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Public Documents Section -->
+<section class="document-section">
+  <div class="section-header">
+    <h2>🌐 Public Documents</h2>
+    <p>Official certificates and public information available to all visitors</p>
+  </div>
+  
+  <div class="document-grid">
+    <div class="document-card public">
+      <div class="doc-header">
+        <div class="doc-icon"><i class="fas fa-certificate"></i></div>
+        <div class="doc-status public">Public</div>
+      </div>
+      <h3>Certificate of Compliance (COC)</h3>
+      <div class="doc-details">
+        <p><strong>Authority:</strong> Yukon Government</p>
+        <p><strong>Valid Until:</strong> December 2025</p>
+        <p><strong>License #:</strong> YT-CONT-2024-156</p>
+      </div>
+      <div class="doc-actions">
+        <button class="doc-btn primary" onclick="viewDocument('coc-certificate.pdf')">
+          <i class="fas fa-eye"></i> View
+        </button>
+        <button class="doc-btn secondary" onclick="downloadDocument('coc-certificate.pdf')">
+          <i class="fas fa-download"></i> Download
+        </button>
+      </div>
+      <div class="doc-meta">
+        <span><i class="fas fa-file-pdf"></i> PDF, 2.3 MB</span>
+        <span><i class="fas fa-download"></i> 1,247 downloads</span>
+      </div>
+    </div>
+    
+    <div class="document-card public">
+      <div class="doc-header">
+        <div class="doc-icon"><i class="fas fa-shield-alt"></i></div>
+        <div class="doc-status public">Public</div>
+      </div>
+      <h3>Liability Insurance Certificate</h3>
+      <div class="doc-details">
+        <p><strong>Provider:</strong> Northbridge Insurance</p>
+        <p><strong>Coverage:</strong> $2,000,000 CAD</p>
+        <p><strong>Valid Until:</strong> March 2026</p>
+      </div>
+      <div class="doc-actions">
+        <button class="doc-btn primary" onclick="viewDocument('insurance-certificate.pdf')">
+          <i class="fas fa-eye"></i> View
+        </button>
+        <button class="doc-btn secondary" onclick="downloadDocument('insurance-certificate.pdf')">
+          <i class="fas fa-download"></i> Download
+        </button>
+      </div>
+      <div class="doc-meta">
+        <span><i class="fas fa-file-pdf"></i> PDF, 1.8 MB</span>
+        <span><i class="fas fa-download"></i> 892 downloads</span>
+      </div>
+    </div>
+    
+    <div class="document-card public">
+      <div class="doc-header">
+        <div class="doc-icon"><i class="fas fa-hard-hat"></i></div>
+        <div class="doc-status public">Public</div>
+      </div>
+      <h3>Safety Protocols & Procedures</h3>
+      <div class="doc-details">
+        <p><strong>Last Updated:</strong> November 2025</p>
+        <p><strong>Version:</strong> 3.2</p>
+        <p><strong>Certification:</strong> CSA Compliant</p>
+      </div>
+      <div class="doc-actions">
+        <button class="doc-btn primary" onclick="viewDocument('safety-protocols.pdf')">
+          <i class="fas fa-eye"></i> View
+        </button>
+        <button class="doc-btn secondary" onclick="downloadDocument('safety-protocols.pdf')">
+          <i class="fas fa-download"></i> Download
+        </button>
+      </div>
+      <div class="doc-meta">
+        <span><i class="fas fa-file-pdf"></i> PDF, 3.7 MB</span>
+        <span><i class="fas fa-download"></i> 654 downloads</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Client Portal Section -->
+<section class="document-section client-portal">
+  <div class="section-header">
+    <h2>👤 Client Document Portal</h2>
+    <p>Secure access to your project documents, contracts, and invoices</p>
+  </div>
+  
+  <div class="portal-login" id="client-portal-login">
+    <div class="login-card">
+      <div class="login-header">
+        <i class="fas fa-lock"></i>
+        <h3>Client Login Required</h3>
+      </div>
+      <p>Access your personalized document portal with contracts, invoices, and project photos.</p>
+      <div class="login-actions">
+        <button class="cta-button" onclick="location.href='login.html'">
+          <i class="fas fa-sign-in-alt"></i>
+          Login to Client Portal
+        </button>
+        <button class="cta-button secondary" onclick="location.href='contact.html'">
+          <i class="fas fa-user-plus"></i>
+          Request Account Access
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="client-documents" id="client-documents" style="display: none;">
+    <div class="document-grid">
+      <div class="document-card client">
+        <div class="doc-header">
+          <div class="doc-icon"><i class="fas fa-file-contract"></i></div>
+          <div class="doc-status client">Client Access</div>
+        </div>
+        <h3>Service Contract - Snow Removal</h3>
+        <div class="doc-details">
+          <p><strong>Project:</strong> Residential Driveway</p>
+          <p><strong>Date:</strong> November 15, 2025</p>
+          <p><strong>Status:</strong> Active</p>
+        </div>
+        <div class="doc-actions">
+          <button class="doc-btn primary">
+            <i class="fas fa-eye"></i> View
+          </button>
+          <button class="doc-btn secondary">
+            <i class="fas fa-download"></i> Download
+          </button>
+        </div>
+      </div>
+      
+      <div class="document-card client">
+        <div class="doc-header">
+          <div class="doc-icon"><i class="fas fa-receipt"></i></div>
+          <div class="doc-status pending">Pending Payment</div>
+        </div>
+        <h3>Invoice #YWC-2025-001</h3>
+        <div class="doc-details">
+          <p><strong>Amount:</strong> $150.00 CAD</p>
+          <p><strong>Due Date:</strong> December 1, 2025</p>
+          <p><strong>Service:</strong> Snow Plowing</p>
+        </div>
+        <div class="doc-actions">
+          <button class="doc-btn primary">
+            <i class="fas fa-eye"></i> View Invoice
+          </button>
+          <button class="doc-btn success" onclick="location.href='payment.html'">
+            <i class="fas fa-credit-card"></i> Pay Now
+          </button>
+        </div>
+      </div>
+      
+      <div class="document-card client">
+        <div class="doc-header">
+          <div class="doc-icon"><i class="fas fa-camera"></i></div>
+          <div class="doc-status completed">Completed</div>
+        </div>
+        <h3>Project Photos - Driveway Clearing</h3>
+        <div class="doc-details">
+          <p><strong>Date:</strong> November 10, 2025</p>
+          <p><strong>Photos:</strong> 12 images</p>
+          <p><strong>Size:</strong> 24.6 MB</p>
+        </div>
+        <div class="doc-actions">
+          <button class="doc-btn primary">
+            <i class="fas fa-images"></i> View Gallery
+          </button>
+          <button class="doc-btn secondary">
+            <i class="fas fa-download"></i> Download ZIP
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Document Upload Section -->
+<section class="document-section upload-section">
+  <div class="section-header">
+    <h2>📤 Document Upload Center</h2>
+    <p>Share documents with our team securely</p>
+  </div>
+  
+  <div class="upload-container">
+    <div class="upload-card">
+      <div class="upload-area" id="document-upload-area">
+        <div class="upload-icon">
+          <i class="fas fa-cloud-upload-alt"></i>
+        </div>
+        <h3>Drag & Drop Files Here</h3>
+        <p>Or click to browse and select files</p>
+        <input type="file" id="file-upload" multiple accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+        <button class="upload-btn" onclick="document.getElementById('file-upload').click()">
+          <i class="fas fa-folder-open"></i>
+          Browse Files
+        </button>
+      </div>
+      
+      <div class="upload-info">
+        <h4>📋 Upload Guidelines</h4>
+        <ul>
+          <li><i class="fas fa-check"></i> Maximum file size: 50 MB per file</li>
+          <li><i class="fas fa-check"></i> Supported formats: PDF, JPG, PNG, DOC, DOCX</li>
+          <li><i class="fas fa-check"></i> Files are encrypted and securely stored</li>
+          <li><i class="fas fa-check"></i> Our team will review within 24 hours</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="upload-progress" id="upload-progress" style="display: none;">
+      <h4>Upload Progress</h4>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <div class="upload-status" id="upload-status">Preparing upload...</div>
+    </div>
+  </div>
+</section>
+
+<!-- Document Categories -->
+<section class="document-categories">
+  <div class="section-header">
+    <h2>📂 Browse by Category</h2>
+    <p>Organized document library for easy access</p>
+  </div>
+  
+  <div class="category-grid">
+    <div class="category-card" onclick="filterByCategory('contracts')">
+      <div class="category-icon">📋</div>
+      <h3>Contracts</h3>
+      <p>Service agreements and project contracts</p>
+      <div class="category-count">42 documents</div>
+    </div>
+    
+    <div class="category-card" onclick="filterByCategory('invoices')">
+      <div class="category-icon">🧾</div>
+      <h3>Invoices</h3>
+      <p>Billing statements and payment records</p>
+      <div class="category-count">156 documents</div>
+    </div>
+    
+    <div class="category-card" onclick="filterByCategory('certificates')">
+      <div class="category-icon">🏆</div>
+      <h3>Certificates</h3>
+      <p>Professional certifications and compliance</p>
+      <div class="category-count">8 documents</div>
+    </div>
+    
+    <div class="category-card" onclick="filterByCategory('insurance')">
+      <div class="category-icon">🛡️</div>
+      <h3>Insurance</h3>
+      <p>Liability and coverage documentation</p>
+      <div class="category-count">12 documents</div>
+    </div>
+    
+    <div class="category-card" onclick="filterByCategory('safety')">
+      <div class="category-icon">⚠️</div>
+      <h3>Safety</h3>
+      <p>Safety protocols and incident reports</p>
+      <div class="category-count">24 documents</div>
+    </div>
+    
+    <div class="category-card" onclick="filterByCategory('photos')">
+      <div class="category-icon">📸</div>
+      <h3>Project Photos</h3>
+      <p>Before/after photos and progress updates</p>
+      <div class="category-count">1,247 files</div>
+    </div>
+  </div>
+</section>
+
+<!-- Admin Document Management -->
+<section class="admin-section" id="admin-docs" style="display: none;">
+  <div class="section-header">
+    <h2>🔧 Admin Document Management</h2>
+    <p>Administrative tools for document organization and access control</p>
+  </div>
+  
+  <div class="admin-controls">
+    <div class="control-group">
+      <h4>Quick Actions</h4>
+      <button class="admin-btn" onclick="openBulkUpload()">
+        <i class="fas fa-upload"></i>
+        Bulk Upload
+      </button>
+      <button class="admin-btn" onclick="generateReport()">
+        <i class="fas fa-chart-bar"></i>
+        Generate Report
+      </button>
+      <button class="admin-btn" onclick="manageAccess()">
+        <i class="fas fa-users-cog"></i>
+        Manage Access
+      </button>
+    </div>
+    
+    <div class="control-group">
+      <h4>Document Stats</h4>
+      <div class="admin-stats">
+        <div class="admin-stat">
+          <span class="stat-label">Total Storage Used:</span>
+          <span class="stat-value">2.4 GB / 10 GB</span>
+        </div>
+        <div class="admin-stat">
+          <span class="stat-label">Downloads This Month:</span>
+          <span class="stat-value">1,847</span>
+        </div>
+        <div class="admin-stat">
+          <span class="stat-label">Pending Reviews:</span>
+          <span class="stat-value">7 documents</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Document Viewer Modal -->
+<div class="document-modal" id="document-modal" style="display: none;">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="modal-title">Document Viewer</h3>
+      <button class="modal-close" onclick="closeDocumentModal()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <iframe id="document-viewer" src="" width="100%" height="600px"></iframe>
+    </div>
+    <div class="modal-footer">
+      <button class="doc-btn secondary" onclick="closeDocumentModal()">
+        <i class="fas fa-times"></i> Close
+      </button>
+      <button class="doc-btn primary" onclick="downloadCurrentDocument()">
+        <i class="fas fa-download"></i> Download
+      </button>
+    </div>
+  </div>
+</div>
 
 <footer>
-  <p>© 2025 Yukon Wildcats Contracting | Whitehorse, Yukon</p>
-  <a href="admin.html" class="footer-admin">
-    <img src="assets/admin-icon.svg" alt="Admin" height="20">
-  </a>
+  <div class="footer-content">
+    <div class="footer-contact">
+      <h4>Contact Information</h4>
+      <p>📍 Whitehorse & Haines Junction, Yukon Territory</p>
+      <p>📞 Phone: <a href="tel:+18673324695">(867) 332-4695</a></p>
+      <p>✉️ Email: <a href="mailto:info@yukonwildcats.ca">info@yukonwildcats.ca</a></p>
+      <p>📧 Documents: <a href="mailto:documents@yukonwildcats.ca">documents@yukonwildcats.ca</a></p>
+    </div>
+    
+    <div class="footer-services">
+      <h4>Our Services</h4>
+      <ul>
+        <li><a href="snow.html">Snow Removal & Plowing</a></li>
+        <li><a href="tow.html">Towing & Recovery</a></li>
+        <li>Excavation Services</li>
+        <li>Equipment Rental</li>
+        <li>Dump Trucking</li>
+        <li>Housing Contracts</li>
+        <li>Lawn Maintenance</li>
+        <li><a href="web-services.html">Web Development</a></li>
+      </ul>
+    </div>
+    
+    <div class="footer-legal">
+      <h4>Legal & Documents</h4>
+      <ul>
+        <li><a href="legal.html">Terms & Conditions</a></li>
+        <li><a href="legal.html#service-agreement">Service Agreement</a></li>
+        <li><a href="legal.html#privacy">Privacy Policy</a></li>
+        <li><a href="legal.html#refund">Refund Policy</a></li>
+        <li><a href="legal.html#safety">Safety Information</a></li>
+        <li><a href="legal.html#coc">Certificate of Compliance</a></li>
+        <li><a href="quote.html">Get Professional Quote</a></li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer-bottom">
+    <p>&copy; 2025 Yukon Wildcats Contracting. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="legal.html">Terms</a>
+      <a href="legal.html#privacy">Privacy</a>
+      <a href="contact.html">Contact</a>
+      <a href="admin.html" title="Admin Access">
+        <img src="assets/admin-icon.svg" alt="Admin" height="20">
+      </a>
+    </div>
+  </div>
 </footer>
+
 </body>
 </html>

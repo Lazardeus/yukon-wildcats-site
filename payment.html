@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment Options & Contracts - Yukon Wildcats Contracting</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script defer src="js/particles-config.js"></script>
+<script defer src="js/script.js"></script>
+</head>
+<body>
+<div id="particles-js"></div>
+
+<header>
+  <div class="header-left">
+    <img src="assets/logo.png" alt="Yukon Wildcats Logo" class="round-logo">
+  </div>
+  <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">☰</button>
+  <nav class="header-right">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="snow.html">Snow Removal</a>
+    <a href="tow.html">Towing</a>
+    <a href="web-services.html">Web Services</a>
+    <a href="community.html">Community</a>
+    <a href="contact.html">Contact</a>
+    <a href="quote.html">Get Quote</a>
+    <a href="payment.html" class="active">Payment</a>
+    <a href="legal.html">Legal Info</a>
+    <div class="auth-section">
+      <a href="admin.html" class="admin-access" title="Admin Access">
+        <i class="fas fa-user-shield"></i>
+        <span>Admin</span>
+      </a>
+      <a href="login.html" class="login-link" title="Login / Create Account">
+        <i class="fas fa-sign-in-alt"></i>
+        <span>Login</span>
+      </a>
+    </div>
+  </nav>
+  <div class="mobile-overlay"></div>
+</header>
+
+<section class="payment-hero">
+  <div class="hero-content">
+    <h1 class="hero-title">💳 Payment Options & Contracts</h1>
+    <p class="hero-subtitle">Simple payment methods and clear contract requirements</p>
+  </div>
+</section>
+
+<!-- Contract Requirements Notice -->
+<section class="contract-notice">
+  <div style="font-size: 3rem; margin-bottom: 1rem;">📋</div>
+  <h2 style="color: #ff6b6b; margin-bottom: 1rem;">⚠️ Important: Contract Required Before Work Begins</h2>
+  <p style="font-size: 1.2rem; margin-bottom: 2rem;">
+    <strong>All work must be authorized by a signed contract before any services begin.</strong><br>
+    No work will commence without a valid, signed agreement in place.
+  </p>
+  
+  <div class="contract-steps">
+    <div class="contract-step">
+      <div class="step-number">1</div>
+      <h4>Get Quote</h4>
+      <p>Submit a quote request through our website or call us directly</p>
+    </div>
+    <div class="contract-step">
+      <div class="step-number">2</div>
+      <h4>Review Contract</h4>
+      <p>We'll provide a detailed service contract with terms, pricing, and scope</p>
+    </div>
+    <div class="contract-step">
+      <div class="step-number">3</div>
+      <h4>Sign Agreement</h4>
+      <p>Sign in-person with paper copy OR electronically and email to us</p>
+    </div>
+    <div class="contract-step">
+      <div class="step-number">4</div>
+      <h4>Work Begins</h4>
+      <p>Once contract is signed and returned, we'll schedule your service</p>
+    </div>
+  </div>
+</section>
+
+<!-- Contract Options -->
+<section class="payment-section">
+  <div class="pricing-header">
+    <h2>📝 Contract Signing Options</h2>
+    <p>Choose the most convenient way to sign your service agreement</p>
+  </div>
+  
+  <div class="payment-grid">
+    <div class="payment-card featured">
+      <i class="payment-icon fas fa-file-signature"></i>
+      <h3>In-Person Signing</h3>
+      <ul style="text-align: left; margin: 1rem 0;">
+        <li><i class="fas fa-check" style="color: #ffd700;"></i> Meet with our team on-site</li>
+        <li><i class="fas fa-check" style="color: #ffd700;"></i> Review contract together</li>
+        <li><i class="fas fa-check" style="color: #ffd700;"></i> Ask questions directly</li>
+        <li><i class="fas fa-check" style="color: #ffd700;"></i> Immediate work authorization</li>
+        <li><i class="fas fa-check" style="color: #ffd700;"></i> Preferred for large projects</li>
+      </ul>
+      <button class="select-plan" onclick="location.href='contact.html'">
+        <i class="fas fa-handshake"></i>
+        Schedule Meeting
+      </button>
+    </div>
+    
+    <div class="payment-card">
+      <i class="payment-icon fas fa-laptop"></i>
+      <h3>Electronic Signing</h3>
+      <ul style="text-align: left; margin: 1rem 0;">
+        <li><i class="fas fa-check" style="color: #ffd700;"></i> Digital contract via email</li>
+        <li><i class="fas fa-check" style="color: #ffd700;"></i> Sign from anywhere</li>
+        <li><i class="fas fa-check" style="color: #ffd700;"></i> Fast and convenient</li>
+        <li><i class="fas fa-check" style="color: #ffd700;"></i> Legally binding</li>
+        <li><i class="fas fa-check" style="color: #ffd700;"></i> Email signed copy back to us</li>
+      </ul>
+      <button class="select-plan addon-btn" onclick="location.href='quote.html'">
+        <i class="fas fa-envelope"></i>
+        Request Digital Contract
+      </button>
+    </div>
+  </div>
+  
+  <div style="background: rgba(255, 215, 0, 0.1); border: 1px solid #ffd700; border-radius: 10px; padding: 1.5rem; margin: 2rem 0; text-align: center;">
+    <h4 style="color: #ffd700; margin-bottom: 1rem;"><i class="fas fa-info-circle"></i> Electronic Contract Requirements</h4>
+    <p>For electronic contracts: Please print, sign, scan/photo, and email the signed document to <strong>contracts@yukonwildcats.ca</strong></p>
+    <p style="margin: 0; font-size: 0.9rem; opacity: 0.8;">Digital signatures via DocuSign or similar platforms also accepted upon request.</p>
+  </div>
+</section>
+
+<!-- Secure Payment Processing -->
+<section class="payment-section">
+  <div class="pricing-header">
+    <h2>🔒 Secure Online Payment Portal</h2>
+    <p>Process your payment securely with SSL encryption and PCI compliance</p>
+  </div>
+  
+  <div class="security-badge">
+    <i class="fas fa-shield-alt"></i>
+    SSL Secured • PCI Compliant • 256-bit Encryption
+  </div>
+  
+  <div class="payment-form">
+    <h3><i class="fas fa-credit-card"></i> Pay Your Invoice Online</h3>
+    <form id="payment-form" action="/api/payments" method="POST">
+      <div class="form-row">
+        <div class="form-group half-width">
+          <label for="invoice-number">Invoice Number *</label>
+          <input type="text" id="invoice-number" name="invoiceNumber" placeholder="YWC-2025-001" required>
+        </div>
+        <div class="form-group half-width">
+          <label for="payment-amount">Amount (CAD) *</label>
+          <input type="number" id="payment-amount" name="amount" placeholder="0.00" step="0.01" min="0" required>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="payment-method">Payment Method *</label>
+        <select id="payment-method" name="paymentMethod" required>
+          <option value="">Select Payment Method</option>
+          <option value="credit-card">Credit Card (Visa/MasterCard)</option>
+          <option value="debit-card">Debit Card</option>
+          <option value="e-transfer">E-Transfer</option>
+          <option value="bank-transfer">Bank Transfer</option>
+        </select>
+      </div>
+      
+      <div id="card-details" class="card-section" style="display: none;">
+        <h4><i class="fas fa-lock"></i> Card Information</h4>
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label for="card-number">Card Number *</label>
+            <input type="text" id="card-number" name="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group third-width">
+            <label for="expiry-month">Month *</label>
+            <select id="expiry-month" name="expiryMonth">
+              <option value="">MM</option>
+              <option value="01">01</option>
+              <option value="02">02</option>
+              <option value="03">03</option>
+              <option value="04">04</option>
+              <option value="05">05</option>
+              <option value="06">06</option>
+              <option value="07">07</option>
+              <option value="08">08</option>
+              <option value="09">09</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+            </select>
+          </div>
+          <div class="form-group third-width">
+            <label for="expiry-year">Year *</label>
+            <select id="expiry-year" name="expiryYear">
+              <option value="">YYYY</option>
+              <option value="2025">2025</option>
+              <option value="2026">2026</option>
+              <option value="2027">2027</option>
+              <option value="2028">2028</option>
+              <option value="2029">2029</option>
+              <option value="2030">2030</option>
+            </select>
+          </div>
+          <div class="form-group third-width">
+            <label for="cvv">CVV *</label>
+            <input type="text" id="cvv" name="cvv" placeholder="123" maxlength="4">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="cardholder-name">Cardholder Name *</label>
+          <input type="text" id="cardholder-name" name="cardholderName" placeholder="John Doe">
+        </div>
+      </div>
+      
+      <div id="transfer-details" class="transfer-section" style="display: none;">
+        <h4><i class="fas fa-university"></i> Transfer Information</h4>
+        <div class="transfer-info">
+          <p><strong>E-Transfer Email:</strong> payments@yukonwildcats.ca</p>
+          <p><strong>Bank Account:</strong> Available upon request</p>
+          <p><strong>Reference:</strong> Please include your invoice number in the transfer message</p>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="customer-email">Your Email Address *</label>
+        <input type="email" id="customer-email" name="customerEmail" placeholder="customer@email.com" required>
+      </div>
+      
+      <button type="submit" class="cta-button submit-payment">
+        <i class="fas fa-credit-card"></i>
+        Process Secure Payment
+      </button>
+    </form>
+  </div>
+</section>
+
+<!-- Payment Methods -->
+<section class="payment-section">
+  <div class="pricing-header">
+    <h2>💳 Payment Methods We Accept</h2>
+    <p>Multiple convenient ways to pay for your services</p>
+  </div>
+  
+  <div class="payment-methods">
+    <div class="payment-method">
+      <i class="fas fa-money-bill-wave"></i>
+      <h4>Cash</h4>
+      <p>On completion</p>
+    </div>
+    <div class="payment-method">
+      <i class="fas fa-credit-card"></i>
+      <h4>Debit/Credit</h4>
+      <p>Visa, MasterCard</p>
+    </div>
+    <div class="payment-method">
+      <i class="fas fa-university"></i>
+      <h4>Bank Transfer</h4>
+      <p>E-transfer accepted</p>
+    </div>
+    <div class="payment-method">
+      <i class="fas fa-file-invoice"></i>
+      <h4>Invoice</h4>
+      <p>Net 30 terms</p>
+    </div>
+    <div class="payment-method">
+      <i class="fas fa-calendar-alt"></i>
+      <h4>Payment Plans</h4>
+      <p>Available for large projects</p>
+    </div>
+    <div class="payment-method">
+      <i class="fas fa-building"></i>
+      <h4>Corporate</h4>
+      <p>Purchase orders</p>
+    </div>
+  </div>
+  
+  <div class="payment-grid" style="margin-top: 3rem;">
+    <div class="payment-card">
+      <i class="payment-icon fas fa-shield-alt"></i>
+      <h3>Payment Security</h3>
+      <ul style="text-align: left; margin: 1rem 0;">
+        <li><i class="fas fa-check" style="color: #ffd700;"></i> All payments secure and encrypted</li>
+        <li><i class="fas fa-check" style="color: #ffd700;"></i> Payment due upon service completion</li>
+        <li><i class="fas fa-check" style="color: #ffd700;"></i> Detailed invoices provided</li>
+        <li><i class="fas fa-check" style="color: #ffd700;"></i> No payment required before work starts</li>
+        <li><i class="fas fa-check" style="color: #ffd700;"></i> Satisfaction guaranteed</li>
+      </ul>
+    </div>
+    
+    <div class="payment-card">
+      <i class="payment-icon fas fa-calculator"></i>
+      <h3>Payment Terms</h3>
+      <ul style="text-align: left; margin: 1rem 0;">
+        <li><i class="fas fa-info" style="color: #4a90e2;"></i> <strong>Residential:</strong> Payment on completion</li>
+        <li><i class="fas fa-info" style="color: #4a90e2;"></i> <strong>Commercial:</strong> Net 30 invoicing available</li>
+        <li><i class="fas fa-info" style="color: #4a90e2;"></i> <strong>Emergency:</strong> Payment due immediately</li>
+        <li><i class="fas fa-info" style="color: #4a90e2;"></i> <strong>Large Projects:</strong> Payment plans available</li>
+        <li><i class="fas fa-info" style="color: #4a90e2;"></i> <strong>Seasonal Contracts:</strong> Flexible terms</li>
+      </ul>
+    </div>
+    
+    <div class="payment-card">
+      <i class="payment-icon fas fa-receipt"></i>
+      <h3>Invoicing & Records</h3>
+      <ul style="text-align: left; margin: 1rem 0;">
+        <li><i class="fas fa-check" style="color: #ffd700;"></i> Detailed service invoices</li>
+        <li><i class="fas fa-check" style="color: #ffd700;"></i> Digital receipt via email</li>
+        <li><i class="fas fa-check" style="color: #ffd700;"></i> Service photo documentation</li>
+        <li><i class="fas fa-check" style="color: #ffd700;"></i> Tax receipts provided</li>
+        <li><i class="fas fa-check" style="color: #ffd700;"></i> Online account access</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Invoice Management System -->
+<section class="payment-section">
+  <div class="invoice-system">
+    <div class="pricing-header">
+      <h2>📊 Invoice Management & Status</h2>
+      <p>Track your invoices and payment status in real-time</p>
+    </div>
+    
+    <div class="payment-grid">
+      <div class="payment-card">
+        <i class="payment-icon fas fa-search"></i>
+        <h3>Invoice Lookup</h3>
+        <p>Enter your invoice number to view details and payment status</p>
+        <div style="margin: 1rem 0;">
+          <input type="text" placeholder="Invoice Number (e.g., YWC-2025-001)" style="width: 100%; padding: 0.8rem; border: 1px solid rgba(255,215,0,0.3); border-radius: 8px; background: rgba(0,0,0,0.3); color: white;">
+        </div>
+        <button class="select-plan addon-btn">
+          <i class="fas fa-search"></i>
+          Look Up Invoice
+        </button>
+      </div>
+      
+      <div class="payment-card">
+        <i class="payment-icon fas fa-download"></i>
+        <h3>Download Records</h3>
+        <ul style="text-align: left; margin: 1rem 0;">
+          <li><i class="fas fa-file-pdf" style="color: #ff6b6b;"></i> PDF Invoices</li>
+          <li><i class="fas fa-file-excel" style="color: #4ecdc4;"></i> Payment History</li>
+          <li><i class="fas fa-camera" style="color: #ffd700;"></i> Service Photos</li>
+          <li><i class="fas fa-file-contract" style="color: #a8e6cf;"></i> Contract Documents</li>
+        </ul>
+        <button class="select-plan" onclick="location.href='dashboard.html'">
+          <i class="fas fa-tachometer-alt"></i>
+          Access Dashboard
+        </button>
+      </div>
+      
+      <div class="payment-card">
+        <i class="payment-icon fas fa-bell"></i>
+        <h3>Payment Reminders</h3>
+        <ul style="text-align: left; margin: 1rem 0;">
+          <li><i class="fas fa-envelope" style="color: #4a90e2;"></i> Email notifications</li>
+          <li><i class="fas fa-sms" style="color: #ffd700;"></i> SMS reminders (optional)</li>
+          <li><i class="fas fa-calendar" style="color: #ff6b6b;"></i> Due date alerts</li>
+          <li><i class="fas fa-dollar-sign" style="color: #4ecdc4;"></i> Payment confirmations</li>
+        </ul>
+        <button class="select-plan addon-btn" onclick="location.href='contact.html'">
+          <i class="fas fa-cog"></i>
+          Notification Settings
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Late Payment & Dispute Policy -->
+<section class="payment-section">
+  <div class="contract-notice" style="border-color: #ff6b6b; background: rgba(255, 107, 107, 0.1);">
+    <div style="font-size: 2.5rem; margin-bottom: 1rem;">⚠️</div>
+    <h2 style="color: #ff6b6b; margin-bottom: 1rem;">Late Payment & Dispute Resolution</h2>
+    
+    <div class="payment-grid" style="margin-top: 2rem;">
+      <div class="contract-step">
+        <div class="step-number" style="background: #ff6b6b; color: white;">!</div>
+        <h4>Late Fees</h4>
+        <p><strong>2% per month</strong> on overdue amounts after 30 days</p>
+      </div>
+      <div class="contract-step">
+        <div class="step-number" style="background: #ffd700; color: #000;">?</div>
+        <h4>Dispute Process</h4>
+        <p>Contact us within <strong>15 days</strong> of invoice date to discuss</p>
+      </div>
+      <div class="contract-step">
+        <div class="step-number" style="background: #4ecdc4; color: #000;">📞</div>
+        <h4>Payment Issues</h4>
+        <p>Call <strong>(867) 332-4695</strong> for immediate assistance</p>
+      </div>
+    </div>
+    
+    <div style="margin-top: 2rem; text-align: center;">
+      <p style="font-size: 1.1rem;"><strong>Need help with your payment?</strong> We're here to work with you!</p>
+      <button class="select-plan" onclick="location.href='contact.html'" style="background: #4ecdc4; color: #000;">
+        <i class="fas fa-headset"></i>
+        Contact Support
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Emergency Payment Policy -->
+<section class="payment-section">
+  <div class="early-bird-banner" style="background: linear-gradient(135deg, #ff6b6b, #ff4757);">
+    <div class="banner-content">
+      <div class="banner-icon">🚨</div>
+      <div class="banner-text">
+        <h4>Emergency Service Payment Policy</h4>
+        <p>Emergency calls require immediate payment upon completion • Payment plans not available for emergency services</p>
+      </div>
+      <button class="banner-btn" style="background: white; color: #ff4757;" onclick="location.href='contact.html'">
+        Emergency Contact
+      </button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-content">
+    <div class="footer-contact">
+      <h4>Contact Information</h4>
+      <p>📍 Whitehorse & Haines Junction, Yukon Territory</p>
+      <p>📞 Phone: <a href="tel:+18673324695">(867) 332-4695</a></p>
+      <p>✉️ Email: <a href="mailto:info@yukonwildcats.ca">info@yukonwildcats.ca</a></p>
+      <p>📧 Contracts: <a href="mailto:contracts@yukonwildcats.ca">contracts@yukonwildcats.ca</a></p>
+    </div>
+    
+    <div class="footer-services">
+      <h4>Our Services</h4>
+      <ul>
+        <li><a href="snow.html">Snow Removal & Plowing</a></li>
+        <li><a href="tow.html">Towing & Recovery</a></li>
+        <li>Excavation Services</li>
+        <li>Equipment Rental</li>
+        <li>Dump Trucking</li>
+        <li>Housing Contracts</li>
+        <li>Lawn Maintenance</li>
+        <li><a href="web-services.html">Web Development</a></li>
+      </ul>
+    </div>
+    
+    <div class="footer-legal">
+      <h4>Legal & Documents</h4>
+      <ul>
+        <li><a href="legal.html">Terms & Conditions</a></li>
+        <li><a href="legal.html#service-agreement">Service Agreement</a></li>
+        <li><a href="legal.html#privacy">Privacy Policy</a></li>
+        <li><a href="legal.html#refund">Refund Policy</a></li>
+        <li><a href="legal.html#safety">Safety Information</a></li>
+        <li><a href="legal.html#coc">Certificate of Compliance</a></li>
+        <li><a href="quote.html">Get Professional Quote</a></li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer-bottom">
+    <p>&copy; 2025 Yukon Wildcats Contracting. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="legal.html">Terms</a>
+      <a href="legal.html#privacy">Privacy</a>
+      <a href="contact.html">Contact</a>
+      <a href="admin.html" title="Admin Access">
+        <img src="assets/admin-icon.svg" alt="Admin" height="20">
+      </a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

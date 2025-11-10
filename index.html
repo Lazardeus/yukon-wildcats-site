@@ -5,11 +5,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Yukon Wildcats Contracting</title>
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 <script defer src="js/particles-config.js"></script>
 <script defer src="js/script.js"></script>
 </head>
 <body>
+<!-- Advanced Page Loader -->
+<div id="page-loader" class="page-loader">
+  <div class="loader-content">
+    <div class="loader-logo">
+      <img src="assets/logo.png" alt="Yukon Wildcats" class="loader-logo-img">
+      <div class="logo-glow"></div>
+    </div>
+    <div class="loader-text">
+      <h2>Yukon Wildcats Contracting</h2>
+      <p>Loading your contracting experience...</p>
+    </div>
+    <div class="loader-bar">
+      <div class="loader-progress"></div>
+    </div>
+    <div class="loader-particles">
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+    </div>
+    <button class="skip-loader" onclick="document.getElementById('page-loader').style.display='none'; document.body.classList.add('page-loaded')" style="position: absolute; bottom: 20px; right: 20px; background: rgba(255,215,0,0.2); border: 1px solid #ffd700; color: #ffd700; padding: 8px 16px; border-radius: 5px; cursor: pointer; font-size: 12px;">Skip Loading</button>
+  </div>
+</div>
+
 <!-- Enhanced Particle Background -->
 <div id="particles-js"></div>
 <div class="particle-overlay"></div>
@@ -29,9 +55,16 @@
     <a href="contact.html">Contact</a>
     <a href="quote.html">Get Quote</a>
     <a href="legal.html">Legal Info</a>
-    <a href="admin.html" class="admin-login" title="Admin Login">
-      <img src="assets/admin-icon.svg" alt="Admin" height="25">
-    </a>
+    <div class="auth-section">
+      <a href="admin.html" class="admin-access" title="Admin Access">
+        <i class="fas fa-user-shield"></i>
+        <span>Admin</span>
+      </a>
+      <a href="login.html" class="login-link" title="Login / Create Account">
+        <i class="fas fa-sign-in-alt"></i>
+        <span>Login</span>
+      </a>
+    </div>
   </nav>
   <div class="mobile-overlay"></div>
 </header>
@@ -45,38 +78,297 @@
   <a href="quote.html" class="cta-button pulse">Get Professional Quote</a>
 </section>
 
+<!-- Company Statistics -->
+<section class="company-stats scroll-section">
+  <div class="stats-overlay">
+    <h2>📊 Proven Track Record</h2>
+    <p>Your trusted contracting partner in Yukon Territory since 2020</p>
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-number" data-target="450">0</div>
+        <div class="stat-label">Projects Completed</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-target="98">0</div>
+        <div class="stat-label">% Client Satisfaction</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-target="24">0</div>
+        <div class="stat-label">Hour Emergency Response</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-target="5">0</div>
+        <div class="stat-label">Years of Excellence</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Winter Service Spotlight -->
+<section class="seasonal-spotlight scroll-section">
+  <div class="spotlight-banner">
+    <div class="spotlight-content">
+      <div class="spotlight-icon">❄️</div>
+      <div class="spotlight-text">
+        <h3>Winter is Here - Snow Removal Services Available Now!</h3>
+        <p>Professional residential & commercial snow clearing • Fast response times • Competitive rates</p>
+      </div>
+      <div class="spotlight-actions">
+        <a href="snow.html" class="spotlight-btn primary">View Snow Services</a>
+        <a href="quote.html" class="spotlight-btn secondary">Get Quote</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="services-highlight scroll-section">
   <h1>Our Expertise</h1>
   <div class="card-container stagger-animation">
-    <div class="card hover-glow">
+    <div class="card hover-glow service-card">
       <img src="assets/snow_icon.png" alt="Snow Removal">
       <h3>Snow Removal</h3>
-      <p>Residential and commercial snow clearing services, fast and safe.</p>
+      <p>Professional residential and commercial snow clearing services. Fast response times and competitive winter rates.</p>
+      <div class="service-features">
+        <span class="feature-tag">✓ 24/7 Emergency</span>
+        <span class="feature-tag">✓ Insured</span>
+      </div>
+      <a href="snow.html" class="service-link">Learn More →</a>
     </div>
-    <div class="card hover-glow">
+    <div class="card hover-glow service-card">
       <img src="assets/tow_icon.png" alt="Towing">
-      <h3>Towing</h3>
-      <p>Emergency towing and vehicle transport across Yukon.</p>
+      <h3>Towing Services</h3>
+      <p>Emergency towing and vehicle transport across Yukon Territory. Professional drivers and modern equipment.</p>
+      <div class="service-features">
+        <span class="feature-tag">✓ Fast Response</span>
+        <span class="feature-tag">✓ Territory Wide</span>
+      </div>
+      <a href="tow.html" class="service-link">Learn More →</a>
     </div>
-    <div class="card hover-glow">
+    <div class="card hover-glow service-card">
       <img src="assets/logo.png" alt="Excavation">
       <h3>Excavation</h3>
-      <p>Expert excavation services for homes and businesses.</p>
+      <p>Expert excavation services for residential and commercial projects. From foundations to landscaping.</p>
+      <div class="service-features">
+        <span class="feature-tag">✓ Licensed</span>
+        <span class="feature-tag">✓ Modern Equipment</span>
+      </div>
+      <a href="services.html" class="service-link">Learn More →</a>
     </div>
-    <div class="card hover-glow">
+    <div class="card hover-glow service-card">
       <img src="assets/dumptruck_icon.png" alt="Dump Trucking">
       <h3>Dump Trucking</h3>
-      <p>Efficient hauling of materials with professional drivers.</p>
+      <p>Efficient hauling of materials with professional drivers. Gravel, dirt, construction materials, and more.</p>
+      <div class="service-features">
+        <span class="feature-tag">✓ Professional Drivers</span>
+        <span class="feature-tag">✓ Flexible Scheduling</span>
+      </div>
+      <a href="services.html" class="service-link">Learn More →</a>
     </div>
-    <div class="card hover-glow">
+    <div class="card hover-glow service-card">
       <img src="assets/housing_icon.svg" alt="Housing Contracts">
       <h3>Housing Contracts</h3>
-      <p>Complete housing construction and contracting services.</p>
+      <p>Complete housing construction and contracting services. From planning to completion with quality assurance.</p>
+      <div class="service-features">
+        <span class="feature-tag">✓ Full Service</span>
+        <span class="feature-tag">✓ Quality Guaranteed</span>
+      </div>
+      <a href="services.html" class="service-link">Learn More →</a>
     </div>
-    <div class="card hover-glow">
+    <div class="card hover-glow service-card">
       <img src="assets/lawn_icon.svg" alt="Lawn Mowing">
-      <h3>Lawn Mowing</h3>
-      <p>Seasonal lawn maintenance for residential and commercial properties.</p>
+      <h3>Lawn Maintenance</h3>
+      <p>Seasonal lawn maintenance for residential and commercial properties. Keep your property looking professional.</p>
+      <div class="service-features">
+        <span class="feature-tag">✓ Seasonal Packages</span>
+        <span class="feature-tag">✓ Commercial/Residential</span>
+      </div>
+      <a href="services.html" class="service-link">Learn More →</a>
+    </div>
+  </div>
+</section>
+
+<!-- Recent Projects Showcase -->
+<section class="recent-projects scroll-section">
+  <h2>🏗️ Recent Project Highlights</h2>
+  <p>See our latest work across Whitehorse and Haines Junction</p>
+  
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-image">
+        <img src="assets/project-snow-clearing.jpg" alt="Commercial Snow Clearing Project" loading="lazy">
+        <div class="project-overlay">
+          <span class="project-type">Snow Removal</span>
+        </div>
+      </div>
+      <div class="project-content">
+        <h4>Downtown Whitehorse Commercial Complex</h4>
+        <p>Large-scale snow clearing and de-icing for 50,000 sq ft commercial property</p>
+        <div class="project-details">
+          <span>📅 Completed: November 2025</span>
+          <span>📍 Whitehorse, YT</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="project-card">
+      <div class="project-image">
+        <img src="assets/project-excavation.jpg" alt="Residential Excavation Project" loading="lazy">
+        <div class="project-overlay">
+          <span class="project-type">Excavation</span>
+        </div>
+      </div>
+      <div class="project-content">
+        <h4>Residential Foundation Excavation</h4>
+        <p>Complete excavation and site preparation for new home construction</p>
+        <div class="project-details">
+          <span>📅 Completed: October 2025</span>
+          <span>📍 Haines Junction, YT</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="project-card">
+      <div class="project-image">
+        <img src="assets/project-towing.jpg" alt="Emergency Vehicle Recovery" loading="lazy">
+        <div class="project-overlay">
+          <span class="project-type">Towing</span>
+        </div>
+      </div>
+      <div class="project-content">
+        <h4>Highway Emergency Recovery</h4>
+        <p>Complex vehicle recovery from challenging terrain on Alaska Highway</p>
+        <div class="project-details">
+          <span>📅 Completed: November 2025</span>
+          <span>📍 Alaska Highway, YT</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="projects-cta">
+    <a href="community.html" class="cta-button">View More Projects</a>
+  </div>
+</section>
+
+<!-- Client Testimonials -->
+<section class="testimonials-section scroll-section">
+  <h2>⭐ What Our Clients Say</h2>
+  <p>Real feedback from satisfied customers across Yukon Territory</p>
+  
+  <div class="testimonials-grid">
+    <div class="testimonial-card">
+      <div class="testimonial-rating">
+        <span class="star">⭐</span>
+        <span class="star">⭐</span>
+        <span class="star">⭐</span>
+        <span class="star">⭐</span>
+        <span class="star">⭐</span>
+      </div>
+      <blockquote>
+        "Yukon Wildcats cleared our entire parking lot within 2 hours of heavy snowfall. Professional, efficient, and reasonably priced. Highly recommend for commercial snow removal!"
+      </blockquote>
+      <div class="testimonial-author">
+        <div class="author-info">
+          <strong>Sarah Mitchell</strong>
+          <span>Property Manager, Whitehorse Business Centre</span>
+        </div>
+        <div class="service-type">Snow Removal</div>
+      </div>
+    </div>
+    
+    <div class="testimonial-card">
+      <div class="testimonial-rating">
+        <span class="star">⭐</span>
+        <span class="star">⭐</span>
+        <span class="star">⭐</span>
+        <span class="star">⭐</span>
+        <span class="star">⭐</span>
+      </div>
+      <blockquote>
+        "When my truck broke down on the Alaska Highway at -30°C, Yukon Wildcats responded within 45 minutes. Their professionalism and quick service saved my day!"
+      </blockquote>
+      <div class="testimonial-author">
+        <div class="author-info">
+          <strong>Mike Thompson</strong>
+          <span>Long-haul Truck Driver</span>
+        </div>
+        <div class="service-type">Emergency Towing</div>
+      </div>
+    </div>
+    
+    <div class="testimonial-card">
+      <div class="testimonial-rating">
+        <span class="star">⭐</span>
+        <span class="star">⭐</span>
+        <span class="star">⭐</span>
+        <span class="star">⭐</span>
+        <span class="star">⭐</span>
+      </div>
+      <blockquote>
+        "Exceptional excavation work for our new home foundation. Lazarus and the team were professional, on-time, and delivered exactly what was promised. Will definitely use again."
+      </blockquote>
+      <div class="testimonial-author">
+        <div class="author-info">
+          <strong>Jennifer & Robert Chen</strong>
+          <span>Homeowners, Haines Junction</span>
+        </div>
+        <div class="service-type">Excavation</div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="testimonial-summary">
+    <div class="rating-overview">
+      <span class="overall-rating">4.8/5</span>
+      <span class="rating-label">Average Rating</span>
+      <div class="rating-breakdown">
+        <span>Based on 127+ completed projects</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Certifications & Trust Badges -->
+<section class="certifications-section scroll-section">
+  <h2>🏆 Licensed, Insured & Certified</h2>
+  <div class="badges-container">
+    <div class="cert-badge">
+      <div class="badge-icon">📜</div>
+      <h4>Yukon Business License</h4>
+      <p>Registered & compliant contractor</p>
+    </div>
+    <div class="cert-badge">
+      <div class="badge-icon">🛡️</div>
+      <h4>Liability Insurance</h4>
+      <p>$2M coverage protection</p>
+    </div>
+    <div class="cert-badge">
+      <div class="badge-icon">⚠️</div>
+      <h4>Safety Certified</h4>
+      <p>CSA compliant protocols</p>
+    </div>
+    <div class="cert-badge">
+      <div class="badge-icon">🔒</div>
+      <h4>Bonded & Secure</h4>
+      <p>Your property is protected</p>
+    </div>
+  </div>
+</section>
+
+<!-- Emergency Contact Banner -->
+<section class="emergency-banner scroll-section">
+  <div class="emergency-content">
+    <div class="emergency-icon">🚨</div>
+    <div class="emergency-text">
+      <h3>24/7 Emergency Services Available</h3>
+      <p>Snow removal, towing, and urgent contracting needs</p>
+    </div>
+    <div class="emergency-contact">
+      <a href="tel:+18673324695" class="emergency-phone">
+        <i class="fas fa-phone"></i>
+        (867) 332-4695
+      </a>
+      <span class="availability">Available Now</span>
     </div>
   </div>
 </section>
@@ -84,32 +376,53 @@
 <div class="section-divider"></div>
 
 <section class="team-container scroll-section">
-  <h2>Meet Our Team</h2>
+  <h2>👥 Meet Our Professional Team</h2>
+  <p>Experienced contractors dedicated to quality service across Yukon Territory</p>
   <div class="card-container stagger-animation">
-    <div class="card hover-glow">
+    <div class="card hover-glow team-card">
       <img src="assets/team-placeholder.png" alt="Lazarus Vanbibber">
       <h3>Lazarus Vanbibber</h3>
-      <p>Founder</p>
+      <p class="team-role">Founder & Lead Contractor</p>
+      <div class="team-experience">
+        <span>📞 (867) 332-0223</span>
+        <span>5+ Years Experience</span>
+      </div>
     </div>
-    <div class="card hover-glow">
+    <div class="card hover-glow team-card">
       <img src="assets/team-placeholder.png" alt="Micah Wolfe">
       <h3>Micah Wolfe</h3>
-      <p>Co-founder</p>
+      <p class="team-role">Co-founder & Operations Manager</p>
+      <div class="team-experience">
+        <span>📞 (867) 332-4551</span>
+        <span>Equipment Specialist</span>
+      </div>
     </div>
-    <div class="card hover-glow">
+    <div class="card hover-glow team-card">
       <img src="assets/team-placeholder.png" alt="Elias Wolfe">
       <h3>Elias Wolfe</h3>
-      <p>Contractor</p>
+      <p class="team-role">Senior Contractor</p>
+      <div class="team-experience">
+        <span>Excavation Expert</span>
+        <span>Safety Certified</span>
+      </div>
     </div>
-    <div class="card hover-glow">
+    <div class="card hover-glow team-card">
       <img src="assets/team-placeholder.png" alt="Noah Bucknell">
       <h3>Noah Bucknell</h3>
-      <p>Contractor</p>
+      <p class="team-role">Field Contractor</p>
+      <div class="team-experience">
+        <span>Snow Removal Specialist</span>
+        <span>Emergency Response</span>
+      </div>
     </div>
-    <div class="card hover-glow">
+    <div class="card hover-glow team-card">
       <img src="assets/team-placeholder.png" alt="Lily Menicoche">
       <h3>Lily Menicoche</h3>
-      <p>Contractor</p>
+      <p class="team-role">Project Coordinator</p>
+      <div class="team-experience">
+        <span>Quality Assurance</span>
+        <span>Client Relations</span>
+      </div>
     </div>
   </div>
 </section>
@@ -144,6 +457,91 @@
     <div class="guarantee-section">
       <h3>Our Guarantee</h3>
       <p>We stand behind our work with a satisfaction guarantee. Your project success is our reputation.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Newsletter & Updates -->
+<section class="newsletter-section scroll-section">
+  <div class="newsletter-container">
+    <div class="newsletter-content">
+      <h2>📧 Stay Updated with Yukon Wildcats</h2>
+      <p>Get seasonal service reminders, maintenance tips, and exclusive offers delivered to your inbox</p>
+      
+      <div class="newsletter-benefits">
+        <div class="benefit">
+          <span class="benefit-icon">❄️</span>
+          <span>Winter weather alerts & snow removal schedules</span>
+        </div>
+        <div class="benefit">
+          <span class="benefit-icon">💰</span>
+          <span>Exclusive discounts for subscribers</span>
+        </div>
+        <div class="benefit">
+          <span class="benefit-icon">🔧</span>
+          <span>Seasonal maintenance reminders & tips</span>
+        </div>
+      </div>
+      
+      <form class="newsletter-form" id="newsletterForm">
+        <div class="form-group">
+          <input type="email" id="newsletter-email" placeholder="Enter your email address" required>
+          <select id="newsletter-services" required>
+            <option value="">Select primary interest</option>
+            <option value="snow-removal">Snow Removal Services</option>
+            <option value="towing">Emergency Towing</option>
+            <option value="excavation">Excavation & Construction</option>
+            <option value="general">General Contracting</option>
+            <option value="all">All Services</option>
+          </select>
+        </div>
+        <button type="submit" class="newsletter-btn">
+          <span>Subscribe for Free</span>
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </form>
+      
+      <div class="newsletter-privacy">
+        <p>📧 No spam, unsubscribe anytime. See our <a href="legal.html">Privacy Policy</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Final CTA Section -->
+<section class="final-cta-section scroll-section">
+  <div class="cta-container">
+    <h2>Ready to Get Started?</h2>
+    <p class="cta-subtitle">Professional contracting services across Yukon Territory</p>
+    
+    <div class="cta-options">
+      <div class="cta-option emergency">
+        <h3>🚨 Emergency Service</h3>
+        <p>24/7 snow removal & towing</p>
+        <a href="tel:+18673324695" class="cta-btn emergency-btn">
+          Call Now: (867) 332-4695
+        </a>
+      </div>
+      
+      <div class="cta-option quote">
+        <h3>📋 Free Quote</h3>
+        <p>Get pricing for your project</p>
+        <a href="quote.html" class="cta-btn quote-btn">
+          Request Quote
+        </a>
+      </div>
+      
+      <div class="cta-option contact">
+        <h3>💬 Schedule Consultation</h3>
+        <p>Discuss your contracting needs</p>
+        <a href="contact.html" class="cta-btn contact-btn">
+          Contact Us
+        </a>
+      </div>
+    </div>
+    
+    <div class="service-areas-footer">
+      <p><strong>Service Areas:</strong> Whitehorse, Haines Junction, Carmacks, Dawson City, Watson Lake & surrounding communities</p>
     </div>
   </div>
 </section>
@@ -208,38 +606,55 @@
     </div>
   </div>
   
-  <a href="admin.html" class="footer-admin">
-    <img src="assets/admin-icon.svg" alt="Admin" height="20">
+  <a href="admin.html" class="footer-admin" title="Team Admin Access">
+    <img src="assets/logo.png" alt="Team Admin" height="24">
   </a>
 </footer>
 
 <!-- Whitney AI Chatbot -->
-<div id="whitney-chatbot" class="chatbot-container">
+<div id="whitney-chatbot" class="chatbot-container" role="complementary" aria-label="AI Assistant Chat">
   <!-- Chat Toggle Button -->
-  <div id="whitney-toggle" class="chatbot-toggle">
-    <img src="assets/whitney-avatar.svg" alt="Whitney AI" class="chatbot-avatar">
-    <div class="notification-badge" id="whitney-notification">1</div>
-  </div>
+  <button id="whitney-toggle" class="chatbot-toggle" 
+          aria-label="Open Whitney AI Assistant Chat"
+          aria-describedby="whitney-notification"
+          tabindex="0">
+    <img src="assets/whitney-avatar.svg" alt="Whitney AI Assistant" class="chatbot-avatar">
+    <div class="notification-badge" id="whitney-notification" aria-label="1 unread message">1</div>
+  </button>
   
   <!-- Chat Interface -->
-  <div id="whitney-chat" class="chat-interface hidden">
+  <div id="whitney-chat" class="chat-interface hidden" 
+       role="dialog" 
+       aria-modal="true" 
+       aria-labelledby="chat-title"
+       aria-describedby="chat-description">
     <div class="chat-header">
-      <img src="assets/whitney-avatar.svg" alt="Whitney AI" class="chat-avatar">
+      <img src="assets/whitney-avatar.svg" alt="Whitney AI Assistant" class="chat-avatar">
       <div class="chat-title">
-        <h4>Whitney</h4>
-        <span class="chat-status">AI Assistant</span>
+        <h4 id="chat-title">Whitney</h4>
+        <span class="chat-status" id="chat-description">AI Assistant for Yukon Wildcats Contracting</span>
       </div>
-      <button id="close-chat" class="close-chat">×</button>
+      <button id="close-chat" class="close-chat" aria-label="Close chat window" tabindex="0">×</button>
     </div>
     
-    <div class="chat-messages" id="chat-messages">
+    <div class="chat-messages" id="chat-messages" 
+         role="log" 
+         aria-live="polite" 
+         aria-label="Chat conversation">
       <!-- Initial greeting will be added by JavaScript -->
     </div>
     
-    <div class="chat-input-container">
-      <input type="text" id="chat-input" placeholder="Ask about our services, pricing..." maxlength="500">
-      <button id="send-message" class="send-button">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <div class="chat-input-container" role="group" aria-label="Send message">
+      <label for="chat-input" class="sr-only">Type your message to Whitney AI</label>
+      <input type="text" 
+             id="chat-input" 
+             placeholder="Ask about our services, pricing..." 
+             maxlength="500"
+             aria-describedby="input-help"
+             autocomplete="off">
+      <div id="input-help" class="sr-only">Enter your question and press Enter or click send</div>
+      <button id="send-message" class="send-button" aria-label="Send message" tabindex="0">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>

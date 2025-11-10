@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Get a Quote - Yukon Wildcats Contracting</title>
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 <script defer src="js/particles-config.js"></script>
 <script defer src="js/script.js"></script>
@@ -25,10 +26,23 @@
     <a href="web-services.html">Web Services</a>
     <a href="community.html">Community</a>
     <a href="contact.html">Contact</a>
+    <a href="quote.html" class="active">Get Quote</a>
     <a href="legal.html">Legal Info</a>
-    <a href="admin.html" class="admin-login" title="Admin Login">
-      <img src="assets/admin-icon.svg" alt="Admin" height="25">
-    </a>
+    <div class="auth-section">
+      <div class="cart-section" onclick="toggleCart()">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cart-count" class="cart-count">0</span>
+        <span>Cart</span>
+      </div>
+      <a href="admin.html" class="admin-access" title="Admin Access">
+        <i class="fas fa-user-shield"></i>
+        <span>Admin</span>
+      </a>
+      <a href="login.html" class="login-link" title="Login / Create Account">
+        <i class="fas fa-sign-in-alt"></i>
+        <span>Login</span>
+      </a>
+    </div>
   </nav>
   <div class="mobile-overlay"></div>
 </header>
@@ -306,10 +320,140 @@
     </div>
   </div>
   <p>&copy; 2025 Yukon Wildcats Contracting. All rights reserved.</p>
-  <a href="admin.html" class="footer-admin">
-    <img src="assets/admin.png" alt="Admin" height="20">
+  <a href="admin.html" class="footer-admin" title="Team Admin Access">
+    <img src="assets/logo.png" alt="Team Admin" height="24">
   </a>
 </footer>
+
+<!-- Shopping Cart Dropdown -->
+<div id="cart-dropdown" class="cart-dropdown">
+  <div class="cart-header">
+    <h3>Your Service Cart</h3>
+    <span class="cart-total" id="cart-total">Total: $0</span>
+  </div>
+  <div class="cart-items" id="cart-items">
+    <!-- Cart items will be dynamically populated -->
+  </div>
+  <div class="cart-actions">
+    <button class="cart-btn secondary" onclick="clearCart()">Clear Cart</button>
+    <button class="cart-btn primary" onclick="proceedToCheckout()">Proceed to Quote</button>
+  </div>
+</div>
+
+<script>
+// Initialize quote page functionality when DOM loads
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('Quote page loaded - initializing functionality...');
+  
+  // Update cart display
+  if (typeof updateCartDisplay === 'function') {
+    updateCartDisplay();
+  }
+  
+  // Initialize quote form if the functions exist
+  if (typeof resetQuoteForm === 'function') {
+    resetQuoteForm();
+  }
+  
+  // Set up service card selection
+  setupServiceCardSelection();
+  
+  // Set up form submission
+  setupQuoteFormSubmission();
+});
+
+// Setup service card selection functionality
+function setupServiceCardSelection() {
+  const serviceCards = document.querySelectorAll('.service-card');
+  serviceCards.forEach(card => {
+    card.addEventListener('click', function() {
+      // Remove active class from all cards
+      serviceCards.forEach(c => c.classList.remove('active'));
+      // Add active class to clicked card
+      this.classList.add('active');
+      
+      // Store selected service data
+      const serviceType = this.dataset.service;
+      const serviceName = this.querySelector('h4').textContent;
+      
+      // Update quote data if the variable exists
+      if (typeof quoteData !== 'undefined') {
+        quoteData.service = serviceType;
+        quoteData.serviceName = serviceName;
+      }
+      
+      console.log('Selected service:', serviceName);
+    });
+  });
+}
+
+// Setup quote form submission
+function setupQuoteFormSubmission() {
+  const form = document.getElementById('professionalQuoteForm');
+  if (form) {
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const formData = new FormData(this);
+      const quoteRequest = {
+        service: formData.get('service') || (typeof quoteData !== 'undefined' ? quoteData.service : ''),
+        description: formData.get('description'),
+        timeline: formData.get('timeline'),
+        budget: formData.get('budget'),
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        timestamp: new Date().toISOString()
+      };
+      
+      try {
+        // Submit to server if available
+        const response = await fetch('/api/quote-request', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(quoteRequest)
+        });
+        
+        if (response.ok) {
+          alert('Quote request submitted successfully! We will contact you within 24 hours.');
+          form.reset();
+          resetQuoteForm();
+        } else {
+          throw new Error('Server error');
+        }
+      } catch (error) {
+        console.error('Error submitting quote:', error);
+        // Fallback to local storage
+        const quotes = JSON.parse(localStorage.getItem('quote_requests') || '[]');
+        quotes.push(quoteRequest);
+        localStorage.setItem('quote_requests', JSON.stringify(quotes));
+        
+        alert('Quote request saved locally! We will contact you within 24 hours.');
+        form.reset();
+        if (typeof resetQuoteForm === 'function') {
+          resetQuoteForm();
+        }
+      }
+    });
+  }
+}
+
+// Close dropdowns when clicking outside
+document.addEventListener('click', function(e) {
+  const cartDropdown = document.getElementById('cart-dropdown');
+  const cartSection = document.querySelector('.cart-section');
+  
+  if (cartDropdown && cartDropdown.classList.contains('show') && 
+      !cartDropdown.contains(e.target) && 
+      !cartSection.contains(e.target)) {
+    if (typeof toggleCart === 'function') {
+      toggleCart();
+    }
+  }
+});
+</script>
 
 </body>
 </html>

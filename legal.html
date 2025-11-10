@@ -14,26 +14,32 @@
 <div id="particles-js"></div>
 <div class="particle-overlay"></div>
 
-<header>
-  <div class="header-left">
-    <img src="assets/logo.png" alt="Yukon Wildcats Logo">
-  </div>
-  <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">☰</button>
-  <nav class="header-right">
-    <a href="index.html">Home</a>
-    <a href="services.html">Services</a>
-    <a href="snow.html">Snow Removal</a>
-    <a href="tow.html">Towing</a>
-    <a href="web-services.html">Web Services</a>
-    <a href="community.html">Community</a>
-    <a href="contact.html">Contact</a>
-    <a href="legal.html">Legal Info</a>
-    <a href="admin.html" class="admin-login" title="Admin Login">
-      <img src="assets/admin-icon.svg" alt="Admin" height="25">
-    </a>
-  </nav>
-  <div class="mobile-overlay"></div>
-</header>
+<!-- Header Navigation -->
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-logo">
+            <img src="assets/yukon-wildcats-logo-small-icon.png" alt="Yukon Wildcats" class="logo-img">
+            <span class="logo-text">Yukon Wildcats</span>
+        </div>
+        
+        <div class="nav-menu">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="services.html" class="nav-link">Services</a>
+            <a href="snow.html" class="nav-link">Snow Removal</a>
+            <a href="tow.html" class="nav-link">Towing</a>
+            <a href="community.html" class="nav-link">Community</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+            <a href="legal.html" class="nav-link active">Legal Info</a>
+            <a href="quote.html" class="nav-link cta-button">Get Quote</a>
+        </div>
+
+        <div class="nav-toggle">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </div>
+</nav>
 
 <main class="legal-page">
   <section class="legal-hero scroll-section">
@@ -43,6 +49,69 @@
 
   <section class="legal-content scroll-section">
     <div class="legal-container">
+      
+      <!-- Quick Navigation -->
+      <div class="legal-nav">
+        <h2>📋 Legal Information Sections</h2>
+        <div class="nav-grid">
+          <a href="#terms" class="nav-item">
+            <i class="fas fa-file-contract nav-icon"></i>
+            <div>
+              <strong>Terms & Conditions</strong>
+              <p>Service agreements and payment terms</p>
+            </div>
+          </a>
+          <a href="#service-agreement" class="nav-item">
+            <i class="fas fa-handshake nav-icon"></i>
+            <div>
+              <strong>Service Agreement</strong>
+              <p>Work authorization and scheduling</p>
+            </div>
+          </a>
+          <a href="#refund" class="nav-item">
+            <i class="fas fa-undo nav-icon"></i>
+            <div>
+              <strong>Refund Policy</strong>
+              <p>Cancellation and refund procedures</p>
+            </div>
+          </a>
+          <a href="#liability" class="nav-item">
+            <i class="fas fa-shield-alt nav-icon"></i>
+            <div>
+              <strong>Liability & Insurance</strong>
+              <p>Coverage and risk management</p>
+            </div>
+          </a>
+          <a href="#safety" class="nav-item">
+            <i class="fas fa-hard-hat nav-icon"></i>
+            <div>
+              <strong>Safety Protocols</strong>
+              <p>Workplace safety and client responsibilities</p>
+            </div>
+          </a>
+          <a href="#coc" class="nav-item">
+            <i class="fas fa-balance-scale nav-icon"></i>
+            <div>
+              <strong>Code of Conduct</strong>
+              <p>Professional standards and ethics</p>
+            </div>
+          </a>
+          <a href="#privacy" class="nav-item">
+            <i class="fas fa-user-lock nav-icon"></i>
+            <div>
+              <strong>Privacy Policy</strong>
+              <p>Data protection and privacy rights</p>
+            </div>
+          </a>
+          <a href="#emergency" class="nav-item">
+            <i class="fas fa-exclamation-triangle nav-icon"></i>
+            <div>
+              <strong>Emergency Protocols</strong>
+              <p>After-hours and emergency procedures</p>
+            </div>
+          </a>
+        </div>
+      </div>
       
       <!-- Terms and Conditions -->
       <div id="terms" class="legal-section">
@@ -553,8 +622,8 @@
     </div>
   </div>
   
-  <a href="admin.html" class="footer-admin">
-    <img src="assets/admin-icon.svg" alt="Admin" height="20">
+  <a href="admin.html" class="footer-admin" title="Team Admin Access">
+    <img src="assets/logo.png" alt="Team Admin" height="24">
   </a>
 </footer>
 

@@ -1,110 +1,454 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Community - Yukon Wildcats Contracting</title>
-<link rel="stylesheet" href="css/style.css">
-<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-<script defer src="js/particles-config.js"></script>
-<script defer src="js/script.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community - Yukon Wildcats Contracting</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script defer src="js/particles-config.js"></script>
+    <script defer src="js/script.js"></script>
 </head>
 <body>
-<div id="particles-js"></div>
+    <div id="particles-js"></div>
 
-<header>
-  <div class="header-left">
-    <img src="assets/logo.png" alt="Yukon Wildcats Logo">
-  </div>
-  <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">☰</button>
-  <nav class="header-right">
-    <a href="index.html">Home</a>
-    <a href="services.html">Services</a>
-    <a href="snow.html">Snow Removal</a>
-    <a href="tow.html">Towing</a>
-    <a href="web-services.html">Web Services</a>
-    <a href="community.html">Community</a>
-    <a href="contact.html">Contact</a>
-    <a href="legal.html">Legal Info</a>
-    <a href="admin.html" class="admin-login" title="Admin Login">
-      <img src="assets/admin-icon.svg" alt="Admin" height="25">
-    </a>
-  </nav>
-  <div class="mobile-overlay"></div>
-</header>
+    <!-- Header Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="assets/yukon-wildcats-logo-small-icon.png" alt="Yukon Wildcats" class="logo-img">
+                <span class="logo-text">Yukon Wildcats</span>
+            </div>
+            
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="snow.html" class="nav-link">Snow Removal</a>
+                <a href="tow.html" class="nav-link">Towing</a>
+                <a href="community.html" class="nav-link active">Community</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <a href="quote.html" class="nav-link cta-button">Get Quote</a>
+            </div>
 
-<section class="hero">
-  <h1 class="fade-in">Community Updates</h1>
-  <p class="fade-in delay-1">Stay connected with our projects and local initiatives.</p>
-</section>
-
-<section class="card-container">
-  <textarea id="communityText" class="editable card hover-glow">Post your community updates here (editable via admin panel).</textarea>
-</section>
-
-<footer>
-  <div class="footer-content">
-    <div class="footer-main">
-      <div class="footer-info">
-        <h4>Yukon Wildcats Contracting</h4>
-        <p>Professional contracting services in Whitehorse and Haines Junction areas</p>
-        <div class="contact-info">
-          <p>📍 Serving Whitehorse & Haines Junction, Yukon Territory</p>
-          <p>📧 Contact us for quotes and inquiries</p>
+            <div class="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
         </div>
-        <div class="founder-contacts">
-          <h5>Contact Our Founders</h5>
-          <p><strong>Lazarus Vanbibber</strong> - Founder</p>
-          <p>📧 lazarus.vanbibber@icloud.com | lazarusvanbibber@yukon-wildcats.ca</p>
-          <p>📞 1-867-332-0223</p>
-          <p><strong>Micah Wolfe</strong> - Co-founder</p>
-          <p>📧 Micahsage4444@gmail.com</p>
-          <p>📞 1-867-332-4551</p>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="fade-in">🏡 Our Community</h1>
+            <p class="hero-subtitle fade-in delay-1">Proud to serve Whitehorse & Haines Junction with quality contracting services and community involvement</p>
         </div>
-      </div>
-      
-      <div class="footer-services">
-        <h4>Our Services</h4>
-        <ul>
-          <li><a href="snow.html">Snow Removal</a></li>
-          <li><a href="tow.html">Towing Services</a></li>
-          <li>Excavation</li>
-          <li>Dump Trucking</li>
-          <li>Housing Contracts</li>
-          <li>Lawn Maintenance</li>
-          <li><a href="web-services.html">Web Development</a></li>
-        </ul>
-      </div>
-      
-      <div class="footer-legal">
-        <h4>Legal & Documents</h4>
-        <ul>
-          <li><a href="legal.html">Terms & Conditions</a></li>
-          <li><a href="legal.html#service-agreement">Service Agreement</a></li>
-          <li><a href="legal.html#privacy">Privacy Policy</a></li>
-          <li><a href="legal.html#refund">Refund Policy</a></li>
-          <li><a href="legal.html#safety">Safety Information</a></li>
-          <li><a href="legal.html#coc">Certificate of Compliance</a></li>
-          <li><a href="quote.html">Get Professional Quote</a></li>
-        </ul>
-      </div>
+    </section>
+
+    <!-- Community Stats -->
+    <section class="community-stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card hover-glow">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-number">250+</div>
+                    <div class="stat-label">Happy Clients</div>
+                </div>
+                <div class="stat-card hover-glow">
+                    <div class="stat-icon">
+                        <i class="fas fa-hammer"></i>
+                    </div>
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Projects Completed</div>
+                </div>
+                <div class="stat-card hover-glow">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar"></i>
+                    </div>
+                    <div class="stat-number">5+</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                <div class="stat-card hover-glow">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Emergency Support</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meet Our Team -->
+    <section class="team-section">
+        <div class="container">
+            <h2 class="section-title">🐾 Meet the Wildcats Team</h2>
+            <p class="section-subtitle">The dedicated professionals behind Yukon Wildcats Contracting</p>
+            
+            <div class="team-grid">
+                <div class="team-card card hover-glow">
+                    <div class="team-avatar">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3>Lazarus Vanbibber</h3>
+                    <p class="team-role">Founder & Lead Contractor</p>
+                    <p class="team-bio">Leading Yukon Wildcats with over 5 years of contracting experience. Specializes in excavation, snow removal, and project management throughout Yukon Territory.</p>
+                    <div class="team-contact">
+                        <p><i class="fas fa-envelope"></i> lazarus.vanbibber@icloud.com</p>
+                        <p><i class="fas fa-phone"></i> (867) 332-0223</p>
+                    </div>
+                </div>
+
+                <div class="team-card card hover-glow">
+                    <div class="team-avatar">
+                        <i class="fas fa-user-cog"></i>
+                    </div>
+                    <h3>Micah Wolfe</h3>
+                    <p class="team-role">Co-Founder & Operations Manager</p>
+                    <p class="team-bio">Co-founding partner focused on operations, towing services, and customer relations. Ensures quality service delivery and emergency response coordination.</p>
+                    <div class="team-contact">
+                        <p><i class="fas fa-envelope"></i> micahsage4444@gmail.com</p>
+                        <p><i class="fas fa-phone"></i> (867) 332-4551</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Projects -->
+    <section class="projects-section">
+        <div class="container">
+            <h2 class="section-title">🏗️ Recent Community Projects</h2>
+            <p class="section-subtitle">Making a difference in Whitehorse and Haines Junction</p>
+            
+            <div class="projects-grid">
+                <div class="project-card card hover-glow">
+                    <div class="project-image">
+                        <i class="fas fa-snowflake project-icon"></i>
+                    </div>
+                    <h3>Winter 2024 Snow Clearing</h3>
+                    <p>Comprehensive snow removal services for residential and commercial properties throughout Whitehorse, ensuring safe access during heavy snowfall periods.</p>
+                    <div class="project-stats">
+                        <span class="stat">📍 50+ Properties Served</span>
+                        <span class="stat">❄️ 24/7 Emergency Response</span>
+                    </div>
+                </div>
+
+                <div class="project-card card hover-glow">
+                    <div class="project-image">
+                        <i class="fas fa-truck project-icon"></i>
+                    </div>
+                    <h3>Emergency Towing Services</h3>
+                    <p>Providing reliable 24/7 towing and roadside assistance throughout Yukon Territory, helping stranded motorists and emergency situations.</p>
+                    <div class="project-stats">
+                        <span class="stat">🚛 100+ Rescues</span>
+                        <span class="stat">⏱️ 30min Average Response</span>
+                    </div>
+                </div>
+
+                <div class="project-card card hover-glow">
+                    <div class="project-image">
+                        <i class="fas fa-home project-icon"></i>
+                    </div>
+                    <h3>Residential Excavation</h3>
+                    <p>Foundation work, site preparation, and landscaping projects helping families build and improve their homes in the Yukon Territory.</p>
+                    <div class="project-stats">
+                        <span class="stat">🏡 25+ Home Projects</span>
+                        <span class="stat">🛠️ Quality Guaranteed</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Client Testimonials -->
+    <section class="testimonials-section">
+        <div class="container">
+            <h2 class="section-title">💬 What Our Clients Say</h2>
+            <p class="section-subtitle">Real feedback from our Yukon Territory community</p>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card card hover-glow">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Yukon Wildcats saved the day when our driveway was completely blocked by snow. They arrived quickly and cleared everything professionally. Highly recommend!"</p>
+                    <div class="testimonial-author">
+                        <strong>Sarah M.</strong>
+                        <span>Whitehorse Resident</span>
+                    </div>
+                </div>
+
+                <div class="testimonial-card card hover-glow">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Excellent towing service! When my truck broke down on the highway, they responded within 30 minutes. Professional, friendly, and reasonably priced."</p>
+                    <div class="testimonial-author">
+                        <strong>Mike T.</strong>
+                        <span>Local Business Owner</span>
+                    </div>
+                </div>
+
+                <div class="testimonial-card card hover-glow">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"The excavation work for our new garage was completed perfectly and on time. Great communication throughout the project. Will definitely hire again!"</p>
+                    <div class="testimonial-author">
+                        <strong>Jennifer K.</strong>
+                        <span>Haines Junction</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Updates -->
+    <section class="community-updates">
+        <div class="container">
+            <h2 class="section-title">📢 Community Updates</h2>
+            <p class="section-subtitle">Stay informed about our latest projects and community initiatives</p>
+            
+            <div class="updates-container">
+                <div class="update-card card hover-glow">
+                    <div class="update-date">
+                        <span class="month">NOV</span>
+                        <span class="day">10</span>
+                    </div>
+                    <div class="update-content">
+                        <h3>❄️ Winter Season Preparation</h3>
+                        <p>We're ready for winter! Our snow removal equipment has been serviced and our team is prepared for 24/7 emergency snow clearing services throughout Whitehorse and Haines Junction.</p>
+                    </div>
+                </div>
+
+                <div class="update-card card hover-glow">
+                    <div class="update-date">
+                        <span class="month">NOV</span>
+                        <span class="day">05</span>
+                    </div>
+                    <div class="update-content">
+                        <h3>🚛 New Towing Equipment</h3>
+                        <p>We've expanded our towing fleet with new heavy-duty recovery equipment to better serve commercial vehicles and larger emergencies throughout Yukon Territory.</p>
+                    </div>
+                </div>
+
+                <div class="update-card card hover-glow">
+                    <div class="update-date">
+                        <span class="month">OCT</span>
+                        <span class="day">28</span>
+                    </div>
+                    <div class="update-content">
+                        <h3>🏡 Fall Project Completion</h3>
+                        <p>Successfully completed 15 residential excavation projects this fall, including foundation work, landscaping, and site preparation for new construction.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Editable Community Text -->
+            <div class="admin-updates card hover-glow">
+                <h3>📝 Additional Community Information</h3>
+                <div id="communityText" class="editable-content">
+                    <p>This section can be updated through the admin panel to share additional community news, special announcements, or important information for our clients and community members.</p>
+                    <p>Contact our team for more information about our services or to share community news!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Areas -->
+    <section class="service-areas">
+        <div class="container">
+            <h2 class="section-title">📍 Our Service Areas</h2>
+            <p class="section-subtitle">Proudly serving communities throughout Yukon Territory</p>
+            
+            <div class="areas-grid">
+                <div class="area-card card hover-glow">
+                    <div class="area-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>Whitehorse</h3>
+                    <p>Primary service area with full coverage for all contracting services including emergency response, snow removal, and construction projects.</p>
+                    <div class="area-features">
+                        <span class="feature">🚛 24/7 Emergency</span>
+                        <span class="feature">❄️ Snow Removal</span>
+                        <span class="feature">🏗️ Full Construction</span>
+                    </div>
+                </div>
+
+                <div class="area-card card hover-glow">
+                    <div class="area-icon">
+                        <i class="fas fa-mountain"></i>
+                    </div>
+                    <h3>Haines Junction</h3>
+                    <p>Extended service coverage for towing, emergency services, and major construction projects. Travel charges may apply for some services.</p>
+                    <div class="area-features">
+                        <span class="feature">🚛 Towing Services</span>
+                        <span class="feature">🆘 Emergency Response</span>
+                        <span class="feature">🏡 Major Projects</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="community-cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>🤝 Join Our Community</h2>
+                <p>Ready to work with Yukon Territory's most reliable contracting team? Get in touch today for your project quote or emergency services.</p>
+                <div class="cta-buttons">
+                    <a href="quote.html" class="cta-button">Get Quote</a>
+                    <a href="contact.html" class="cta-button secondary">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Yukon Wildcats Contracting</h3>
+                <p>Professional contracting services in Yukon Territory</p>
+                <p>🐾 Serving our community with pride and quality since 2019</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Our Services</h4>
+                <a href="snow.html">❄️ Snow Removal</a>
+                <a href="tow.html">🚛 Towing Services</a>
+                <a href="services.html">🏗️ Excavation</a>
+                <a href="services.html">🚚 Dump Trucking</a>
+                <a href="web-services.html">💻 Web Development</a>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Contact Info</h4>
+                <p>📞 Emergency: (867) 335-7387</p>
+                <p>📧 info@yukonwildcats.ca</p>
+                <p>📍 Whitehorse & Haines Junction, YT</p>
+                <a href="admin.html">
+                    <img src="assets/admin-icon.png" alt="Admin" style="height: 20px; vertical-align: middle;">
+                    Team Access
+                </a>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 Yukon Wildcats Contracting. All Rights Reserved.</p>
+            <p>Licensed & Insured • Yukon Territory • GST/HST Applicable</p>
+        </div>
+    </footer>
+
+    <!-- Whitney AI Chatbot -->
+    <div id="whitney-chatbot" class="chatbot-container">
+        <!-- Chat Toggle Button -->
+        <div id="whitney-toggle" class="chatbot-toggle">
+            <img src="assets/whitney-avatar.svg" alt="Whitney AI" class="chatbot-avatar">
+            <div class="notification-badge" id="whitney-notification">1</div>
+        </div>
+        
+        <!-- Chat Interface -->
+        <div id="whitney-chat" class="chat-interface hidden">
+            <div class="chat-header">
+                <img src="assets/whitney-avatar.svg" alt="Whitney AI" class="chat-avatar">
+                <div class="chat-title">
+                    <h4>Whitney</h4>
+                    <span class="chat-status">AI Assistant</span>
+                </div>
+                <button id="close-chat" class="close-chat">×</button>
+            </div>
+            
+            <div class="chat-messages" id="chat-messages">
+                <!-- Messages will be populated by JavaScript -->
+            </div>
+            
+            <div class="chat-input-container">
+                <input type="text" id="chat-input" placeholder="Ask about our community projects, team, or services..." maxlength="500">
+                <button id="send-message" class="send-button">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22 2L11 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Initial Popup Message -->
+        <div id="whitney-popup" class="chat-popup">
+            <div class="popup-content">
+                <span id="popup-text">Hi! I'm Whitney, your Yukon Wildcats AI assistant. Want to learn more about our team or community projects?</span>
+                <button id="close-popup" class="close-popup">×</button>
+            </div>
+        </div>
     </div>
-    
-    <div class="footer-bottom">
-      <div class="copyright">
-        <p>© 2025 Yukon Wildcats Contracting. All Rights Reserved.</p>
-        <p class="legal-notice">Licensed & Insured • Yukon Territory Business License Required • GST/HST: Applicable</p>
-      </div>
-      
-      <div class="footer-disclaimers">
-        <p><strong>Important:</strong> Services available in Whitehorse and Haines Junction areas only. Payment required upon completion. No refunds for completed work without property damage or service failure. Weather-dependent services subject to safety conditions. Travel charges may apply outside Whitehorse city limits.</p>
-      </div>
-    </div>
-  </div>
-  
-  <a href="admin.html" class="footer-admin">
-    <img src="assets/admin-icon.svg" alt="Admin" height="20">
-  </a>
-</footer>
+
+    <script>
+        // Community page functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load community updates from localStorage
+            loadCommunityUpdates();
+            
+            // Admin editable content functionality
+            const editableContent = document.getElementById('communityText');
+            if (editableContent) {
+                // Make content editable for admin users
+                // This would be connected to the admin panel in a full implementation
+            }
+        });
+
+        function loadCommunityUpdates() {
+            // Load stored community updates from localStorage
+            const storedUpdates = localStorage.getItem('yw_community_v2');
+            if (storedUpdates) {
+                const communityData = JSON.parse(storedUpdates);
+                if (communityData.content) {
+                    const editableContent = document.getElementById('communityText');
+                    editableContent.innerHTML = communityData.content;
+                }
+            }
+        }
+
+        function saveCommunityUpdate(content) {
+            // Save community update to localStorage
+            const communityData = {
+                content: content,
+                lastUpdated: new Date().toISOString(),
+                version: 2
+            };
+            localStorage.setItem('yw_community_v2', JSON.stringify(communityData));
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>

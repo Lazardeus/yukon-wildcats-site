@@ -1,0 +1,16 @@
+# VPS Deployment Commands for 159.203.15.71
+
+# 1. Upload files
+scp -r "c:\Users\lazar\websites\yukon-wildcats-site" root@159.203.15.71:/tmp/
+
+# 2. SSH and setup
+ssh root@159.203.15.71
+sudo mkdir -p /var/www
+sudo mv /tmp/yukon-wildcats-site /var/www/yukon-wildcats
+sudo chown -R root:root /var/www/yukon-wildcats
+cd /var/www/yukon-wildcats
+chmod +x deploy-vps.sh
+sudo ./deploy-vps.sh
+
+# 3. Test access
+# Open browser to: http://159.203.15.71

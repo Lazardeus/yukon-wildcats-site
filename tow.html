@@ -3,11 +3,73 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Towing - Yukon Wildcats Contracting</title>
+<title>🚛 Professional Towing Services - Yukon Wildcats Contracting</title>
+<meta name="description" content="24/7 emergency towing services in Whitehorse and Haines Junction. Professional vehicle transport, roadside assistance, and recovery services across Yukon Territory.">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 <script defer src="js/particles-config.js"></script>
 <script defer src="js/script.js"></script>
+<style>
+/* Service Cart Styles */
+.service-cart {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem;
+  color: #ffd700 !important;
+  font-size: 1.5rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.service-cart:hover {
+  background: rgba(255, 215, 0, 0.1);
+  transform: scale(1.1);
+}
+
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #ff4757;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: bold;
+  min-width: 20px;
+}
+
+.cart-count.hidden {
+  display: none;
+}
+
+/* Service Cart Dropdown */
+.cart-dropdown {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  width: 350px;
+  max-height: 80vh;
+  background: rgba(17, 17, 17, 0.98);
+  border: 2px solid #ffd700;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+  transform: translateX(400px);
+  transition: transform 0.3s ease;
+  overflow: hidden;
+}
+
+.cart-dropdown.visible {
+  transform: translateX(0);
+}
+</style>
 </head>
 <body>
 <div id="particles-js"></div>
@@ -25,27 +87,227 @@
     <a href="web-services.html">Web Services</a>
     <a href="community.html">Community</a>
     <a href="contact.html">Contact</a>
+    <a href="quote.html">Get Quote</a>
     <a href="legal.html">Legal Info</a>
-    <a href="admin.html" class="admin-login" title="Admin Login">
-      <img src="assets/admin-icon.svg" alt="Admin" height="25">
+    <a href="#" class="service-cart" onclick="toggleServiceCart()" title="Service Requests">
+      <i class="fas fa-clipboard-list"></i>
+      <span class="cart-count" id="cartCount">0</span>
     </a>
+    <div class="auth-section">
+      <a href="admin.html" class="admin-access" title="Admin Access">
+        <i class="fas fa-user-shield"></i>
+        <span>Admin</span>
+      </a>
+      <a href="login.html" class="login-link" title="Login / Create Account">
+        <i class="fas fa-sign-in-alt"></i>
+        <span>Login</span>
+      </a>
+    </div>
   </nav>
   <div class="mobile-overlay"></div>
 </header>
 
+<!-- Service Cart Dropdown -->
+<div class="cart-dropdown" id="cartDropdown">
+  <div class="cart-header">
+    <h3><i class="fas fa-clipboard-list"></i> Service Requests</h3>
+    <button class="cart-close" onclick="toggleServiceCart()">×</button>
+  </div>
+  
+  <div class="cart-items" id="cartItems">
+    <div class="empty-cart" id="emptyCart">
+      <i class="fas fa-clipboard-list"></i>
+      <p>No services added yet</p>
+      <small>Browse our services and add them to create your request</small>
+    </div>
+  </div>
+  
+  <div class="cart-footer" id="cartFooter" style="display: none;">
+    <div class="cart-total" id="cartTotal">
+      Total Services: <span id="serviceCount">0</span>
+    </div>
+    <button class="cart-checkout" onclick="proceedToCheckout()">
+      <i class="fas fa-arrow-right"></i>
+      Proceed to Checkout
+    </button>
+  </div>
+</div>
+
 <section class="hero">
-  <h1 class="fade-in">Towing Services</h1>
-  <p class="fade-in delay-1">Fast, safe towing across Whitehorse and surrounding areas.</p>
+  <div class="hero-content">
+    <h1 class="hero-title fade-in">🚛 Professional Towing Services</h1>
+    <p class="hero-subtitle fade-in delay-1">24/7 emergency response across Whitehorse and Haines Junction areas</p>
+    
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-number">24/7</span>
+        <span class="stat-label">Emergency Response</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">10+</span>
+        <span class="stat-label">Years Experience</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">500+</span>
+        <span class="stat-label">Vehicles Towed</span>
+      </div>
+    </div>
+    
+    <div class="hero-actions">
+      <a href="quote.html?service=towing" class="cta-button">Get Emergency Quote</a>
+      <a href="tel:1-867-332-0223" class="cta-button secondary">Call Now: (867) 332-0223</a>
+    </div>
+  </div>
 </section>
 
-<section class="card-container">
-  <div class="card hover-glow">
-    <h3>Emergency Towing</h3>
-    <p>Quick response for breakdowns and accidents.</p>
+<!-- Emergency Notice -->
+<section class="emergency-notice" style="background: rgba(255, 69, 0, 0.1); border: 2px solid #ff4500; border-radius: 15px; margin: 2rem; padding: 2rem; text-align: center;">
+  <h2 style="color: #ff4500; margin-bottom: 1rem;"><i class="fas fa-exclamation-triangle"></i> Emergency Towing Available</h2>
+  <p style="font-size: 1.2rem; margin-bottom: 1rem;">Need immediate towing assistance? Our emergency response team is available 24/7.</p>
+  <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+    <a href="tel:1-867-332-0223" class="cta-button" style="background: #ff4500;">📞 Call Lazarus: (867) 332-0223</a>
+    <a href="tel:1-867-332-4551" class="cta-button" style="background: #ff4500;">📞 Call Micah: (867) 332-4551</a>
   </div>
-  <div class="card hover-glow">
-    <h3>Vehicle Transport</h3>
-    <p>Safe transport of vehicles anywhere in Yukon.</p>
+</section>
+
+<!-- Towing Services -->
+<section class="services-section" style="padding: 4rem 2rem;">
+  <h2 style="text-align: center; color: #ffd700; font-size: 2.5rem; margin-bottom: 3rem;">Our Towing Services</h2>
+  
+  <div class="card-container">
+    <div class="card hover-glow">
+      <i class="fas fa-truck" style="font-size: 3rem; color: #ffd700; margin-bottom: 1rem;"></i>
+      <h3>Emergency Towing</h3>
+      <p>24/7 emergency response for vehicle breakdowns, accidents, and roadside emergencies across Yukon Territory.</p>
+      <ul style="text-align: left; color: #ccc; margin-top: 1rem;">
+        <li>✓ Accident recovery</li>
+        <li>✓ Breakdown assistance</li>
+        <li>✓ Off-road recovery</li>
+        <li>✓ Heavy-duty towing</li>
+      </ul>
+      <a href="quote.html?service=emergency-towing" class="cta-button small">Get Emergency Quote</a>
+    </div>
+    
+    <div class="card hover-glow">
+      <i class="fas fa-car" style="font-size: 3rem; color: #ffd700; margin-bottom: 1rem;"></i>
+      <h3>Vehicle Transport</h3>
+      <p>Safe and reliable vehicle transportation services for dealerships, auctions, and private customers.</p>
+      <ul style="text-align: left; color: #ccc; margin-top: 1rem;">
+        <li>✓ Dealership transport</li>
+        <li>✓ Auction pickups</li>
+        <li>✓ Long-distance moves</li>
+        <li>✓ Enclosed transport available</li>
+      </ul>
+      <a href="quote.html?service=vehicle-transport" class="cta-button small">Get Transport Quote</a>
+    </div>
+    
+    <div class="card hover-glow">
+      <i class="fas fa-tools" style="font-size: 3rem; color: #ffd700; margin-bottom: 1rem;"></i>
+      <h3>Roadside Assistance</h3>
+      <p>Comprehensive roadside assistance services to get you back on the road quickly and safely.</p>
+      <ul style="text-align: left; color: #ccc; margin-top: 1rem;">
+        <li>✓ Jump starts</li>
+        <li>✓ Tire changes</li>
+        <li>✓ Lockout service</li>
+        <li>✓ Fuel delivery</li>
+      </ul>
+      <a href="quote.html?service=roadside-assistance" class="cta-button small">Request Assistance</a>
+    </div>
+    
+    <div class="card hover-glow">
+      <i class="fas fa-snowflake" style="font-size: 3rem; color: #ffd700; margin-bottom: 1rem;"></i>
+      <h3>Winter Recovery</h3>
+      <p>Specialized winter towing and recovery services for extreme Yukon weather conditions.</p>
+      <ul style="text-align: left; color: #ccc; margin-top: 1rem;">
+        <li>✓ Snow/ice recovery</li>
+        <li>✓ Ditch pulls</li>
+        <li>✓ Winter accident response</li>
+        <li>✓ Cold weather specialists</li>
+      </ul>
+      <a href="quote.html?service=winter-recovery" class="cta-button small">Winter Service Quote</a>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing Information -->
+<section class="pricing-section" style="background: rgba(17, 17, 17, 0.9); padding: 4rem 2rem;">
+  <h2 style="text-align: center; color: #ffd700; font-size: 2.5rem; margin-bottom: 3rem;">Towing Rates</h2>
+  
+  <div class="pricing-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto;">
+    <div class="pricing-card" style="background: rgba(255, 215, 0, 0.1); border: 2px solid #ffd700; border-radius: 15px; padding: 2rem; text-align: center;">
+      <h3 style="color: #ffd700;">Local Towing</h3>
+      <div style="font-size: 2rem; color: #fff; margin: 1rem 0;">Starting at $150</div>
+      <p style="color: #ccc;">Within Whitehorse city limits</p>
+      <ul style="text-align: left; color: #ccc; margin: 1rem 0;">
+        <li>• Base rate includes first 10km</li>
+        <li>• Additional per km charges apply</li>
+        <li>• 24/7 availability</li>
+        <li>• Professional service</li>
+      </ul>
+    </div>
+    
+    <div class="pricing-card" style="background: rgba(255, 215, 0, 0.1); border: 2px solid #ffd700; border-radius: 15px; padding: 2rem; text-align: center;">
+      <h3 style="color: #ffd700;">Highway Towing</h3>
+      <div style="font-size: 2rem; color: #fff; margin: 1rem 0;">$3.50/km</div>
+      <p style="color: #ccc;">Outside city limits</p>
+      <ul style="text-align: left; color: #ccc; margin: 1rem 0;">
+        <li>• Minimum $200 charge</li>
+        <li>• Measured from dispatch</li>
+        <li>• Return mileage included</li>
+        <li>• Weather surcharge may apply</li>
+      </ul>
+    </div>
+    
+    <div class="pricing-card" style="background: rgba(255, 215, 0, 0.1); border: 2px solid #ffd700; border-radius: 15px; padding: 2rem; text-align: center;">
+      <h3 style="color: #ffd700;">Heavy Duty</h3>
+      <div style="font-size: 2rem; color: #fff; margin: 1rem 0;">Custom Quote</div>
+      <p style="color: #ccc;">Large vehicles & equipment</p>
+      <ul style="text-align: left; color: #ccc; margin: 1rem 0;">
+        <li>• Commercial vehicles</li>
+        <li>• Construction equipment</li>
+        <li>• Specialized recovery</li>
+        <li>• Custom equipment needed</li>
+      </ul>
+    </div>
+  </div>
+  
+  <div style="text-align: center; margin-top: 2rem;">
+    <p style="color: #ccc; font-style: italic;">*Prices subject to change based on conditions. Emergency and after-hours rates may apply.</p>
+    <a href="quote.html?service=towing" class="cta-button" style="margin-top: 1rem;">Get Accurate Quote</a>
+  </div>
+</section>
+
+<!-- Service Areas -->
+<section class="service-areas" style="padding: 4rem 2rem;">
+  <h2 style="text-align: center; color: #ffd700; font-size: 2.5rem; margin-bottom: 3rem;">Service Coverage</h2>
+  
+  <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+      <div>
+        <h3 style="color: #ffd700;">Primary Service Area</h3>
+        <ul style="text-align: left; color: #ccc;">
+          <li>🏠 Whitehorse City</li>
+          <li>🏔️ Haines Junction</li>
+          <li>🛣️ Alaska Highway (Km 1-1600)</li>
+          <li>🌲 Klondike Highway</li>
+        </ul>
+      </div>
+      
+      <div>
+        <h3 style="color: #ffd700;">Extended Coverage</h3>
+        <ul style="text-align: left; color: #ccc;">
+          <li>🗻 Champagne</li>
+          <li>⛰️ Mendenhall</li>
+          <li>🏞️ Marsh Lake</li>
+          <li>📞 Custom locations (call for quote)</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div style="background: rgba(255, 215, 0, 0.1); border: 2px solid #ffd700; border-radius: 15px; padding: 2rem; margin-top: 2rem;">
+      <h3 style="color: #ffd700; margin-bottom: 1rem;">Travel Charges Apply</h3>
+      <p style="color: #ccc;">For locations outside Whitehorse city limits, travel time and mileage charges will apply. We'll provide a clear quote before dispatch.</p>
+    </div>
   </div>
 </section>
 
@@ -92,7 +354,7 @@
           <li><a href="legal.html#refund">Refund Policy</a></li>
           <li><a href="legal.html#safety">Safety Information</a></li>
           <li><a href="legal.html#coc">Certificate of Compliance</a></li>
-          <li><a href="quote.html">Get Professional Quote</a></li>
+          <li><a href="legal.html#liability">Liability Terms</a></li>
         </ul>
       </div>
     </div>
@@ -109,8 +371,8 @@
     </div>
   </div>
   
-  <a href="admin.html" class="footer-admin">
-    <img src="assets/admin-icon.svg" alt="Admin" height="20">
+  <a href="admin.html" class="footer-admin" title="Team Admin Access">
+    <img src="assets/logo.png" alt="Team Admin" height="24">
   </a>
 </footer>
 </body>

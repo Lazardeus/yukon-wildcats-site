@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Development Services - Yukon Wildcats</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script defer src="js/particles-config.js"></script>
     <script defer src="js/script.js"></script>
@@ -13,7 +14,7 @@
     <div id="particles-js"></div>
     <header>
         <div class="header-left">
-            <img src="assets/logo.png" alt="Yukon Wildcats Logo">
+            <img src="assets/logo.png" alt="Yukon Wildcats Logo" class="round-logo">
         </div>
         <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">☰</button>
         <nav class="header-right">
@@ -21,64 +22,189 @@
             <a href="services.html">Services</a>
             <a href="snow.html">Snow Removal</a>
             <a href="tow.html">Towing</a>
-            <a href="web-services.html">Web Services</a>
+            <a href="web-services.html" class="active">Web Services</a>
             <a href="community.html">Community</a>
             <a href="contact.html">Contact</a>
+            <a href="quote.html">Get Quote</a>
             <a href="legal.html">Legal Info</a>
-            <a href="admin.html" class="admin-login" title="Admin Login">
-                <img src="assets/admin-icon.svg" alt="Admin" height="25">
-            </a>
+            <div class="auth-section">
+                <div class="cart-section" onclick="toggleCart()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count" class="cart-count">0</span>
+                    <span>Cart</span>
+                </div>
+                <a href="admin.html" class="admin-access" title="Admin Access">
+                    <i class="fas fa-user-shield"></i>
+                    <span>Admin</span>
+                </a>
+                <a href="login.html" class="login-link" title="Login / Create Account">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span>Login</span>
+                </a>
+            </div>
         </nav>
         <div class="mobile-overlay"></div>
     </header>
 
     <main>
-        <section class="hero">
-            <h1>Professional Web Development Services</h1>
-            <p>Transform your online presence with custom-built, responsive websites</p>
-            <button class="cta-button pulse" onclick="location.href='quote.html'">Get Professional Quote</button>
+        <section class="hero web-hero">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-code"></i>
+                    Professional Web Development
+                </div>
+                <h1 class="hero-title">
+                    Transform Your Business with 
+                    <span class="gradient-text">Stunning Websites</span>
+                </h1>
+                <p class="hero-description">Custom-built, responsive websites that drive results. From simple business sites to complex e-commerce platforms - we bring your vision to life.</p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">50+</span>
+                        <span class="stat-label">Websites Built</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Mobile Responsive</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Support</span>
+                    </div>
+                </div>
+                <div class="hero-actions">
+                    <button class="cta-button pulse primary" onclick="location.href='quote.html'">
+                        <i class="fas fa-rocket"></i>
+                        Get Professional Quote
+                    </button>
+                    <button class="cta-button secondary" onclick="openPreview('basic')">
+                        <i class="fas fa-play"></i>
+                        View Live Demo
+                    </button>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="floating-devices">
+                    <div class="device desktop">
+                        <div class="screen">
+                            <div class="demo-site">
+                                <div class="demo-header"></div>
+                                <div class="demo-content">
+                                    <div class="demo-block"></div>
+                                    <div class="demo-block small"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="device tablet">
+                        <div class="screen">
+                            <div class="demo-site">
+                                <div class="demo-header"></div>
+                                <div class="demo-content">
+                                    <div class="demo-block"></div>
+                                    <div class="demo-block small"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="device mobile">
+                        <div class="screen">
+                            <div class="demo-site">
+                                <div class="demo-header"></div>
+                                <div class="demo-content">
+                                    <div class="demo-block"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <section class="card-container">
-            <div class="card hover-glow">
-                <img src="assets/basic-web.png" alt="Basic Website Package">
+        <section class="card-container packages-showcase">
+            <div class="card hover-glow package-card" data-package="basic">
+                <div class="package-badge">Most Popular</div>
+                <img src="assets/basic-web.png" alt="Basic Website Package" class="package-image">
                 <h3>Basic Package</h3>
+                <div class="package-price">Starting at $899</div>
                 <p>Perfect for small businesses and personal sites</p>
-                <ul>
-                    <li>5 Custom Pages</li>
-                    <li>Mobile Responsive Design</li>
-                    <li>Contact Form</li>
-                    <li>Basic SEO Setup</li>
-                    <li>3 Rounds of Revisions</li>
+                <ul class="package-features">
+                    <li><i class="fas fa-check"></i>5 Custom Pages</li>
+                    <li><i class="fas fa-check"></i>Mobile Responsive Design</li>
+                    <li><i class="fas fa-check"></i>Contact Form Integration</li>
+                    <li><i class="fas fa-check"></i>Basic SEO Setup</li>
+                    <li><i class="fas fa-check"></i>3 Rounds of Revisions</li>
+                    <li><i class="fas fa-check"></i>SSL Certificate Included</li>
                 </ul>
+                <div class="package-actions">
+                    <button class="preview-btn" onclick="openPreview('basic')">
+                        <i class="fas fa-eye"></i> Live Preview
+                    </button>
+                    <button class="add-to-cart-btn" onclick="addToCart('basic', 'Basic Website Package', 899)">
+                        <i class="fas fa-shopping-cart"></i> Add to Cart
+                    </button>
+                    <button class="request-service-btn" onclick="requestService('basic')">
+                        <i class="fas fa-phone"></i> Request Service
+                    </button>
+                </div>
             </div>
 
-            <div class="card hover-glow">
-                <img src="assets/premium-web.png" alt="Premium Website Package">
+            <div class="card hover-glow package-card premium-highlight" data-package="premium">
+                <div class="package-badge premium">Best Value</div>
+                <img src="assets/premium-web.png" alt="Premium Website Package" class="package-image">
                 <h3>Premium Package</h3>
-                <p>Ideal for growing businesses</p>
-                <ul>
-                    <li>10 Custom Pages</li>
-                    <li>E-commerce Integration</li>
-                    <li>Advanced SEO Setup</li>
-                    <li>Content Management System</li>
-                    <li>Social Media Integration</li>
-                    <li>5 Rounds of Revisions</li>
+                <div class="package-price">Starting at $1,599</div>
+                <p>Ideal for growing businesses with advanced needs</p>
+                <ul class="package-features">
+                    <li><i class="fas fa-check"></i>10 Custom Pages</li>
+                    <li><i class="fas fa-check"></i>E-commerce Integration</li>
+                    <li><i class="fas fa-check"></i>Advanced SEO & Analytics</li>
+                    <li><i class="fas fa-check"></i>Content Management System</li>
+                    <li><i class="fas fa-check"></i>Social Media Integration</li>
+                    <li><i class="fas fa-check"></i>5 Rounds of Revisions</li>
+                    <li><i class="fas fa-check"></i>Performance Optimization</li>
+                    <li><i class="fas fa-check"></i>Advanced Security Features</li>
                 </ul>
+                <div class="package-actions">
+                    <button class="preview-btn" onclick="openPreview('premium')">
+                        <i class="fas fa-eye"></i> Live Preview
+                    </button>
+                    <button class="add-to-cart-btn" onclick="addToCart('premium', 'Premium Website Package', 1599)">
+                        <i class="fas fa-shopping-cart"></i> Add to Cart
+                    </button>
+                    <button class="request-service-btn" onclick="requestService('premium')">
+                        <i class="fas fa-phone"></i> Request Service
+                    </button>
+                </div>
             </div>
 
-            <div class="card hover-glow">
-                <img src="assets/custom-web.png" alt="Custom Website Package">
+            <div class="card hover-glow package-card enterprise-highlight" data-package="custom">
+                <div class="package-badge enterprise">Enterprise</div>
+                <img src="assets/custom-web.png" alt="Custom Website Package" class="package-image">
                 <h3>Custom Solution</h3>
-                <p>Tailored for unique business needs</p>
-                <ul>
-                    <li>Unlimited Pages</li>
-                    <li>Custom Functionality</li>
-                    <li>Advanced Analytics</li>
-                    <li>API Integration</li>
-                    <li>Database Solutions</li>
-                    <li>Unlimited Revisions</li>
+                <div class="package-price">Quote on Request</div>
+                <p>Tailored for unique business needs with unlimited possibilities</p>
+                <ul class="package-features">
+                    <li><i class="fas fa-check"></i>Unlimited Pages</li>
+                    <li><i class="fas fa-check"></i>Custom Functionality</li>
+                    <li><i class="fas fa-check"></i>Advanced Analytics Dashboard</li>
+                    <li><i class="fas fa-check"></i>API Integration & Development</li>
+                    <li><i class="fas fa-check"></i>Database Solutions</li>
+                    <li><i class="fas fa-check"></i>Unlimited Revisions</li>
+                    <li><i class="fas fa-check"></i>Priority Support & Maintenance</li>
+                    <li><i class="fas fa-check"></i>Advanced Security Implementation</li>
                 </ul>
+                <div class="package-actions">
+                    <button class="preview-btn" onclick="openPreview('custom')">
+                        <i class="fas fa-eye"></i> View Examples
+                    </button>
+                    <button class="add-to-cart-btn" onclick="addToCart('custom', 'Custom Website Solution', 0, true)">
+                        <i class="fas fa-comments"></i> Request Quote
+                    </button>
+                    <button class="request-service-btn" onclick="requestService('custom')">
+                        <i class="fas fa-phone"></i> Consultation Call
+                    </button>
+                </div>
             </div>
         </section>
 
@@ -161,15 +287,677 @@
         </section>
     </main>
 
+    <!-- Website Preview Modals -->
+    <div id="preview-modal" class="preview-modal">
+        <div class="preview-modal-content">
+            <div class="preview-header">
+                <h3 id="preview-title">Website Preview</h3>
+                <div class="preview-controls">
+                    <div class="device-switcher">
+                        <button class="device-btn active" data-device="desktop">
+                            <i class="fas fa-desktop"></i> Desktop
+                        </button>
+                        <button class="device-btn" data-device="tablet">
+                            <i class="fas fa-tablet-alt"></i> Tablet
+                        </button>
+                        <button class="device-btn" data-device="mobile">
+                            <i class="fas fa-mobile-alt"></i> Mobile
+                        </button>
+                    </div>
+                    <button class="close-preview" onclick="closePreview()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="preview-frame-container">
+                <div class="browser-mockup">
+                    <div class="browser-bar">
+                        <div class="browser-dots">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <div class="browser-url">https://your-business.com</div>
+                        <div class="browser-actions">
+                            <i class="fas fa-shield-alt" title="Secure SSL"></i>
+                        </div>
+                    </div>
+                    <div id="preview-iframe" class="preview-iframe">
+                        <!-- Dynamic content will be loaded here -->
+                    </div>
+                </div>
+            </div>
+            <div class="preview-footer">
+                <div class="preview-features">
+                    <div class="feature-highlight">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>Fully Responsive</span>
+                    </div>
+                    <div class="feature-highlight">
+                        <i class="fas fa-rocket"></i>
+                        <span>Fast Loading</span>
+                    </div>
+                    <div class="feature-highlight">
+                        <i class="fas fa-search"></i>
+                        <span>SEO Optimized</span>
+                    </div>
+                </div>
+                <button class="get-started-btn" onclick="location.href='quote.html'">
+                    <i class="fas fa-arrow-right"></i> Get Started Today
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shopping Cart Dropdown -->
+    <div id="cart-dropdown" class="cart-dropdown">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <button class="close-cart" onclick="toggleCart()">×</button>
+        </div>
+        <div id="cart-items" class="cart-items">
+            <div class="empty-cart">
+                <i class="fas fa-shopping-cart"></i>
+                <p>Your cart is empty</p>
+                <small>Add services to get started</small>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                Total: $<span id="cart-total">0</span>
+            </div>
+            <button class="checkout-btn" onclick="proceedToCheckout()">
+                <i class="fas fa-credit-card"></i> Proceed to Checkout
+            </button>
+        </div>
+    </div>
+
+    <!-- Service Request Modal -->
+    <div id="service-request-modal" class="service-modal">
+        <div class="service-modal-content">
+            <div class="service-header">
+                <h3>Request Professional Service</h3>
+                <button class="close-service" onclick="closeServiceRequest()">×</button>
+            </div>
+            <div class="service-body">
+                <div class="selected-package">
+                    <h4 id="selected-package-name">Selected Package</h4>
+                    <p id="selected-package-price">Package details will appear here</p>
+                </div>
+                <form id="service-request-form" class="service-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="client-name">Full Name *</label>
+                            <input type="text" id="client-name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="client-email">Email Address *</label>
+                            <input type="email" id="client-email" name="email" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="client-phone">Phone Number *</label>
+                            <input type="tel" id="client-phone" name="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="client-company">Company Name</label>
+                            <input type="text" id="client-company" name="company">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="project-timeline">Project Timeline</label>
+                        <select id="project-timeline" name="timeline">
+                            <option value="asap">ASAP (Rush - +25%)</option>
+                            <option value="1-2weeks">1-2 Weeks</option>
+                            <option value="1month" selected>Within 1 Month</option>
+                            <option value="2-3months">2-3 Months</option>
+                            <option value="flexible">Flexible Timeline</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="project-details">Project Details & Requirements *</label>
+                        <textarea id="project-details" name="details" rows="4" required 
+                                placeholder="Please describe your website needs, desired features, design preferences, and any specific requirements..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="budget-range">Budget Range (Optional)</label>
+                        <select id="budget-range" name="budget">
+                            <option value="">Select Budget Range</option>
+                            <option value="500-1000">$500 - $1,000</option>
+                            <option value="1000-2500">$1,000 - $2,500</option>
+                            <option value="2500-5000">$2,500 - $5,000</option>
+                            <option value="5000+">$5,000+</option>
+                        </select>
+                    </div>
+                    <div class="service-actions">
+                        <button type="button" class="cancel-btn" onclick="closeServiceRequest()">
+                            Cancel
+                        </button>
+                        <button type="submit" class="submit-service-btn">
+                            <i class="fas fa-paper-plane"></i> Send Service Request
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <p>&copy; 2025 Yukon Wildcats. All rights reserved.</p>
-        <a href="admin.html" class="footer-admin">
-            <img src="assets/admin.png" alt="Admin" height="20">
+        <a href="admin.html" class="footer-admin" title="Team Admin Access">
+            <img src="assets/logo.png" alt="Team Admin" height="24">
         </a>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="js/particles-config.js"></script>
     <script src="js/script.js"></script>
+    <script>
+        // Enhanced Website Preview System
+        const previewTemplates = {
+            basic: {
+                title: 'Basic Package Preview - Professional Small Business Website',
+                content: `
+                    <div class="demo-website basic-demo">
+                        <header class="demo-header">
+                            <div class="demo-logo">
+                                <span class="logo-icon">🏢</span>
+                                Your Business
+                            </div>
+                            <nav class="demo-nav">
+                                <a href="#" class="demo-link">Home</a>
+                                <a href="#" class="demo-link">About</a>
+                                <a href="#" class="demo-link">Services</a>
+                                <a href="#" class="demo-link">Gallery</a>
+                                <a href="#" class="demo-link">Contact</a>
+                            </nav>
+                            <div class="demo-mobile-toggle">☰</div>
+                        </header>
+                        <main class="demo-main">
+                            <section class="demo-hero">
+                                <div class="hero-content">
+                                    <h1 class="demo-title">Welcome to Your Professional Business</h1>
+                                    <p class="demo-subtitle">Quality services delivered with excellence and trust</p>
+                                    <div class="hero-features">
+                                        <span class="feature-badge">✓ Licensed & Insured</span>
+                                        <span class="feature-badge">✓ 5-Star Reviews</span>
+                                        <span class="feature-badge">✓ Free Estimates</span>
+                                    </div>
+                                    <div class="hero-buttons">
+                                        <button class="demo-cta primary">Get Free Quote</button>
+                                        <button class="demo-cta secondary">Call Now</button>
+                                    </div>
+                                </div>
+                                <div class="hero-image">
+                                    <div class="image-placeholder">
+                                        <span class="placeholder-icon">🏢</span>
+                                        <span class="placeholder-text">Your Business Photo</span>
+                                    </div>
+                                </div>
+                            </section>
+                            <section class="demo-services">
+                                <div class="section-header">
+                                    <h2>Our Professional Services</h2>
+                                    <p>Comprehensive solutions for your business needs</p>
+                                </div>
+                                <div class="demo-cards">
+                                    <div class="demo-card">
+                                        <div class="card-icon">🔧</div>
+                                        <h3>Professional Service</h3>
+                                        <p>Expert solutions tailored to your specific requirements with guaranteed quality.</p>
+                                        <div class="card-price">Starting at $99</div>
+                                    </div>
+                                    <div class="demo-card featured">
+                                        <div class="popular-badge">Most Popular</div>
+                                        <div class="card-icon">⭐</div>
+                                        <h3>Premium Package</h3>
+                                        <p>Complete business solution with enhanced features and priority support.</p>
+                                        <div class="card-price">Starting at $199</div>
+                                    </div>
+                                    <div class="demo-card">
+                                        <div class="card-icon">🚀</div>
+                                        <h3>Enterprise Solution</h3>
+                                        <p>Full-scale enterprise services with dedicated account management.</p>
+                                        <div class="card-price">Custom Quote</div>
+                                    </div>
+                                </div>
+                            </section>
+                            <section class="demo-testimonial">
+                                <div class="testimonial-content">
+                                    <h3>What Our Clients Say</h3>
+                                    <blockquote>
+                                        "Outstanding service and professional results. Highly recommend for any business needs!"
+                                        <cite>- Sarah Johnson, Business Owner</cite>
+                                    </blockquote>
+                                </div>
+                            </section>
+                        </main>
+                        <footer class="demo-footer">
+                            <p>&copy; 2025 Your Business. Professional website by Yukon Wildcats.</p>
+                        </footer>
+                    </div>
+                `
+            },
+            premium: {
+                title: 'Premium Package Preview - Advanced Business Website',
+                content: `
+                    <div class="demo-website premium-demo">
+                        <header class="demo-header premium-header">
+                            <div class="demo-logo premium-logo">
+                                <span class="logo-icon">💎</span>
+                                Premium Business Solutions
+                            </div>
+                            <nav class="demo-nav premium-nav">
+                                <a href="#" class="demo-link">Home</a>
+                                <a href="#" class="demo-link">About</a>
+                                <a href="#" class="demo-link">Services</a>
+                                <a href="#" class="demo-link">Portfolio</a>
+                                <a href="#" class="demo-link">E-Store</a>
+                                <a href="#" class="demo-link">Blog</a>
+                                <a href="#" class="demo-link">Contact</a>
+                            </nav>
+                            <div class="demo-user-actions">
+                                <span class="demo-login">Login</span>
+                                <span class="demo-cart">🛒 (2)</span>
+                            </div>
+                        </header>
+                        <main class="demo-main">
+                            <section class="demo-hero premium-hero">
+                                <div class="hero-content">
+                                    <h1 class="demo-title premium-title">
+                                        <span class="gradient-text">Premium Business Solutions</span>
+                                    </h1>
+                                    <p class="demo-subtitle">Advanced features, elegant design, powerful results</p>
+                                    <div class="hero-actions">
+                                        <button class="demo-cta premium-cta">Get Started</button>
+                                        <button class="demo-cta-secondary">View Portfolio</button>
+                                    </div>
+                                </div>
+                                <div class="hero-animation">
+                                    <div class="floating-element">💼</div>
+                                    <div class="floating-element">🚀</div>
+                                    <div class="floating-element">⭐</div>
+                                </div>
+                            </section>
+                            <section class="demo-content premium-content">
+                                <div class="demo-cards premium-cards">
+                                    <div class="demo-card premium-card">
+                                        <div class="card-icon">🎯</div>
+                                        <h3>Strategic Solutions</h3>
+                                        <p>Advanced strategies tailored to your business goals</p>
+                                        <div class="card-price">From $299</div>
+                                    </div>
+                                    <div class="demo-card premium-card featured">
+                                        <div class="featured-badge">Popular</div>
+                                        <div class="card-icon">⚡</div>
+                                        <h3>Premium Package</h3>
+                                        <p>Complete business transformation with premium features</p>
+                                        <div class="card-price">From $599</div>
+                                    </div>
+                                    <div class="demo-card premium-card">
+                                        <div class="card-icon">🏆</div>
+                                        <h3>Enterprise</h3>
+                                        <p>Full-scale enterprise solutions with dedicated support</p>
+                                        <div class="card-price">Custom</div>
+                                    </div>
+                                </div>
+                                <div class="premium-features">
+                                    <div class="feature-item">
+                                        <i class="fas fa-shopping-cart"></i>
+                                        <span>E-commerce Ready</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-chart-line"></i>
+                                        <span>Advanced Analytics</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-shield-alt"></i>
+                                        <span>Enterprise Security</span>
+                                    </div>
+                                </div>
+                            </section>
+                        </main>
+                        <footer class="demo-footer premium-footer">
+                            <p>&copy; 2025 Premium Business. Powered by Yukon Wildcats Advanced Web Solutions.</p>
+                        </footer>
+                    </div>
+                `
+            }
+        };
+
+        function openPreview(packageType) {
+            const modal = document.getElementById('preview-modal');
+            const title = document.getElementById('preview-title');
+            const iframe = document.getElementById('preview-iframe');
+            
+            title.textContent = previewTemplates[packageType].title;
+            iframe.innerHTML = previewTemplates[packageType].content;
+            
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            
+            // Add entrance animation
+            setTimeout(() => {
+                modal.classList.add('show');
+            }, 10);
+        }
+
+        function closePreview() {
+            const modal = document.getElementById('preview-modal');
+            modal.classList.remove('show');
+            
+            setTimeout(() => {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }, 300);
+        }
+
+        // Device switcher functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const deviceBtns = document.querySelectorAll('.device-btn');
+            const iframe = document.getElementById('preview-iframe');
+            
+            deviceBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    deviceBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const device = this.dataset.device;
+                    iframe.className = `preview-iframe ${device}`;
+                });
+            });
+        });
+
+        // Close modal on outside click
+        document.getElementById('preview-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePreview();
+            }
+        });
+
+        // Close with escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closePreview();
+                closeServiceRequest();
+                if (document.getElementById('cart-dropdown').classList.contains('show')) {
+                    toggleCart();
+                }
+            }
+        });
+
+        // Shopping Cart System
+        let cart = JSON.parse(localStorage.getItem('yukon_cart') || '[]');
+        let selectedPackage = null;
+
+        function updateCartDisplay() {
+            const cartCount = document.getElementById('cart-count');
+            const cartItems = document.getElementById('cart-items');
+            const cartTotal = document.getElementById('cart-total');
+            
+            cartCount.textContent = cart.length;
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="empty-cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <p>Your cart is empty</p>
+                        <small>Add services to get started</small>
+                    </div>
+                `;
+                cartTotal.textContent = '0';
+            } else {
+                let total = 0;
+                cartItems.innerHTML = cart.map(item => {
+                    total += item.price;
+                    return `
+                        <div class="cart-item">
+                            <div class="item-details">
+                                <h4>${item.name}</h4>
+                                <p class="item-price">$${item.price.toLocaleString()}</p>
+                            </div>
+                            <button class="remove-item" onclick="removeFromCart('${item.id}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    `;
+                }).join('');
+                cartTotal.textContent = total.toLocaleString();
+            }
+        }
+
+        function addToCart(packageId, packageName, price) {
+            const existingItem = cart.find(item => item.id === packageId);
+            if (existingItem) {
+                showNotification('Item already in cart!', 'warning');
+                return;
+            }
+            
+            cart.push({
+                id: packageId,
+                name: packageName,
+                price: price,
+                timestamp: Date.now()
+            });
+            
+            localStorage.setItem('yukon_cart', JSON.stringify(cart));
+            updateCartDisplay();
+            showNotification('Added to cart successfully!', 'success');
+            
+            // Animate the cart icon
+            const cartCount = document.getElementById('cart-count');
+            cartCount.style.animation = 'bounce 0.6s ease';
+            setTimeout(() => {
+                cartCount.style.animation = '';
+            }, 600);
+        }
+
+        function removeFromCart(packageId) {
+            cart = cart.filter(item => item.id !== packageId);
+            localStorage.setItem('yukon_cart', JSON.stringify(cart));
+            updateCartDisplay();
+            showNotification('Item removed from cart', 'info');
+        }
+
+        function toggleCart() {
+            const cartDropdown = document.getElementById('cart-dropdown');
+            cartDropdown.classList.toggle('show');
+        }
+
+        function proceedToCheckout() {
+            if (cart.length === 0) {
+                showNotification('Your cart is empty!', 'warning');
+                return;
+            }
+            
+            // Redirect to checkout with cart data
+            const cartData = encodeURIComponent(JSON.stringify(cart));
+            window.location.href = `checkout.html?cart=${cartData}`;
+        }
+
+        // Service Request System
+        function requestService(packageType) {
+            const packageDetails = {
+                basic: { name: 'Basic Website Package', price: '$899', features: '5 pages, responsive design, contact forms' },
+                premium: { name: 'Premium Website Package', price: '$1,599', features: '10 pages, e-commerce, CMS, advanced SEO' },
+                custom: { name: 'Custom Website Solution', price: 'Custom Quote', features: 'Unlimited pages, custom functionality, API integration' }
+            };
+            
+            selectedPackage = { type: packageType, ...packageDetails[packageType] };
+            
+            document.getElementById('selected-package-name').textContent = selectedPackage.name;
+            document.getElementById('selected-package-price').textContent = `${selectedPackage.price} - ${selectedPackage.features}`;
+            
+            document.getElementById('service-request-modal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            
+            setTimeout(() => {
+                document.getElementById('service-request-modal').classList.add('show');
+            }, 10);
+        }
+
+        function closeServiceRequest() {
+            const modal = document.getElementById('service-request-modal');
+            modal.classList.remove('show');
+            
+            setTimeout(() => {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+                selectedPackage = null;
+            }, 300);
+        }
+
+        // Service Request Form Submission
+        document.getElementById('service-request-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitButton = this.querySelector('.submit-service-btn');
+            const originalText = submitButton.innerHTML;
+            
+            // Show loading state
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending Request...';
+            
+            const formData = new FormData(this);
+            const serviceData = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                company: formData.get('company'),
+                serviceType: selectedPackage?.title || 'Web Services',
+                packageDetails: selectedPackage || {},
+                timeline: formData.get('timeline'),
+                budget: formData.get('budget'),
+                message: formData.get('details')
+            };
+            
+            try {
+                const response = await fetch('/api/public-service-request', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(serviceData)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok && result.success) {
+                    showNotification(result.message || 'Service request sent successfully! We will contact you within 24 hours.', 'success');
+                    closeServiceRequest();
+                    this.reset();
+                } else {
+                    throw new Error(result.message || 'Failed to submit request');
+                }
+            } catch (error) {
+                console.error('Error submitting service request:', error);
+                showNotification(error.message || 'Error sending request. Please try again or contact us directly.', 'error');
+            } finally {
+                // Reset button state
+                submitButton.disabled = false;
+                submitButton.innerHTML = originalText;
+            }
+        });
+
+        // Notification System
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-triangle' : type === 'warning' ? 'exclamation-circle' : 'info-circle'}"></i>
+                    <span>${message}</span>
+                </div>
+                <button class="notification-close" onclick="this.parentElement.remove()">×</button>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 10);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 5000);
+        }
+
+        // Initialize cart display on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartDisplay();
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            const cartDropdown = document.getElementById('cart-dropdown');
+            const cartSection = document.querySelector('.cart-section');
+            
+            if (cartDropdown.classList.contains('show') && !cartDropdown.contains(e.target) && !cartSection.contains(e.target)) {
+                toggleCart();
+            }
+        });
+    </script>
+
+    <!-- Whitney AI Chatbot -->
+    <div id="whitney-chatbot" class="chatbot-container" role="complementary" aria-label="AI Assistant Chat">
+      <!-- Chatbot Toggle Button -->
+      <button id="whitney-toggle" class="chatbot-toggle" 
+              aria-label="Open Whitney AI Assistant Chat"
+              aria-describedby="whitney-notification"
+              title="Chat with Whitney AI for web development help">
+        <img src="assets/whitney-avatar.svg" alt="Whitney AI Assistant" class="chatbot-avatar">
+        <div class="notification-badge" id="whitney-notification" aria-label="1 unread message">1</div>
+      </button>
+      
+      <!-- Chat Interface -->
+      <div id="whitney-chat" class="chat-interface hidden" 
+           role="dialog" 
+           aria-label="Whitney AI Chat Interface"
+           aria-describedby="chat-title">
+        
+        <!-- Chat Header -->
+        <div class="chat-header">
+          <img src="assets/whitney-avatar.svg" alt="Whitney AI Assistant" class="chat-avatar">
+          <div class="chat-info">
+            <h4 id="chat-title">Whitney</h4>
+            <span class="chat-status">Web Development Expert</span>
+          </div>
+          <div class="chat-controls">
+            <button class="minimize-btn" aria-label="Minimize chat">−</button>
+            <button class="close-btn" aria-label="Close chat">×</button>
+          </div>
+        </div>
+        
+        <!-- Chat Messages -->
+        <div class="chat-messages" id="chat-messages" role="log" aria-live="polite" aria-label="Chat messages"></div>
+        
+        <!-- Chat Input -->
+        <div class="chat-input-container">
+          <label for="chat-input" class="sr-only">Type your message to Whitney AI</label>
+          <input type="text" 
+                 id="chat-input" 
+                 placeholder="Ask about web development, pricing, or get a custom quote..."
+                 aria-label="Type your web development question"
+                 maxlength="500">
+          <button id="send-btn" aria-label="Send message">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Initial Popup -->
+    <div id="whitney-popup" class="chat-popup">
+      <div class="popup-content">
+        <span class="popup-close">&times;</span>
+        <img src="assets/whitney-avatar.svg" alt="Whitney AI" class="popup-avatar">
+        <div class="popup-text">
+          <strong>Hi! I'm Whitney 🚀</strong><br>
+          Need help with web development services? I can provide instant quotes and recommendations!
+        </div>
+        <button class="popup-btn">Chat Now</button>
+      </div>
+    </div>
 </body>
 </html>

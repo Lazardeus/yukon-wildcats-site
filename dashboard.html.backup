@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Dashboard - Yukon Wildcats Contracting</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #111;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        /* Header Navigation */
+        .dashboard-header {
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+            border-bottom: 3px solid #ffd700;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            margin-bottom: 1rem;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 2rem;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #000;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .brand-text {
+            color: #ffd700;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .dropdown-container {
+            position: relative;
+        }
+
+        .dropdown-btn {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #000;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .dropdown-btn:hover {
+            background: linear-gradient(45deg, #ffed4e, #ffd700);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 0.5rem);
+            right: 0;
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+            border: 2px solid #ffd700;
+            border-radius: 10px;
+            min-width: 280px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 2000;
+        }
+
+        .dropdown-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* Keep dropdown open when hovering over it */
+        .dropdown-container:hover .dropdown-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* Add hover area between button and dropdown */
+        .dropdown-container::before {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            height: 0.5rem;
+            background: transparent;
+            z-index: 1999;
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 1.2rem 1.5rem;
+            color: #ccc;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(255, 215, 0, 0.15);
+            color: #ffd700;
+            padding-left: 2rem;
+            transform: translateX(5px);
+        }
+
+        .dropdown-item:active {
+            background: rgba(255, 215, 0, 0.25);
+        }
+
+        .dropdown-item i {
+            width: 20px;
+            margin-right: 0.8rem;
+        }
+
+
+
+        .founders-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ccc;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            font-size: 1.1rem;
+        }
+
+        .founders-btn:hover {
+            background: rgba(255, 215, 0, 0.1);
+            border-color: #ffd700;
+            color: #ffd700;
+            transform: translateY(-2px);
+        }
+
+        .home-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .home-btn:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(40, 167, 69, 0.3);
+        }
+
+        .logout-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #c82333;
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Announcement Banner */
+        .announcement-banner {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            border: 2px solid #ff8c42;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .announcement-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shimmer 3s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .announcement-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .announcement-icon {
+            font-size: 2rem;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .announcement-text {
+            flex: 1;
+        }
+
+        .announcement-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .announcement-description {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.5;
+        }
+
+        /* Welcome Section */
+        .welcome-section {
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+            border: 2px solid #ffd700;
+            border-radius: 15px;
+            padding: 3rem 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .welcome-title {
+            color: #ffd700;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .welcome-subtitle {
+            color: #ccc;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .member-badge {
+            display: inline-block;
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid #ffd700;
+            border-radius: 25px;
+            padding: 0.5rem 1.5rem;
+            color: #ffd700;
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+
+        /* Dashboard Content */
+        .dashboard-content {
+            display: none;
+            padding: 1rem 0;
+        }
+
+        .dashboard-content.active {
+            display: block;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        /* Content Sections Spacing */
+        .content-section {
+            margin: 3rem 0;
+            padding: 2rem;
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            margin: 1rem 0;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: #ffd700;
+            box-shadow: 0 15px 35px rgba(255, 215, 0, 0.2);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            color: #ffd700;
+            margin-bottom: 1rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ffd700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #ccc;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 15px;
+            padding: 2.5rem;
+            transition: all 0.4s ease;
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-color: #ffd700;
+            box-shadow: 0 15px 35px rgba(255, 215, 0, 0.2);
+        }
+
+        .service-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .service-title {
+            color: #ffd700;
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .service-description {
+            color: #ccc;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        .service-price {
+            color: #28a745;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+        }
+
+        .request-btn {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #000;
+            border: none;
+            padding: 1.2rem 2rem;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 1rem;
+            margin-top: 1rem;
+        }
+
+        .request-btn:hover {
+            background: linear-gradient(45deg, #ffed4e, #ffd700);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.4);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #ccc;
+            margin: 2rem 0;
+        }
+
+        .empty-icon {
+            font-size: 3rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .dashboard-header {
+                padding: 1rem;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .logo-section {
+                gap: 1rem;
+            }
+
+            .nav-controls {
+                width: 100%;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .dropdown-menu {
+                right: 0;
+                left: 0;
+                min-width: auto;
+            }
+
+            .main-container {
+                padding: 1rem;
+                margin-top: 1rem;
+            }
+
+            .stats-grid,
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .service-card,
+            .stat-card {
+                padding: 1.5rem;
+                margin: 0.5rem 0;
+            }
+
+            .announcement-banner {
+                padding: 1.5rem;
+                margin: 1rem 0;
+            }
+
+            .welcome-section {
+                padding: 2rem 1rem;
+                margin: 1rem 0;
+            }
+        }
+
+        /* Particles */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+
+    <!-- Header -->
+    <header class="dashboard-header">
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="logo">🐾</div>
+                <div class="brand-text">Yukon Wildcats</div>
+            </div>
+
+            <div class="nav-controls">
+                <div class="dropdown-container">
+                    <button class="dropdown-btn">
+                        <i class="fas fa-bars"></i>
+                        Dashboard Menu
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-menu" id="dropdownMenu">
+                        <a href="#" class="dropdown-item" onclick="showSection('overview')">
+                            <i class="fas fa-tachometer-alt"></i>
+                            Dashboard Overview
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="showSection('services')">
+                            <i class="fas fa-cogs"></i>
+                            Request Services
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="showSection('contracts')">
+                            <i class="fas fa-file-contract"></i>
+                            My Contracts
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="showSection('invoices')">
+                            <i class="fas fa-receipt"></i>
+                            Invoices & Billing
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="showSection('profile')">
+                            <i class="fas fa-user-edit"></i>
+                            Profile Settings
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="showSection('support')">
+                            <i class="fas fa-life-ring"></i>
+                            Support Center
+                        </a>
+                    </div>
+                </div>
+
+                <a href="#" onclick="showFoundersLogin()" class="founders-btn" title="Founders Access">
+                    <i class="fas fa-users"></i>
+                </a>
+
+                <a href="index.html" class="home-btn">
+                    <i class="fas fa-home"></i>
+                    Home
+                </a>
+
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Payment Announcement -->
+        <div class="announcement-banner">
+            <div class="announcement-content">
+                <div class="announcement-icon">💳</div>
+                <div class="announcement-text">
+                    <div class="announcement-title">Payment Options Available</div>
+                    <div class="announcement-description">
+                        <strong>Web Development Services:</strong> We accept e-transfers and checks.<br>
+                        <strong>Contracting Services</strong> (Snow Removal, Towing, Excavation): Online payments coming soon! For now, these services require in-person payment arrangements.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Welcome Section -->
+        <div class="welcome-section">
+            <h1 class="welcome-title">Welcome to Your Dashboard</h1>
+            <p class="welcome-subtitle">Manage your services, contracts, and account information</p>
+            <div class="member-badge">
+                <i class="fas fa-star"></i>
+                Active Member
+            </div>
+        </div>
+
+        <!-- Dashboard Overview -->
+        <div id="overview-content" class="dashboard-content active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">❄️</div>
+                    <div class="stat-value" id="activeServices">0</div>
+                    <div class="stat-label">Active Services</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📄</div>
+                    <div class="stat-value" id="totalContracts">0</div>
+                    <div class="stat-label">Total Contracts</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-value" id="totalSpent">$0</div>
+                    <div class="stat-label">Total Spent</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-value" id="memberSince">2024</div>
+                    <div class="stat-label">Member Since</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Services Section -->
+        <div id="services-content" class="dashboard-content">
+            <div class="services-grid">
+                <div class="service-card" style="border: 2px solid #28a745;">
+                    <div class="service-icon">💻</div>
+                    <div class="service-title" style="color: #28a745;">Web Development</div>
+                    <div class="service-description">Custom websites, e-commerce stores, and web applications. Professional design and development services.</div>
+                    <div class="service-price" style="color: #28a745;">Starting at $500</div>
+                    <div style="background: rgba(40, 167, 69, 0.1); padding: 1rem; border-radius: 10px; margin: 1.5rem 0; color: #28a745; font-size: 0.95rem; font-weight: 600;">
+                        ✅ Accepts: E-transfer & Checks
+                    </div>
+                    <button class="request-btn" style="background: linear-gradient(45deg, #28a745, #20c997);" onclick="requestService('Web Development')">Get Quote</button>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">❄️</div>
+                    <div class="service-title">Snow Removal</div>
+                    <div class="service-description">Professional snow clearing for driveways, walkways, and parking areas during winter months</div>
+                    <div class="service-price">Starting at $50</div>
+                    <div style="background: rgba(255, 193, 7, 0.1); padding: 1rem; border-radius: 10px; margin: 1.5rem 0; color: #ffc107; font-size: 0.95rem; font-weight: 600;">
+                        ⚠️ In-person payment arrangements only
+                    </div>
+                    <button class="request-btn" onclick="requestService('Snow Removal')">Request Quote</button>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🚛</div>
+                    <div class="service-title">Towing Services</div>
+                    <div class="service-description">24/7 emergency towing and roadside assistance throughout the Yukon Territory</div>
+                    <div class="service-price">Starting at $75</div>
+                    <div style="background: rgba(255, 193, 7, 0.1); padding: 1rem; border-radius: 10px; margin: 1.5rem 0; color: #ffc107; font-size: 0.95rem; font-weight: 600;">
+                        ⚠️ In-person payment arrangements only
+                    </div>
+                    <button class="request-btn" onclick="requestService('Towing')">Request Service</button>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🏗️</div>
+                    <div class="service-title">Excavation</div>
+                    <div class="service-description">Professional excavation, earthmoving, and construction support services</div>
+                    <div class="service-price">Starting at $150/hr</div>
+                    <div style="background: rgba(255, 193, 7, 0.1); padding: 1rem; border-radius: 10px; margin: 1.5rem 0; color: #ffc107; font-size: 0.95rem; font-weight: 600;">
+                        ⚠️ In-person payment arrangements only
+                    </div>
+                    <button class="request-btn" onclick="requestService('Excavation')">Get Quote</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contracts Section -->
+        <div id="contracts-content" class="dashboard-content">
+            <div class="empty-state">
+                <div class="empty-icon">📋</div>
+                <h3>No Contracts Yet</h3>
+                <p>Your contracts and service agreements will appear here once you request services.</p>
+            </div>
+        </div>
+
+        <!-- Invoices Section -->
+        <div id="invoices-content" class="dashboard-content">
+            <div class="announcement-banner" style="background: linear-gradient(135deg, #6f42c1, #6610f2);">
+                <div class="announcement-content">
+                    <div class="announcement-icon">💳</div>
+                    <div class="announcement-text">
+                        <div class="announcement-title">Payment Methods by Service Type</div>
+                        <div class="announcement-description">
+                            <strong>Web Development Services:</strong> E-transfer and checks accepted.<br>
+                            <strong>Contracting Services:</strong> Payment arrangements made in-person only.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="empty-state">
+                <div class="empty-icon">💰</div>
+                <h3>No Invoices Yet</h3>
+                <p>Your billing history and invoices will be displayed here.</p>
+            </div>
+        </div>
+
+        <!-- Profile Section -->
+        <div id="profile-content" class="dashboard-content">
+            <div class="empty-state">
+                <div class="empty-icon">👤</div>
+                <h3>Profile Settings</h3>
+                <p>Profile management features coming soon...</p>
+            </div>
+        </div>
+
+        <!-- Support Section -->
+        <div id="support-content" class="dashboard-content">
+            <div style="background: linear-gradient(135deg, #1a1a1a, #2a2a2a); border: 2px solid #ffd700; border-radius: 15px; padding: 2rem;">
+                <h2 style="color: #ffd700; margin-bottom: 1.5rem;">
+                    <i class="fas fa-life-ring"></i>
+                    Support Center
+                </h2>
+                <div style="color: #ccc; line-height: 1.8;">
+                    <p><strong>Need Help?</strong> Our team is here to assist you!</p>
+                    
+                    <div style="margin: 2rem 0;">
+                        <h3 style="color: #ffd700;">📞 Contact Information</h3>
+                        <p>📱 Phone: <strong>(867) 123-4567</strong></p>
+                        <p>✉️ Email: <strong>support@yukonwildcats.ca</strong></p>
+                        <p>🏢 Office: Whitehorse, Yukon Territory</p>
+                    </div>
+
+                    <div style="margin: 2rem 0;">
+                        <h3 style="color: #ffd700;">🕒 Business Hours</h3>
+                        <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
+                        <p>Saturday: 9:00 AM - 4:00 PM</p>
+                        <p>Sunday: Emergency services only</p>
+                    </div>
+
+                    <div style="margin: 2rem 0;">
+                        <h3 style="color: #ffd700;">🚨 Emergency Services</h3>
+                        <p>24/7 Emergency towing and snow removal available</p>
+                        <p>Call our main number for emergency dispatch</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/particles-config.js"></script>
+    <script src="js/script.js"></script>
+
+    <script>
+        // Enhanced dropdown functionality with hover support
+        let dropdownTimer = null;
+
+        function toggleDropdown() {
+            const dropdown = document.getElementById('dropdownMenu');
+            dropdown.classList.toggle('show');
+            
+            // Clear any existing timer
+            if (dropdownTimer) {
+                clearTimeout(dropdownTimer);
+                dropdownTimer = null;
+            }
+        }
+
+        function showDropdown() {
+            const dropdown = document.getElementById('dropdownMenu');
+            dropdown.classList.add('show');
+            
+            // Clear any existing timer
+            if (dropdownTimer) {
+                clearTimeout(dropdownTimer);
+                dropdownTimer = null;
+            }
+        }
+
+        function hideDropdownDelayed() {
+            // Add a delay before hiding to allow mouse movement
+            dropdownTimer = setTimeout(() => {
+                const dropdown = document.getElementById('dropdownMenu');
+                dropdown.classList.remove('show');
+            }, 500); // 500ms delay
+        }
+
+        function cancelHideDropdown() {
+            if (dropdownTimer) {
+                clearTimeout(dropdownTimer);
+                dropdownTimer = null;
+            }
+        }
+
+        // Enhanced dropdown event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdownContainer = document.querySelector('.dropdown-container');
+            const dropdownBtn = document.querySelector('.dropdown-btn');
+            const dropdownMenu = document.getElementById('dropdownMenu');
+
+            // Click to toggle (click-only functionality)
+            dropdownBtn.addEventListener('click', function(event) {
+                event.stopPropagation();
+                toggleDropdown();
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!dropdownContainer.contains(event.target)) {
+                    dropdownMenu.classList.remove('show');
+                }
+            });
+
+            // Prevent dropdown from closing when clicking inside it
+            dropdownMenu.addEventListener('click', function(event) {
+                event.stopPropagation();
+            });
+        });
+
+        // Section navigation
+        function showSection(sectionName) {
+            // Hide all content sections
+            document.querySelectorAll('.dashboard-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(sectionName + '-content').classList.add('active');
+
+            // Close dropdown
+            document.getElementById('dropdownMenu').classList.remove('show');
+        }
+
+        // Service request with backend call
+        async function requestService(serviceType) {
+            try {
+                showNotification(`🎉 Service request for ${serviceType} submitted! We'll contact you within 24 hours.`, 'success');
+                
+                // Update local stats
+                const activeServices = document.getElementById('activeServices');
+                activeServices.textContent = parseInt(activeServices.textContent) + 1;
+
+                // Try to send to backend (will work when server is running)
+                const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+                const requestData = {
+                    userId: currentUser.id,
+                    serviceType: serviceType,
+                    timestamp: new Date().toISOString(),
+                    status: 'pending'
+                };
+
+                // Store locally for now
+                const requests = JSON.parse(localStorage.getItem('yw_service_requests') || '[]');
+                requests.push(requestData);
+                localStorage.setItem('yw_service_requests', JSON.stringify(requests));
+
+                // Attempt backend call (gracefully fail if server not running)
+                try {
+                    await fetch('/api/service-request', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('authToken') || ''}`
+                        },
+                        body: JSON.stringify(requestData)
+                    });
+                } catch (e) {
+                    console.log('Backend not available, using local storage');
+                }
+
+            } catch (error) {
+                showNotification('Error submitting request. Please try again.', 'error');
+            }
+        }
+
+        // Custom notification system
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(45deg, #1a1a1a, #2a2a2a);
+                border: 2px solid ${type === 'success' ? '#28a745' : type === 'error' ? '#dc3545' : '#ffd700'};
+                color: ${type === 'success' ? '#28a745' : type === 'error' ? '#dc3545' : '#ffd700'};
+                padding: 1rem 2rem;
+                border-radius: 10px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+                z-index: 10000;
+                animation: slideInRight 0.5s ease-out;
+                max-width: 400px;
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.5s ease-in';
+                setTimeout(() => notification.remove(), 500);
+            }, 4000);
+        }
+
+        // Logout function
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('currentUser');
+                localStorage.removeItem('authToken');
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check authentication
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+            if (!currentUser) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Update user info
+            document.getElementById('userName').textContent = `${currentUser.firstName} ${currentUser.lastName}`;
+            document.getElementById('userAvatar').textContent = currentUser.firstName.charAt(0).toUpperCase();
+
+            // Set member since
+            if (currentUser.createdAt) {
+                const memberSince = new Date(currentUser.createdAt).getFullYear();
+                document.getElementById('memberSince').textContent = memberSince;
+            }
+
+            // Load user stats from localStorage
+            const requests = JSON.parse(localStorage.getItem('yw_service_requests') || '[]');
+            const userRequests = requests.filter(r => r.userId === currentUser.id);
+            document.getElementById('activeServices').textContent = userRequests.length;
+            document.getElementById('totalContracts').textContent = userRequests.filter(r => r.status === 'completed').length;
+
+            // Initialize particles
+            if (typeof particlesJS !== 'undefined') {
+                loadParticles();
+            }
+        });
+
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOutRight {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        function showFoundersLogin() {
+            const modal = document.getElementById('foundersModal');
+            modal.style.display = 'block';
+        }
+
+        function closeFoundersModal() {
+            const modal = document.getElementById('foundersModal');
+            modal.style.display = 'none';
+            document.getElementById('foundersPassword').value = '';
+        }
+
+        function submitFoundersLogin() {
+            const password = document.getElementById('foundersPassword').value;
+            
+            if (password === 'wildcats2024' || password === 'founders123') {
+                localStorage.setItem('foundersAccess', 'true');
+                closeFoundersModal();
+                window.location.href = 'admin.html';
+            } else {
+                alert('Invalid founders access code');
+                document.getElementById('foundersPassword').value = '';
+            }
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('foundersModal');
+            if (event.target == modal) {
+                closeFoundersModal();
+            }
+        }
+    </script>
+
+    <!-- Founders Login Modal -->
+    <div id="foundersModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-users"></i> Founders Access</h3>
+                <span class="close" onclick="closeFoundersModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Enter the founders access code:</p>
+                <input type="password" id="foundersPassword" placeholder="Access Code" onkeypress="if(event.key==='Enter') submitFoundersLogin()">
+                <button onclick="submitFoundersLogin()" class="modal-btn">Access Admin Panel</button>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            margin: 15% auto;
+            padding: 0;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 15px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            color: #ffd700;
+            font-size: 1.2rem;
+        }
+
+        .close {
+            color: #999;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close:hover {
+            color: #ffd700;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .modal-body p {
+            color: #ccc;
+            margin-bottom: 1rem;
+        }
+
+        .modal-body input {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            box-sizing: border-box;
+        }
+
+        .modal-body input:focus {
+            outline: none;
+            border-color: #ffd700;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        .modal-btn {
+            width: 100%;
+            padding: 0.8rem;
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-btn:hover {
+            background: linear-gradient(45deg, #ffed4e, #ffd700);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+    </style>
+
+</body>
+</html>

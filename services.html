@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Services - Yukon Wildcats Contracting</title>
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 <script defer src="js/particles-config.js"></script>
 <script defer src="js/script.js"></script>
@@ -27,9 +28,16 @@
     <a href="contact.html">Contact</a>
     <a href="quote.html">Get Quote</a>
     <a href="legal.html">Legal Info</a>
-    <a href="admin.html" class="admin-login" title="Admin Login">
-      <img src="assets/admin-icon.svg" alt="Admin" height="25">
-    </a>
+    <div class="auth-section">
+      <a href="admin.html" class="admin-access" title="Admin Access">
+        <i class="fas fa-user-shield"></i>
+        <span>Admin</span>
+      </a>
+      <a href="login.html" class="login-link" title="Login / Create Account">
+        <i class="fas fa-sign-in-alt"></i>
+        <span>Login</span>
+      </a>
+    </div>
   </nav>
   <div class="mobile-overlay"></div>
 </header>
@@ -43,18 +51,26 @@
   <div class="card hover-glow">
     <img src="assets/snow_icon.png" alt="Snow Removal">
     <h3>Snow Removal</h3>
+    <p>Professional snow clearing services for residential and commercial properties. Fast, reliable, and safe snow removal during Yukon winters.</p>
+    <a href="snow.html" class="cta-button small">Learn More</a>
   </div>
   <div class="card hover-glow">
     <img src="assets/tow_icon.png" alt="Towing">
     <h3>Towing</h3>
+    <p>24/7 emergency towing services and vehicle transport across the Yukon Territory. Professional drivers and reliable equipment.</p>
+    <a href="tow.html" class="cta-button small">Learn More</a>
   </div>
   <div class="card hover-glow">
     <img src="assets/excavator_icon.png" alt="Excavation">
     <h3>Excavation</h3>
+    <p>Expert excavation services for construction projects, landscaping, and site preparation. Modern equipment and experienced operators.</p>
+    <a href="quote.html?service=excavation" class="cta-button small">Get Quote</a>
   </div>
   <div class="card hover-glow">
     <img src="assets/dumptruck_icon.png" alt="Dump Trucking">
     <h3>Dump Trucking</h3>
+    <p>Efficient material hauling and transport services. Professional drivers ensuring safe delivery of construction materials and debris removal.</p>
+    <a href="quote.html?service=dump-trucking" class="cta-button small">Get Quote</a>
   </div>
   <div class="card hover-glow">
     <img src="assets/housing_icon.svg" alt="Housing Contracts">
@@ -117,7 +133,7 @@
           <li><a href="legal.html#refund">Refund Policy</a></li>
           <li><a href="legal.html#safety">Safety Information</a></li>
           <li><a href="legal.html#coc">Certificate of Compliance</a></li>
-          <li><a href="quote.html">Get Professional Quote</a></li>
+          <li><a href="legal.html#liability">Liability Terms</a></li>
         </ul>
       </div>
     </div>
@@ -134,8 +150,8 @@
     </div>
   </div>
   
-  <a href="admin.html" class="footer-admin">
-    <img src="assets/admin-icon.svg" alt="Admin" height="20">
+  <a href="admin.html" class="footer-admin" title="Team Admin Access">
+    <img src="assets/logo.png" alt="Team Admin" height="24">
   </a>
 </footer>
 </body>

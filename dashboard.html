@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Dashboard - Yukon Wildcats Contracting</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script defer src="js/particles-config.js"></script>
+    <script defer src="js/script.js"></script>
+</head>
+
+<body>
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+
+    <!-- Header -->
+    <header class="dashboard-header">
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="logo">🐾</div>
+                <div class="brand-text">Yukon Wildcats</div>
+            </div>
+
+            <div class="nav-controls">
+                <div class="dropdown-container">
+                    <button class="dropdown-btn" onclick="toggleDropdown()">
+                        <i class="fas fa-bars"></i>
+                        Dashboard Menu
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-menu" id="dashboardMenu">
+                        <a href="#" class="dropdown-item" onclick="showContent('overview')">
+                            <i class="fas fa-chart-line"></i>
+                            Overview
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="showContent('services')">
+                            <i class="fas fa-tools"></i>
+                            Services
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="showContent('contracts')">
+                            <i class="fas fa-file-contract"></i>
+                            Contracts
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="showContent('invoices')">
+                            <i class="fas fa-receipt"></i>
+                            Invoices
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="showContent('profile')">
+                            <i class="fas fa-user"></i>
+                            Profile
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="showContent('support')">
+                            <i class="fas fa-life-ring"></i>
+                            Support
+                        </a>
+                        <a href="index.html" class="dropdown-item">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main>
+        <!-- Overview Content -->
+        <div id="overview-content" class="dashboard-content active">
+            <div class="welcome-section">
+                <h1>🎉 Welcome Back to Your Dashboard!</h1>
+                <p>Manage your services, track projects, and stay connected with Yukon Wildcats Contracting</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <div class="stat-value">3</div>
+                    <div class="stat-label">Active Services</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <div class="stat-value">7</div>
+                    <div class="stat-label">Completed Projects</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-value">4.9</div>
+                    <div class="stat-label">Average Rating</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-value">24/7</div>
+                    <div class="stat-label">Support Available</div>
+                </div>
+            </div>
+
+            <h2>📊 Recent Activity</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-header">
+                        <div class="service-icon">❄️</div>
+                        <div>
+                            <h3 class="service-title">Snow Removal</h3>
+                            <p>Seasonal Service</p>
+                        </div>
+                        <span class="service-status status-active">Active</span>
+                    </div>
+                    <p>Winter season snow clearing for residential and commercial properties.</p>
+                    <button class="btn">View Details</button>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-header">
+                        <div class="service-icon">🚛</div>
+                        <div>
+                            <h3 class="service-title">Towing Services</h3>
+                            <p>Emergency Response</p>
+                        </div>
+                        <span class="service-status status-active">Active</span>
+                    </div>
+                    <p>24/7 emergency towing and roadside assistance throughout Yukon Territory.</p>
+                    <button class="btn">View Details</button>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-header">
+                        <div class="service-icon">🏗️</div>
+                        <div>
+                            <h3 class="service-title">Excavation</h3>
+                            <p>Construction Project</p>
+                        </div>
+                        <span class="service-status status-pending">Scheduled</span>
+                    </div>
+                    <p>Professional excavation and earthworks for construction projects.</p>
+                    <button class="btn">View Details</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Services Content -->
+        <div id="services-content" class="dashboard-content">
+            <h1>🛠️ My Services</h1>
+            <p>Manage your active and completed services</p>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-header">
+                        <div class="service-icon">❄️</div>
+                        <div>
+                            <h3 class="service-title">Snow Removal Package</h3>
+                            <p>Premium Winter Service</p>
+                        </div>
+                        <span class="service-status status-active">Active</span>
+                    </div>
+                    <p><strong>Coverage:</strong> Full seasonal service with priority response</p>
+                    <p><strong>Next Service:</strong> As needed (weather dependent)</p>
+                    <div style="margin-top: 1rem;">
+                        <button class="btn">Schedule Service</button>
+                        <button class="btn btn-secondary">View History</button>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-header">
+                        <div class="service-icon">🚛</div>
+                        <div>
+                            <h3 class="service-title">Emergency Towing</h3>
+                            <p>24/7 Coverage Plan</p>
+                        </div>
+                        <span class="service-status status-active">Active</span>
+                    </div>
+                    <p><strong>Coverage:</strong> Territory-wide emergency response</p>
+                    <p><strong>Response Time:</strong> Average 30 minutes</p>
+                    <div style="margin-top: 1rem;">
+                        <button class="btn">Request Tow</button>
+                        <button class="btn btn-secondary">Coverage Map</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contracts Content -->
+        <div id="contracts-content" class="dashboard-content">
+            <h1>📋 My Contracts</h1>
+            <p>View and manage your service contracts</p>
+            
+            <table class="contract-table">
+                <thead>
+                    <tr>
+                        <th>Service</th>
+                        <th>Contract ID</th>
+                        <th>Start Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Snow Removal</td>
+                        <td>#WC-2024-001</td>
+                        <td>Nov 1, 2024</td>
+                        <td><span class="service-status status-active">Active</span></td>
+                        <td><button class="btn btn-secondary">View</button></td>
+                    </tr>
+                    <tr>
+                        <td>Towing Services</td>
+                        <td>#WC-2024-002</td>
+                        <td>Oct 15, 2024</td>
+                        <td><span class="service-status status-active">Active</span></td>
+                        <td><button class="btn btn-secondary">View</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Invoices Content -->
+        <div id="invoices-content" class="dashboard-content">
+            <h1>💰 Invoices & Billing</h1>
+            <p>Manage your billing information and payment history</p>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-value">$0</div>
+                    <div class="stat-label">Outstanding Balance</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar"></i>
+                    </div>
+                    <div class="stat-value">Dec 1</div>
+                    <div class="stat-label">Next Payment Due</div>
+                </div>
+            </div>
+
+            <h3>Recent Invoices</h3>
+            <table class="contract-table">
+                <thead>
+                    <tr>
+                        <th>Invoice #</th>
+                        <th>Service</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#INV-001</td>
+                        <td>Snow Removal - November</td>
+                        <td>$250.00</td>
+                        <td>Nov 1, 2024</td>
+                        <td><span class="service-status status-active">Paid</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Profile Content -->
+        <div id="profile-content" class="dashboard-content">
+            <h1>👤 My Profile</h1>
+            
+            <div class="profile-section">
+                <div class="profile-header">
+                    <div class="profile-avatar">👤</div>
+                    <div class="profile-info">
+                        <h2>John Doe</h2>
+                        <p>Premium Customer</p>
+                        <p>Member since: October 2024</p>
+                    </div>
+                </div>
+
+                <form>
+                    <div class="form-group">
+                        <label for="fullName">Full Name:</label>
+                        <input type="text" id="fullName" value="John Doe">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" value="john.doe@email.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone:</label>
+                        <input type="tel" id="phone" value="+1 (867) 555-0123">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">Address:</label>
+                        <textarea id="address" rows="3">123 Main Street
+Whitehorse, YT Y1A 1A1</textarea>
+                    </div>
+
+                    <button type="submit" class="btn">Update Profile</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Support Content -->
+        <div id="support-content" class="dashboard-content">
+            <h1>🆘 Help & Support</h1>
+            <p>Get assistance with your services and account</p>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-header">
+                        <div class="service-icon">📞</div>
+                        <div>
+                            <h3 class="service-title">24/7 Emergency</h3>
+                            <p>Immediate Assistance</p>
+                        </div>
+                    </div>
+                    <p>Call us anytime for urgent service needs or emergencies.</p>
+                    <button class="btn">Call Now: (867) 335-7387</button>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-header">
+                        <div class="service-icon">💬</div>
+                        <div>
+                            <h3 class="service-title">Live Chat</h3>
+                            <p>Online Support</p>
+                        </div>
+                    </div>
+                    <p>Chat with our support team during business hours.</p>
+                    <button class="btn">Start Chat</button>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-header">
+                        <div class="service-icon">📧</div>
+                        <div>
+                            <h3 class="service-title">Email Support</h3>
+                            <p>Detailed Assistance</p>
+                        </div>
+                    </div>
+                    <p>Send us your questions and we'll respond within 24 hours.</p>
+                    <button class="btn">Send Email</button>
+                </div>
+            </div>
+
+            <h3>Frequently Asked Questions</h3>
+            <div class="profile-section">
+                <h4>How do I schedule a service?</h4>
+                <p>You can schedule services through your dashboard or by calling our dispatch line.</p>
+                
+                <h4>What areas do you cover?</h4>
+                <p>We provide services throughout Yukon Territory, with primary coverage in Whitehorse and surrounding areas.</p>
+                
+                <h4>How can I update my payment information?</h4>
+                <p>Contact our billing department to update payment methods and billing information.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Yukon Wildcats Contracting</h3>
+                <p>Professional contracting services in Yukon Territory</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Dashboard Links</h4>
+                <a href="#" onclick="showContent('overview')">Overview</a>
+                <a href="#" onclick="showContent('services')">Services</a>
+                <a href="#" onclick="showContent('profile')">Profile</a>
+                <a href="#" onclick="showContent('support')">Support</a>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>📞 (867) 335-7387</p>
+                <p>📧 info@yukonwildcats.ca</p>
+                <p>&copy; 2024 Yukon Wildcats Contracting</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Dashboard functionality
+        function toggleDropdown() {
+            const menu = document.getElementById('dashboardMenu');
+            menu.classList.toggle('active');
+        }
+
+        function showContent(contentId) {
+            // Hide all content sections
+            const contents = document.querySelectorAll('.dashboard-content');
+            contents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Show selected content
+            const selectedContent = document.getElementById(contentId + '-content');
+            if (selectedContent) {
+                selectedContent.classList.add('active');
+            }
+
+            // Close dropdown
+            const menu = document.getElementById('dashboardMenu');
+            menu.classList.remove('active');
+
+            // Update page title
+            const titles = {
+                overview: 'Dashboard Overview',
+                services: 'My Services',
+                contracts: 'My Contracts',
+                invoices: 'Invoices & Billing',
+                profile: 'My Profile',
+                support: 'Help & Support'
+            };
+            
+            document.title = `${titles[contentId]} - Yukon Wildcats Dashboard`;
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.querySelector('.dropdown-container');
+            const menu = document.getElementById('dashboardMenu');
+            
+            if (!dropdown.contains(event.target)) {
+                menu.classList.remove('active');
+            }
+        });
+
+        // Initialize particles
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set initial page title
+            document.title = 'Dashboard Overview - Yukon Wildcats Dashboard';
+        });
+    </script>
+</body>
+</html>
