@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'yukon-wildcats-server',
-      script: './server/server.js',
+      script: 'server.js',
       cwd: './server',
       instances: 'max',  // Use all available CPUs for better performance
       exec_mode: 'cluster',  // Enable clustering for production
