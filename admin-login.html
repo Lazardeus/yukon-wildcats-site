@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login - Yukon Wildcats Contracting</title>
+  <link rel="stylesheet" href="css/style.css?v=20251110b">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script defer src="js/particles-config.js?v=20251110b"></script>
+  <script defer src="js/script.js?v=20251110b"></script>
+</head>
+<body>
+  <div id="particles-js"></div>
+  <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+  <main class="auth-wrapper" style="max-width:420px;margin:3rem auto;padding:2rem;background:rgba(0,0,0,0.7);border:1px solid rgba(255,215,0,0.3);border-radius:16px;backdrop-filter:blur(6px);">
+    <div class="logo" style="width:70px;height:70px;background:#111;border:2px solid #ffd700;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem;box-shadow:0 0 12px rgba(255,215,0,0.4)">
+      <img src="assets/logo.png" alt="Logo" style="width:60px;height:60px;border-radius:50%" />
+    </div>
+    <h1 style="text-align:center;color:#ffd700;font-size:1.8rem;margin-bottom:.4rem;">Admin Access</h1>
+    <p style="text-align:center;color:#ccc;font-size:.9rem;margin-bottom:1.5rem;">Restricted: Team / Owner login</p>
+    <div id="admin-login-alert" aria-live="polite" style="display:none;margin-bottom:1rem;padding:.8rem 1rem;border-radius:8px;font-size:.85rem;font-weight:600"></div>
+    <form id="adminLoginForm" novalidate>
+      <label style="display:block;color:#ffd700;font-size:.85rem;margin-bottom:.4rem;" for="admUser">Username</label>
+      <input id="admUser" name="admUser" type="text" required placeholder="admin or manager" style="width:100%;padding:.9rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,215,0,0.3);border-radius:8px;color:#fff;margin-bottom:1rem;" />
+      <label style="display:block;color:#ffd700;font-size:.85rem;margin-bottom:.4rem;" for="admPass">Password</label>
+      <input id="admPass" name="admPass" type="password" required placeholder="Password" style="width:100%;padding:.9rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,215,0,0.3);border-radius:8px;color:#fff;margin-bottom:1rem;" />
+      <button type="submit" style="background:#ffd700;color:#111;font-weight:700;width:100%;padding:1rem;border:none;border-radius:10px;cursor:pointer;box-shadow:0 4px 15px rgba(255,215,0,0.4);transition:.3s;">Login</button>
+    </form>
+    <div style="text-align:center;margin-top:1.5rem;font-size:.7rem;color:#666;">Unauthorized access prohibited. Monitored.</div>
+  </main>
+  <script>
+  (function(){
+    const form = document.getElementById('adminLoginForm');
+    const alertBox = document.getElementById('admin-login-alert');
+    function show(msg,type){
+      alertBox.textContent=msg;alertBox.style.display='block';
+      alertBox.style.background=type==='success'?'rgba(40,167,69,0.15)':'rgba(220,53,69,0.15)';
+      alertBox.style.border='1px solid '+(type==='success'?'#28a745':'#dc3545');
+      alertBox.style.color=type==='success'?'#28a745':'#dc3545';
+    }
+    form.addEventListener('submit',async (e)=>{
+      e.preventDefault();
+      alertBox.style.display='none';
+      const username=document.getElementById('admUser').value.trim();
+      const password=document.getElementById('admPass').value;
+      if(!username||!password){show('Username & password required');return;}
+      try{
+        const res=await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username,password})});
+        if(!res.ok){const d=await res.json().catch(()=>({message:'Invalid credentials'}));show(d.message);return;}
+        const d=await res.json();
+        if(!d.token){show('Missing token');return;}
+        localStorage.setItem('yw_auth_token',d.token);localStorage.setItem('yw_auth_role',d.role||'admin');
+        show('Login successful','success');
+        setTimeout(()=>{window.location.href='admin.html';},800);
+      }catch(err){console.error(err);show('Network/server error');}
+    });
+  })();
+  </script>
+</body>
+</html>

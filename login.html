@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Yukon Wildcats Contracting</title>
+  <title>Client Login - Yukon Wildcats Contracting</title>
   <link rel="stylesheet" href="css/style.css?v=20251110b">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
@@ -21,19 +21,19 @@
         Back to Home
     </a>
 
-    <main class="auth-wrapper" id="login-page" style="max-width:420px;margin:3rem auto;padding:2rem;background:rgba(0,0,0,0.7);border:1px solid rgba(255,215,0,0.3);border-radius:16px;backdrop-filter:blur(6px);">
+  <main class="auth-wrapper" id="login-page" style="max-width:420px;margin:3rem auto;padding:2rem;background:rgba(0,0,0,0.7);border:1px solid rgba(255,215,0,0.3);border-radius:16px;backdrop-filter:blur(6px);">
         <div class="logo" style="width:70px;height:70px;background:#111;border:2px solid #ffd700;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem;box-shadow:0 0 12px rgba(255,215,0,0.4)">
             <img src="assets/logo.png" alt="Logo" style="width:60px;height:60px;border-radius:50%" />
         </div>
-        <h1 class="login-title" style="text-align:center;color:#ffd700;font-size:1.8rem;margin-bottom:.4rem;">Account Access</h1>
-        <p class="login-subtitle" style="text-align:center;color:#ccc;font-size:.9rem;margin-bottom:1.5rem;">Admin / Owner secure login</p>
+  <h1 class="login-title" style="text-align:center;color:#ffd700;font-size:1.8rem;margin-bottom:.4rem;">Client Account</h1>
+  <p class="login-subtitle" style="text-align:center;color:#ccc;font-size:.9rem;margin-bottom:1.5rem;">Sign in to your client dashboard</p>
 
         <div id="login-alert" aria-live="polite" style="display:none;margin-bottom:1rem;padding:.8rem 1rem;border-radius:8px;font-size:.85rem;font-weight:600"></div>
 
         <form id="loginForm" novalidate>
             <div class="form-group" style="margin-bottom:1rem;">
                 <label for="username" class="form-label" style="display:block;color:#ffd700;font-size:.85rem;margin-bottom:.4rem;">Username</label>
-                <input id="username" name="username" type="text" autocomplete="username" class="form-input" required placeholder="admin or manager" style="width:100%;padding:.9rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,215,0,0.3);border-radius:8px;color:#fff;" />
+                <input id="username" name="username" type="text" autocomplete="username" class="form-input" required placeholder="Email or username" style="width:100%;padding:.9rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,215,0,0.3);border-radius:8px;color:#fff;" />
             </div>
             <div class="form-group" style="margin-bottom:1rem;">
                 <label for="password" class="form-label" style="display:block;color:#ffd700;font-size:.85rem;margin-bottom:.4rem;">Password</label>
@@ -46,6 +46,10 @@
                 <button type="button" id="forgotBtn" style="background:none;border:none;color:#ffd700;font-size:.75rem;cursor:pointer;">Forgot?</button>
             </div>
             <button type="submit" class="submit-btn" style="background:#ffd700;color:#111;font-weight:700;width:100%;padding:1rem;border:none;border-radius:10px;cursor:pointer;box-shadow:0 4px 15px rgba(255,215,0,0.4);transition:.3s;">Login</button>
+            <div style="text-align:center;margin-top:0.8rem;font-size:.85rem;">
+              <a href="register.html" style="color:#ffd700;">Create account</a> ·
+              <a href="admin-login.html" style="color:#ffd700;">Admin login</a>
+            </div>
         </form>
         <div style="text-align:center;margin-top:1.5rem;font-size:.7rem;color:#666;">Unauthorized access is prohibited. Activity may be monitored.</div>
     </main>
@@ -85,7 +89,8 @@
         const password = passInput.value;
         if(!username || !password){showAlert('Username and password required.');return;}
         try{
-          const res = await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username,password})});
+          // Client auth endpoint
+          const res = await fetch('/api/client/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username,password})});
           if(!res.ok){
             const data = await res.json().catch(()=>({message:'Login failed'}));
             showAlert(data.message || 'Invalid credentials');
@@ -93,11 +98,11 @@
           }
           const data = await res.json();
           if(!data.token){showAlert('Token missing in response');return;}
-          localStorage.setItem('yw_auth_token', data.token);
-          localStorage.setItem('yw_auth_role', data.role || 'admin');
+          localStorage.setItem('yw_client_token', data.token);
+          localStorage.setItem('yw_client_user', data.user && data.user.username ? data.user.username : username);
           if(remember.checked){localStorage.setItem('yw_remember_user', username);} else {localStorage.removeItem('yw_remember_user');}
           showAlert('Login successful. Redirecting...','success');
-          setTimeout(()=>{window.location.href='admin.html';},800);
+          setTimeout(()=>{window.location.href='dashboard.html';},800);
         }catch(err){
           console.error('Login error',err);
           showAlert('Network or server error.');

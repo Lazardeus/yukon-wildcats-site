@@ -271,6 +271,72 @@ app.post('/api/login', strictLimiter, (req, res) => {
   }
 });
 
+// --- Client Auth System ---
+const clientsFile = path.join(__dirname, 'data', 'clients.json');
+if (!fs.existsSync(clientsFile)) {
+  fs.writeFileSync(clientsFile, JSON.stringify([], null, 2));
+}
+
+function loadClients(){
+  try { return JSON.parse(fs.readFileSync(clientsFile,'utf8')); } catch(e){ return []; }
+}
+function saveClients(list){
+  const tmp = clientsFile + '.tmp';
+  fs.writeFileSync(tmp, JSON.stringify(list,null,2));
+  fs.renameSync(tmp, clientsFile);
+}
+function hashPassword(pw){ return crypto.createHash('sha256').update(pw).digest('hex'); }
+
+app.post('/api/client/register', strictLimiter, (req,res)=>{
+  try {
+    const { username, email, password } = req.body;
+    if(!username || !email || !password){
+      return res.status(400).json({ message: 'Username, email and password required' });
+    }
+    if(password.length < 6){
+      return res.status(400).json({ message: 'Password must be at least 6 characters' });
+    }
+    if(!/\S+@\S+\.\S+/.test(email)){ return res.status(400).json({ message: 'Valid email required' }); }
+    const clients = loadClients();
+    if(clients.find(c=>c.username.toLowerCase()===username.toLowerCase())){
+      return res.status(409).json({ message: 'Username already taken' });
+    }
+    if(clients.find(c=>c.email.toLowerCase()===email.toLowerCase())){
+      return res.status(409).json({ message: 'Email already registered' });
+    }
+    const client = {
+      id: Date.now().toString(36) + Math.random().toString(36).slice(2),
+      username: username.trim(),
+      email: email.trim().toLowerCase(),
+      passwordHash: hashPassword(password),
+      role: 'client',
+      createdAt: new Date().toISOString()
+    };
+    clients.push(client);
+    saveClients(clients);
+    res.status(201).json({ message: 'Registered successfully' });
+  } catch(err){
+    console.error('Client register error', err);
+    res.status(500).json({ message: 'Server error registering client' });
+  }
+});
+
+app.post('/api/client/login', strictLimiter, (req,res)=>{
+  try {
+    const { username, password } = req.body;
+    if(!username || !password){ return res.status(400).json({ message: 'Username and password required' }); }
+    const clients = loadClients();
+    const hashed = hashPassword(password);
+    const client = clients.find(c => (c.username.toLowerCase()===username.toLowerCase() || c.email===username.toLowerCase()) && c.passwordHash === hashed);
+    if(!client){ return res.status(401).json({ message: 'Invalid credentials' }); }
+    const token = jwt.sign({ username: client.username, role: 'client', id: client.id }, process.env.JWT_SECRET);
+    res.json({ token, user: { username: client.username, email: client.email, role: 'client' } });
+  } catch(err){
+    console.error('Client login error', err);
+    res.status(500).json({ message: 'Server error during login' });
+  }
+});
+
 app.post('/api/upload', authenticateToken, upload.single('file'), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ message: 'No file uploaded' });

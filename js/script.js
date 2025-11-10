@@ -1425,57 +1425,7 @@ function initializeWhitneyChatbot() {
   }
   
   // ADVANCED MESSAGE SYSTEM WITH FLASHY EFFECTS
-  function addAdvancedMessage(message, isBot = false) {
-    const messageEl = document.createElement('div');
-    messageEl.className = `message ${isBot ? 'bot' : 'user'} advanced-message`;
-    
-    let contentEl = document.createElement('div');
-    contentEl.className = 'message-content advanced-content';
-    
-    if (isBot) {
-      messageEl.innerHTML = `
-        <div class="bot-avatar">
-          <div class="avatar-glow"></div>
-          🤖
-        </div>
-        <div class="message-content advanced-content"></div>
-      `;
-  contentEl = messageEl.querySelector('.message-content');
-    } else {
-      messageEl.innerHTML = `
-        <div class="message-content advanced-content"></div>
-        <div class="user-avatar">
-          <div class="avatar-glow"></div>
-          👤
-        </div>
-      `;
-  contentEl = messageEl.querySelector('.message-content');
-    }
-    
-    // Add sparkle effect for bot messages
-    if (isBot) {
-      addSparkleEffect(messageEl);
-    }
-    
-    // Start with empty content and animate typing
-    contentEl.textContent = '';
-    messagesContainer.appendChild(messageEl);
-    
-    // Animate message appearance
-    messageEl.style.opacity = '0';
-    messageEl.style.transform = 'translateY(20px)';
-    
-    requestAnimationFrame(() => {
-      messageEl.style.transition = 'all 0.3s ease-out';
-      messageEl.style.opacity = '1';
-      messageEl.style.transform = 'translateY(0)';
-      
-      // Start typing animation
-      typeWriterEffect(contentEl, message, isBot ? 50 : 30);
-    });
-    
-    scrollToBottom();
-  }
+  // Removed duplicate simplified addAdvancedMessage; unified earlier implementation retained above.
   
   // TYPEWRITER EFFECT WITH VARIABLE SPEED
   function typeWriterEffect(element, text, speed = 50) {
