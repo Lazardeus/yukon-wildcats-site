@@ -1,115 +1,84 @@
 // Advanced Page Loader Management
 function initializePageLoader() {
   const loader = document.getElementById('page-loader');
-  const progressBar = document.querySelector('.loader-progress');
-  const skipBtn = document.querySelector('.skip-loader');
-  
   if (!loader) return;
-  
-  let progress = 0;
-  const totalSteps = 4;
-  let currentStep = 0;
+
+  const progressBar = document.querySelector('.loader-progress');
+  const loaderText = document.querySelector('.loader-text p');
+  const skipBtn = document.querySelector('.skip-loader');
+
   let isLoading = true;
-  
-  // Simulate loading steps
-  const loadingSteps = [
-    { text: 'Initializing particles...', duration: 600 },
-    { text: 'Loading services data...', duration: 500 },
-    { text: 'Preparing interface...', duration: 500 },
-    { text: 'Ready!', duration: 300 }
+  let currentStep = 0;
+  const steps = [
+    { msg: 'Initializing interface...', delay: 400 },
+    { msg: 'Loading assets...', delay: 400 },
+    { msg: 'Starting services...', delay: 350 },
+    { msg: 'Finalizing...', delay: 250 }
   ];
-  
-  function updateProgress(step) {
-    progress = (step / totalSteps) * 100;
-    if (progressBar) {
-      progressBar.style.width = progress + '%';
-    }
-    
-    const loaderText = document.querySelector('.loader-text p');
-    if (loaderText && loadingSteps[step]) {
-      loaderText.textContent = loadingSteps[step].text;
-    }
+
+  function safe(fn){try{fn();}catch(e){console.warn('Loader error caught:',e);forceHide();}}
+
+  function update(step){
+    const pct = Math.min(100, Math.round((step/steps.length)*100));
+    if(progressBar) progressBar.style.width = pct + '%';
+    if(loaderText && steps[step]) loaderText.textContent = steps[step].msg;
   }
-  
-  function completeLoading() {
-    if (!isLoading) return; // Prevent multiple calls
+
+  function finalize(){
+    if(!isLoading) return;
     isLoading = false;
-    
     loader.classList.add('loaded');
     document.body.classList.add('page-loaded');
-    
-    // Remove loader from DOM after transition
-    setTimeout(() => {
-      if (loader && loader.parentNode) {
-        loader.parentNode.removeChild(loader);
-      }
-    }, 800);
+    setTimeout(()=>{if(loader && loader.parentNode){loader.remove();}},900);
   }
-  
-  function nextStep() {
-    if (currentStep < totalSteps && isLoading) {
-      updateProgress(currentStep);
-      currentStep++;
-      
-      setTimeout(nextStep, loadingSteps[currentStep - 1]?.duration || 400);
-    } else if (isLoading) {
-      // Loading complete
-      setTimeout(completeLoading, 200);
-    }
-  }
-  
-  // Start loading sequence
-  setTimeout(nextStep, 200);
 
-  // Real load completion listeners (images, fonts, particles)
-  function tryEarlyCompletion() {
-    // If DOM is interactive and either all images loaded or timeout reached
-    const imgs = Array.from(document.images);
-    const pending = imgs.filter(i => !i.complete);
-    if (pending.length === 0) {
-      completeLoading();
+  function forceHide(){
+    if(loader){loader.classList.add('loader-force-hide');}
+    finalize();
+  }
+
+  function advance(){
+    if(!isLoading) return;
+    update(currentStep);
+    currentStep++;
+    if(currentStep < steps.length){
+      setTimeout(advance, steps[currentStep-1].delay);
+    } else {
+      // slight pause for UX polish
+      setTimeout(finalize, 150);
     }
   }
-  document.addEventListener('readystatechange', () => {
-    if (document.readyState === 'complete' || document.readyState === 'interactive') {
-      tryEarlyCompletion();
+
+  // Begin sequence
+  setTimeout(advance, 100);
+
+  // Early completion when window load fires
+  window.addEventListener('load', ()=> setTimeout(finalize, 100));
+
+  // If DOM ready and images all loaded
+  document.addEventListener('readystatechange', ()=>{
+    if(document.readyState === 'interactive' || document.readyState === 'complete'){
+      const pending = Array.from(document.images).filter(i=>!i.complete);
+      if(pending.length === 0) finalize();
     }
   });
-  window.addEventListener('load', () => {
-    setTimeout(completeLoading, 150); // slight delay for visual smoothness
-  });
 
-  // Allow skip loader button to trigger smooth dismissal (instead of abrupt display:none)
-  if (skipBtn) {
-    skipBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      completeLoading();
-    });
+  // Skip button
+  if(skipBtn){
+    skipBtn.addEventListener('click', e=>{e.preventDefault(); finalize();});
+    skipBtn.addEventListener('keydown', e=>{if((e.key==='Enter'||e.key===' ') && isLoading){e.preventDefault(); finalize();}});
   }
-  
-  // Failsafe: Always complete loading after maximum time
-  const primaryTimeout = setTimeout(() => {
-    if (isLoading) {
-      console.log('[Loader] 3s failsafe triggered');
-      completeLoading();
-    }
-  }, 3000); // Maximum 3 seconds
-  
-  // Additional immediate failsafe if particles.js fails to load
-  setTimeout(() => {
-    if (isLoading && !window.particlesJS) {
-      console.log('Particles.js failed to load - completing anyway');
-      completeLoading();
-    }
-  }, 1500);
-  
-  // Final hard fallback: force removal after 6s regardless
-  setTimeout(() => {
-    if (loader && loader.parentNode) {
-      console.warn('[Loader] Hard fallback removal at 6s');
-      completeLoading();
-    }
-  }, 6000);
+
+  // Particles failsafe
+  setTimeout(()=>{if(isLoading && !window.particlesJS){console.warn('[Loader] particles.js not detected, finalizing.'); finalize();}},2000);
+  // Primary timeout
+  setTimeout(()=>{if(isLoading){console.warn('[Loader] primary timeout 4500ms'); finalize();}},4500);
+  // Hard kill
+  setTimeout(()=>{if(isLoading){console.error('[Loader] hard fallback 8000ms'); forceHide();}},8000);
+
+  // Global error handlers to prevent stuck loader
+  window.addEventListener('error', ()=>{if(isLoading){console.error('[Loader] window error - forcing hide'); forceHide();}}, true);
+  window.addEventListener('unhandledrejection', ()=>{if(isLoading){console.error('[Loader] unhandled rejection - forcing hide'); forceHide();}});
 }
 
 // Advanced Announcement System

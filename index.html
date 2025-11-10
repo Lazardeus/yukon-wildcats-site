@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Yukon Wildcats Contracting</title>
 <link rel="stylesheet" href="css/style.css?v=20251110">
+<script>
+// Ultra-minimal safety fallback: if main JS fails, auto-hide loader after 7s
+window.addEventListener('DOMContentLoaded', function(){
+  setTimeout(function(){
+    var l=document.getElementById('page-loader');
+    if(l){l.classList.add('loaded');setTimeout(function(){try{l.remove();}catch(e){l.style.display='none';}},1200);} 
+  },7000);
+});
+</script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 <script defer src="js/particles-config.js?v=20251110"></script>
@@ -32,7 +41,7 @@
       <div class="particle"></div>
       <div class="particle"></div>
     </div>
-  <button class="skip-loader" style="position: absolute; bottom: 20px; right: 20px; background: rgba(255,215,0,0.2); border: 1px solid #ffd700; color: #ffd700; padding: 8px 16px; border-radius: 5px; cursor: pointer; font-size: 12px;">Skip Loading</button>
+  <button class="skip-loader" aria-label="Skip loading and show site">Skip Loading</button>
   </div>
 </div>
 
