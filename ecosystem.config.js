@@ -17,14 +17,18 @@ module.exports = {
       time: true,
       env: {
         NODE_ENV: 'development',
-        PORT: 3000
+        PORT: 3000,
+        // Feature flags
+        GROK_CODE_FAST_1: 'true'
       },
       env_production: {
         NODE_ENV: 'production',
         PORT: 3000,
         // VPS optimizations
         NODE_OPTIONS: '--max-old-space-size=512',
-        UV_THREADPOOL_SIZE: 4
+        UV_THREADPOOL_SIZE: 4,
+        // Feature flags
+        GROK_CODE_FAST_1: 'true'
       }
     }
   ],

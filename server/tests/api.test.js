@@ -12,8 +12,9 @@ describe('API Tests', () => {
             const res = await request(app)
                 .post('/api/login')
                 .send({
-                    username: 'admin',
-                    password: 'wildcats2025'
+                    // Matches defaults in server.js when no env vars set
+                    username: 'manager',
+                    password: 'wildcats2024'
                 });
             expect(res.statusCode).toBe(200);
             expect(res.body).toHaveProperty('token');
@@ -38,6 +39,7 @@ describe('API Tests', () => {
             const submission = {
                 name: 'Test User',
                 email: 'test@example.com',
+                phone: '867-555-5555',
                 service: 'Snow Removal',
                 message: 'Test message'
             };
@@ -91,12 +93,24 @@ describe('API Tests', () => {
             const res = await request(app)
                 .post('/api/upload')
                 .set('Authorization', `Bearer ${authToken}`)
-                .attach('image', testFilePath);
+                // Endpoint expects field name 'file'
+                .attach('file', testFilePath);
             expect(res.statusCode).toBe(200);
             expect(res.body).toHaveProperty('filepath');
 
             // Cleanup
             fs.unlinkSync(testFilePath);
+        });
+    });
+
+    // Test features endpoint
+    describe('Features', () => {
+        test('Should expose feature flags', async () => {
+            const res = await request(app)
+                .get('/api/features');
+            expect(res.statusCode).toBe(200);
+            expect(res.body).toHaveProperty('features');
+            expect(res.body.features).toHaveProperty('grokCodeFast1');
         });
     });
 });

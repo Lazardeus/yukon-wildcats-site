@@ -612,6 +612,19 @@ app.get('/api/service-requests/:userId', authenticateToken, (req, res) => {
     }
 });
 
+// Feature flags endpoint
+app.get('/api/features', (req, res) => {
+  // Central place to expose feature toggles to clients
+  const features = {
+    grokCodeFast1: process.env.GROK_CODE_FAST_1 === 'true'
+  };
+  res.json({
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'development',
+    features
+  });
+});
+
 // Initialize data files
 const dataDir = path.join(__dirname, 'data');
 if (!fs.existsSync(dataDir)) {
