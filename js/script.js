@@ -2,6 +2,7 @@
 function initializePageLoader() {
   const loader = document.getElementById('page-loader');
   const progressBar = document.querySelector('.loader-progress');
+  const skipBtn = document.querySelector('.skip-loader');
   
   if (!loader) return;
   
@@ -59,11 +60,37 @@ function initializePageLoader() {
   
   // Start loading sequence
   setTimeout(nextStep, 200);
+
+  // Real load completion listeners (images, fonts, particles)
+  function tryEarlyCompletion() {
+    // If DOM is interactive and either all images loaded or timeout reached
+    const imgs = Array.from(document.images);
+    const pending = imgs.filter(i => !i.complete);
+    if (pending.length === 0) {
+      completeLoading();
+    }
+  }
+  document.addEventListener('readystatechange', () => {
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      tryEarlyCompletion();
+    }
+  });
+  window.addEventListener('load', () => {
+    setTimeout(completeLoading, 150); // slight delay for visual smoothness
+  });
+
+  // Allow skip loader button to trigger smooth dismissal (instead of abrupt display:none)
+  if (skipBtn) {
+    skipBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      completeLoading();
+    });
+  }
   
   // Failsafe: Always complete loading after maximum time
-  setTimeout(() => {
+  const primaryTimeout = setTimeout(() => {
     if (isLoading) {
-      console.log('Loader failsafe triggered - forcing completion');
+      console.log('[Loader] 3s failsafe triggered');
       completeLoading();
     }
   }, 3000); // Maximum 3 seconds
@@ -76,17 +103,13 @@ function initializePageLoader() {
     }
   }, 1500);
   
-  // Fallback: always remove loader after 5 seconds
+  // Final hard fallback: force removal after 6s regardless
   setTimeout(() => {
     if (loader && loader.parentNode) {
-      loader.classList.add('loaded');
-      setTimeout(() => {
-        if (loader.parentNode) {
-          loader.parentNode.removeChild(loader);
-        }
-      }, 800);
+      console.warn('[Loader] Hard fallback removal at 6s');
+      completeLoading();
     }
-  }, 5000);
+  }, 6000);
 }
 
 // Advanced Announcement System
