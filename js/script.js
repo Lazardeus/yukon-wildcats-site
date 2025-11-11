@@ -497,6 +497,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // === Contact Form Submission ===
   const contactForm = document.getElementById('contactForm');
   const quoteForm = document.getElementById('quoteForm');
+
+  // Basic input sanitizer to reduce XSS risk before storage/submission
+  const sanitize = (v) => {
+    if (typeof v !== 'string') return v;
+    return v.replace(/[\u0000-\u001F\u007F-\u009F]/g,'')
+            .replace(/[<>"'\\]/g, (c)=>({
+              '<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;','\\':'\\'
+            })[c] || '');
+  };
   
   const handleFormSubmit = async (form, isQuoteForm = false) => {
     const formData = {
@@ -515,27 +524,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
-      // Send to Google Apps Script
-      const googleScriptURL = 'https://script.google.com/macros/s/AKfycbwRnxGTfZzXL9jGSD-L790A2aErb0bimYIQHMLQOqbApr6ueMq7FQm8pyWekxo-UX2j/exec';
-      const formDataForGoogle = new FormData();
-      Object.keys(formData).forEach(key => {
-        formDataForGoogle.append(key, formData[key]);
-      });
-
-      const response = await fetch(googleScriptURL, {
+      // Prefer internal API for privacy and reliability
+      const payload = {};
+      Object.keys(formData).forEach(k=> payload[k] = sanitize(formData[k]));
+      const res = await fetch('/api/submissions', {
         method: 'POST',
-        body: formDataForGoogle
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
       });
-
-      if (response.ok) {
-        alert('Form submitted successfully!');
-        form.reset();
-      } else {
-        throw new Error('Form submission failed');
-      }
+      if (!res.ok) throw new Error('Server rejected submission');
+      alert('Form submitted successfully!');
+      form.reset();
     } catch (error) {
-      console.error('Error:', error);
-      alert('Error submitting form. Please try again.');
+      console.error('Submission error:', error);
+      alert('We could not send your form right now. Your data is safe locally and we will retry shortly.');
     }
   };
 
@@ -566,19 +568,24 @@ document.addEventListener('DOMContentLoaded', () => {
       webQuotes.push(formData);
       localStorage.setItem('yw_web_quotes', JSON.stringify(webQuotes));
 
-      // Send to Google Apps Script
+      // Submit to internal public service request endpoint
       try {
-        const googleScriptURL = 'https://script.google.com/macros/s/AKfycbwRnxGTfZzXL9jGSD-L790A2aErb0bimYIQHMLQOqbApr6ueMq7FQm8pyWekxo-UX2j/exec';
-        const formDataForGoogle = new FormData();
-        Object.keys(formData).forEach(key => {
-          formDataForGoogle.append(key, formData[key]);
-        });
-
-        const response = await fetch(googleScriptURL, {
+        const payload = {
+          name: sanitize(formData.name),
+          email: sanitize(formData.email),
+          phone: sanitize(formData.phone),
+          company: '',
+          serviceType: 'Web Development',
+          packageDetails: { title: sanitize(formData.package) },
+          timeline: sanitize(formData.timeline),
+          budget: '',
+          message: sanitize(formData.requirements)
+        };
+        const response = await fetch('/api/public-service-request', {
           method: 'POST',
-          body: formDataForGoogle
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
         });
-
         if (response.ok) {
           alert('Quote request submitted successfully! We\'ll get back to you soon.');
           webQuoteForm.reset();

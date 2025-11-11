@@ -749,6 +749,11 @@ if (!fs.existsSync(requestsFile)) {
 
 // Global error handlers
 app.use((req, res, next) => {
+  // Serve pretty 404 page for HTML requests; JSON otherwise
+  const acceptsHtml = req.headers.accept && req.headers.accept.includes('text/html');
+  if (acceptsHtml) {
+    return res.status(404).sendFile(path.join(__dirname, '..', '404.html'));
+  }
   res.status(404).json({ 
     error: 'Endpoint not found',
     message: 'The requested resource does not exist'
