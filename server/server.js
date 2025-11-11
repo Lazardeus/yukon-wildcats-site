@@ -14,6 +14,10 @@ const crypto = require('crypto');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Trust first proxy (e.g., when behind Nginx) so rate limiting & IP logging work correctly
+// Prevents express-rate-limit ValidationError about unexpected X-Forwarded-For
+app.set('trust proxy', 1);
+
 // Ensure JWT secret exists to prevent login crashes
 if (!process.env.JWT_SECRET || process.env.JWT_SECRET.trim() === '') {
   const generated = crypto.randomBytes(32).toString('hex');
@@ -71,6 +75,18 @@ app.use(cors(corsOptions));
 // Body parsing with size limits
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Early handler for malformed JSON bodies so users get a 400 with clear guidance instead of generic 500
+app.use((err, req, res, next) => {
+  if (err && err.type === 'entity.parse.failed') {
+    return res.status(400).json({
+      error: 'Invalid JSON',
+      message: 'Request body must be valid JSON. Ensure keys and string values are wrapped in double quotes.',
+      example: '{"username":"demo","password":"Secret123"}'
+    });
+  }
+  next(err);
+});
 
 // Static file serving with caching
 app.use(express.static(path.join(__dirname, '..'), {
