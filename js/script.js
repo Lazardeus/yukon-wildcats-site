@@ -2313,73 +2313,96 @@ function getNotificationColor(type) {
 
 // Authentication Navigation Management
 function initializeAuthNavigation() {
-  const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
-  const founderAuth = localStorage.getItem('yw_founder_authenticated') === 'true';
-  const founderName = localStorage.getItem('yw_founder_name');
-  const authSection = document.querySelector('.auth-section');
-  const adminLink = document.querySelector('.admin-login');
-  
-  // If we have an auth section (new layout), update it
-  if (authSection) {
-    const adminAccessLink = authSection.querySelector('.admin-access');
-    const loginLink = authSection.querySelector('.login-link');
-    
-    if (founderAuth && founderName) {
-      // Founder is authenticated - show founder status
-      if (adminAccessLink) {
-        const displayName = founderName.charAt(0).toUpperCase() + founderName.slice(1);
-        adminAccessLink.innerHTML = '<i class="fas fa-users" style="color: gold;"></i><span>' + displayName + '</span>';
-        adminAccessLink.title = 'Founder Access - Logged In';
+  // New unified auth logic supporting admin vs client tokens.
+  const adminToken = localStorage.getItem('yw_auth_token');
+  const clientToken = localStorage.getItem('yw_client_token');
+  const sections = document.querySelectorAll('.auth-section');
+
+  sections.forEach(sec => {
+    // Find existing elements so we can mutate rather than wholesale replace cart section
+    const adminLink = sec.querySelector('.admin-access');
+    const loginLink = sec.querySelector('.login-link');
+    const existingLogout = sec.querySelector('.logout-link');
+
+    // Helper: create logout if needed
+    function ensureLogout(){
+      if(existingLogout) return existingLogout;
+      const a=document.createElement('a');
+      a.href="#";a.className='logout-link';a.title='Logout';
+      a.innerHTML='<i class="fas fa-sign-out-alt"></i><span>Logout</span>';
+      a.addEventListener('click',function(e){e.preventDefault();unifiedLogout();});
+      // Insert after login/admin area (append end of section)
+      sec.appendChild(a);
+      return a;
+    }
+
+    // If admin logged in
+    if(adminToken){
+      if(adminLink){
+        adminLink.href='admin.html';
+        adminLink.title='Admin Dashboard';
+        adminLink.querySelector('span') && (adminLink.querySelector('span').textContent='Admin Panel');
+      } else {
+        // create if missing
+        const a=document.createElement('a');
+        a.href='admin.html';a.className='admin-access';a.title='Admin Dashboard';
+        a.innerHTML='<i class="fas fa-user-shield"></i><span>Admin Panel</span>';
+        sec.insertBefore(a, sec.firstChild);
       }
-    }
-    
-    if (currentUser) {
-      // Regular user is logged in - show account menu
-      if (loginLink) {
-        loginLink.outerHTML = `
-          <div class="dropdown auth-dropdown">
-            <a href="#" class="dropbtn auth-user">
-              <i class="fas fa-user-circle"></i>
-              <span>${currentUser.firstName || 'Account'}</span>
-            </a>
-            <div class="dropdown-content">
-              <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-              <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
-            </div>
-          </div>
-        `;
+      if(loginLink){
+        // Transform client login link into dashboard
+        loginLink.href='dashboard.html';
+        loginLink.title='Client Dashboard';
+        loginLink.querySelector('span') && (loginLink.querySelector('span').textContent='Dashboard');
       }
+      ensureLogout();
+      return; // admin takes precedence
     }
-    return;
-  }
-  
-  // Legacy single admin-login element handling
-  if (currentUser) {
-    // User is logged in - show account menu
-    if (adminLink) {
-      adminLink.outerHTML = `
-        <div class="dropdown auth-dropdown">
-          <a href="#" class="dropbtn auth-user">
-            <i class="fas fa-user-circle"></i>
-            <span>${currentUser.firstName || 'Account'}</span>
-          </a>
-          <div class="dropdown-content">
-            <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-            <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
-          </div>
-        </div>
-      `;
+
+    // Client logged in (no admin)
+    if(clientToken){
+      if(adminLink){
+        adminLink.href='admin-login.html';
+        adminLink.title='Admin Login';
+        adminLink.querySelector('span') && (adminLink.querySelector('span').textContent='Admin');
+      }
+      if(loginLink){
+        loginLink.href='dashboard.html';
+        loginLink.title='Client Dashboard';
+        loginLink.querySelector('span') && (loginLink.querySelector('span').textContent='Dashboard');
+      }
+      ensureLogout();
+      return;
     }
-  } else {
-    // User is not logged in - show login link
-    if (adminLink) {
-      adminLink.outerHTML = `
-        <a href="login.html" class="login-link" title="Login / Create Account">
-          <i class="fas fa-sign-in-alt"></i>
-          <span>Login</span>
-        </a>
-      `;
+
+    // Not logged in – normalize links
+    if(adminLink){
+      adminLink.href='admin-login.html';
+      adminLink.title='Admin Access';
+      adminLink.querySelector('span') && (adminLink.querySelector('span').textContent='Admin');
     }
+    if(loginLink){
+      loginLink.href='login.html';
+      loginLink.title='Client Login / Create Account';
+      loginLink.querySelector('span') && (loginLink.querySelector('span').textContent='Client Login');
+    }
+    if(existingLogout){existingLogout.remove();}
+  });
+
+  // Personalize labels using /api/me if token present
+  const activeToken = adminToken || clientToken;
+  if(activeToken){
+    fetch('/api/me',{headers:{'Authorization':'Bearer '+activeToken}}).then(r=>r.ok?r.json():null).then(data=>{
+      if(!data || !data.user) return;
+      const name = data.user.username || data.user.name || data.user.email || null;
+      if(!name) return;
+      sections.forEach(sec=>{
+        const dashLink = sec.querySelector('.login-link');
+        if(dashLink && dashLink.textContent.includes('Dashboard')){
+          dashLink.querySelector('span').textContent = 'Dashboard ('+name.split('@')[0]+')';
+        }
+      });
+    }).catch(()=>{});
   }
 }
 
@@ -2388,6 +2411,14 @@ function logout() {
     localStorage.removeItem('currentUser');
     window.location.href = 'index.html';
   }
+}
+
+// New unified logout clears both tokens
+function unifiedLogout(){
+  localStorage.removeItem('yw_auth_token');
+  localStorage.removeItem('yw_client_token');
+  localStorage.removeItem('yw_auth_role');
+  setTimeout(()=>{window.location.href='index.html';},50);
 }
 
 // Initialize cart on page load

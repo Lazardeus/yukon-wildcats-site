@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Member Dashboard - Yukon Wildcats Contracting</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=20251110b">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <script defer src="js/particles-config.js"></script>
-    <script defer src="js/script.js"></script>
+    <script defer src="js/particles-config.js?v=20251110b"></script>
+    <script defer src="js/script.js?v=20251110b"></script>
 </head>
 
 <body>
@@ -393,30 +393,19 @@ Whitehorse, YT Y1A 1A1</textarea>
     </footer>
 
     <script>
-        // Dashboard functionality
+        // Dashboard functionality + dynamic user data integration
         function toggleDropdown() {
             const menu = document.getElementById('dashboardMenu');
-            menu.classList.toggle('active');
+            if(menu) menu.classList.toggle('active');
         }
 
         function showContent(contentId) {
-            // Hide all content sections
             const contents = document.querySelectorAll('.dashboard-content');
-            contents.forEach(content => {
-                content.classList.remove('active');
-            });
-
-            // Show selected content
+            contents.forEach(content => content.classList.remove('active'));
             const selectedContent = document.getElementById(contentId + '-content');
-            if (selectedContent) {
-                selectedContent.classList.add('active');
-            }
-
-            // Close dropdown
+            if (selectedContent) selectedContent.classList.add('active');
             const menu = document.getElementById('dashboardMenu');
-            menu.classList.remove('active');
-
-            // Update page title
+            if (menu) menu.classList.remove('active');
             const titles = {
                 overview: 'Dashboard Overview',
                 services: 'My Services',
@@ -425,25 +414,79 @@ Whitehorse, YT Y1A 1A1</textarea>
                 profile: 'My Profile',
                 support: 'Help & Support'
             };
-            
-            document.title = `${titles[contentId]} - Yukon Wildcats Dashboard`;
+            document.title = `${titles[contentId] || 'Dashboard'} - Yukon Wildcats Dashboard`;
         }
 
-        // Close dropdown when clicking outside
         document.addEventListener('click', function(event) {
             const dropdown = document.querySelector('.dropdown-container');
             const menu = document.getElementById('dashboardMenu');
-            
-            if (!dropdown.contains(event.target)) {
+            if (dropdown && menu && !dropdown.contains(event.target)) {
                 menu.classList.remove('active');
             }
         });
 
-        // Initialize particles
-        document.addEventListener('DOMContentLoaded', function() {
-            // Set initial page title
+        async function fetchUserProfile(){
+            const adminToken = localStorage.getItem('yw_auth_token');
+            const clientToken = localStorage.getItem('yw_client_token');
+            const token = adminToken || clientToken;
+            if(!token){
+                // Not authenticated – redirect to client login
+                setTimeout(()=>{window.location.href='login.html';},500);
+                return null;
+            }
+            try{
+                const res = await fetch('/api/me',{headers:{'Authorization':'Bearer '+token}});
+                if(!res.ok) throw new Error('profile fetch failed');
+                return await res.json();
+            }catch(e){
+                console.warn('Failed to load /api/me',e);
+                return null;
+            }
+        }
+
+        function applyUserProfile(data){
+            if(!data || !data.user) return;
+            const name = data.user.username || data.user.name || data.user.email || 'Member';
+            const welcomeH1 = document.querySelector('.welcome-section h1');
+            if(welcomeH1){
+                welcomeH1.innerHTML = `🎉 Welcome Back, <span class="highlight-name">${escapeHtml(name.split('@')[0])}</span>!`;
+            }
+            // Profile section
+            const profileName = document.querySelector('#profile-content .profile-info h2');
+            if(profileName){profileName.textContent = name;}
+            const emailInput = document.getElementById('email');
+            if(emailInput && data.user.email){emailInput.value = data.user.email;}
+            // Simple derived stats if present
+            if(data.user.stats){
+                const statMap = {
+                    activeServices: data.user.stats.activeServices,
+                    completedProjects: data.user.stats.completedProjects,
+                    rating: data.user.stats.rating,
+                    support:'24/7'
+                };
+                const statValues = document.querySelectorAll('.stats-grid .stat-card .stat-value');
+                statValues.forEach((el,i)=>{
+                    switch(i){
+                        case 0: if(statMap.activeServices!=null) el.textContent = statMap.activeServices; break;
+                        case 1: if(statMap.completedProjects!=null) el.textContent = statMap.completedProjects; break;
+                        case 2: if(statMap.rating!=null) el.textContent = statMap.rating; break;
+                        case 3: /* support always shown */ break;
+                    }
+                });
+            }
+        }
+
+        function escapeHtml(str){
+            return str.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+        }
+
+        async function initializeDashboard(){
             document.title = 'Dashboard Overview - Yukon Wildcats Dashboard';
-        });
+            const data = await fetchUserProfile();
+            applyUserProfile(data);
+        }
+
+        document.addEventListener('DOMContentLoaded', initializeDashboard);
     </script>
 </body>
 </html>

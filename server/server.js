@@ -337,6 +337,27 @@ app.post('/api/client/login', strictLimiter, (req,res)=>{
   }
 });
 
+// Return current authenticated user (admin or client)
+app.get('/api/me', authenticateToken, (req, res) => {
+  try {
+    const { username, role, id } = req.user || {};
+    let userInfo = { username, role };
+    if(role === 'client') {
+      const clients = loadClients();
+      const client = clients.find(c => c.username === username || c.id === id);
+      if(client) {
+        userInfo.email = client.email;
+        userInfo.id = client.id;
+        userInfo.createdAt = client.createdAt;
+      }
+    }
+    res.json({ success: true, user: userInfo });
+  } catch (e) {
+    console.error('Error in /api/me', e);
+    res.status(500).json({ success: false, message: 'Failed to retrieve user' });
+  }
+});
+
 app.post('/api/upload', authenticateToken, upload.single('file'), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ message: 'No file uploaded' });
