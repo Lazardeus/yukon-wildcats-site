@@ -4,7 +4,30 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🚛 Professional Towing Services - Yukon Wildcats Contracting</title>
+
+<!-- SEO Meta Tags -->
 <meta name="description" content="24/7 emergency towing services in Whitehorse and Haines Junction. Professional vehicle transport, roadside assistance, and recovery services across Yukon Territory.">
+<meta name="keywords" content="towing services whitehorse, emergency towing yukon, vehicle transport, roadside assistance, car recovery, truck towing, 24/7 towing, haines junction towing, yukon tow truck, vehicle recovery services">
+<meta name="author" content="Yukon Wildcats Contracting">
+<meta name="robots" content="index, follow">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://yukon-wildcats.ca/tow.html">
+<meta property="og:title" content="24/7 Emergency Towing Services - Yukon Wildcats">
+<meta property="og:description" content="Professional towing and vehicle recovery services in Whitehorse and Haines Junction. Emergency roadside assistance available 24/7. Fast, reliable, affordable.">
+<meta property="og:image" content="https://yukon-wildcats.ca/assets/tow_icon.png">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://yukon-wildcats.ca/tow.html">
+<meta property="twitter:title" content="24/7 Emergency Towing Services - Yukon Wildcats">
+<meta property="twitter:description" content="Professional towing and vehicle recovery in Yukon. Emergency roadside assistance 24/7. Fast, reliable, affordable service.">
+<meta property="twitter:image" content="https://yukon-wildcats.ca/assets/tow_icon.png">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="assets/logo.png">
+
 <link rel="stylesheet" href="css/style.css?v=20251110b">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
@@ -74,37 +97,39 @@
 <body>
 <div id="particles-js"></div>
 
-<header>
-  <div class="header-left">
-    <img src="assets/logo.png" alt="Yukon Wildcats Logo" class="round-logo">
-  </div>
-  <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">☰</button>
-  <nav class="header-right">
-    <a href="index.html">Home</a>
-    <a href="services.html">Services</a>
-    <a href="snow.html">Snow Removal</a>
-    <a href="tow.html">Towing</a>
-    <a href="web-services.html">Web Services</a>
-    <a href="community.html">Community</a>
-    <a href="contact.html">Contact</a>
-    <a href="quote.html">Get Quote</a>
-    <a href="legal.html">Legal Info</a>
-    <a href="#" class="service-cart" onclick="toggleServiceCart()" title="Service Requests">
-      <i class="fas fa-clipboard-list"></i>
-      <span class="cart-count" id="cartCount">0</span>
-    </a>
-    <div class="auth-section">
-  <a href="admin-login.html" class="admin-access" title="Admin Access">
-        <i class="fas fa-user-shield"></i>
-        <span>Admin</span>
-      </a>
-      <a href="login.html" class="login-link" title="Client Login / Create Account">
-        <i class="fas fa-sign-in-alt"></i>
-        <span>Client Login</span>
-      </a>
+<header class="modern-header">
+  <div class="header-container">
+    <div class="logo-section">
+      <img src="assets/logo.png" alt="Yukon Wildcats Logo" class="header-logo">
+      <span class="company-name">Yukon Wildcats</span>
     </div>
-  </nav>
-  <div class="mobile-overlay"></div>
+    
+    <nav class="main-nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="services.html" class="nav-link">Services</a>
+      <a href="snow.html" class="nav-link">Snow Removal</a>
+      <a href="tow.html" class="nav-link active">Towing</a>
+      <a href="web-services.html" class="nav-link">Web Services</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </nav>
+    
+    <div class="header-actions">
+      <a href="quote.html" class="quote-btn">
+        <i class="fas fa-file-invoice"></i>
+        <span>Get Quote</span>
+      </a>
+      <a href="#" class="icon-btn" onclick="toggleServiceCart()" title="Service Requests">
+        <i class="fas fa-clipboard-list"></i>
+        <span class="cart-count" id="cartCount">0</span>
+      </a>
+      <a href="admin-login.html" class="icon-btn" title="Admin Access">
+        <i class="fas fa-user-shield"></i>
+      </a>
+      <button class="mobile-menu-btn" aria-label="Toggle Menu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </div>
 </header>
 
 <!-- Service Cart Dropdown -->
@@ -311,69 +336,98 @@
   </div>
 </section>
 
-<footer>
-  <div class="footer-content">
-    <div class="footer-main">
-      <div class="footer-info">
-        <h4>Yukon Wildcats Contracting</h4>
-        <p>Professional contracting services in Whitehorse and Haines Junction areas</p>
-        <div class="contact-info">
-          <p>📍 Serving Whitehorse & Haines Junction, Yukon Territory</p>
-          <p>📧 Contact us for quotes and inquiries</p>
+<footer class="modern-footer">
+  <div class="footer-main">
+    <div class="footer-container">
+      <!-- Company Info -->
+      <div class="footer-col">
+        <div class="footer-logo-section">
+          <img src="assets/logo.png" alt="Yukon Wildcats Logo" class="footer-logo">
+          <h3>Yukon Wildcats</h3>
         </div>
-        <div class="founder-contacts">
-          <h5>Contact Our Founders</h5>
-          <p><strong>Lazarus Vanbibber</strong> - Founder</p>
-          <p>📧 lazarus.vanbibber@icloud.com | lazarusvanbibber@yukon-wildcats.ca</p>
-          <p>📞 1-867-332-0223</p>
-          <p><strong>Micah Wolfe</strong> - Co-founder</p>
-          <p>📧 Micahsage4444@gmail.com</p>
-          <p>📞 1-867-332-4551</p>
+        <p class="footer-description">
+          Professional contracting services in Whitehorse and Haines Junction, Yukon Territory. Licensed, insured, and committed to excellence.
+        </p>
+        <div class="footer-badge-group">
+          <span class="footer-badge">
+            <i class="fas fa-check-circle"></i>
+            Licensed
+          </span>
+          <span class="footer-badge">
+            <i class="fas fa-shield-alt"></i>
+            Insured
+          </span>
+          <span class="footer-badge">
+            <i class="fas fa-star"></i>
+            Local
+          </span>
         </div>
       </div>
-      
-      <div class="footer-services">
-        <h4>Our Services</h4>
-        <ul>
-          <li><a href="snow.html">Snow Removal</a></li>
-          <li><a href="tow.html">Towing Services</a></li>
-          <li>Excavation</li>
-          <li>Dump Trucking</li>
-          <li>Housing Contracts</li>
-          <li>Lawn Maintenance</li>
-          <li><a href="web-services.html">Web Development</a></li>
+
+      <!-- Quick Links -->
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+          <li><a href="services.html"><i class="fas fa-briefcase"></i> Services</a></li>
+          <li><a href="snow.html"><i class="fas fa-snowflake"></i> Snow Removal</a></li>
+          <li><a href="tow.html"><i class="fas fa-truck"></i> Towing</a></li>
+          <li><a href="web-services.html"><i class="fas fa-code"></i> Web Services</a></li>
+          <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+          <li><a href="quote.html"><i class="fas fa-file-invoice"></i> Get Quote</a></li>
         </ul>
       </div>
-      
-      <div class="footer-legal">
-        <h4>Legal & Documents</h4>
-        <ul>
-          <li><a href="legal.html">Terms & Conditions</a></li>
-          <li><a href="legal.html#service-agreement">Service Agreement</a></li>
-          <li><a href="legal.html#privacy">Privacy Policy</a></li>
-          <li><a href="legal.html#refund">Refund Policy</a></li>
-          <li><a href="legal.html#safety">Safety Information</a></li>
-          <li><a href="legal.html#coc">Certificate of Compliance</a></li>
-          <li><a href="legal.html#liability">Liability Terms</a></li>
+
+      <!-- Contact Info -->
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <div class="footer-contact">
+          <div class="contact-person">
+            <div class="contact-name">Lazarus Vanbibber</div>
+            <p><i class="fas fa-briefcase"></i> Founder</p>
+            <p><i class="fas fa-phone"></i> <a href="tel:8673320223">867-332-0223</a></p>
+            <p><i class="fas fa-envelope"></i> <a href="mailto:lazarus.vanbibber@icloud.com">lazarus.vanbibber@icloud.com</a></p>
+          </div>
+          <div class="contact-person">
+            <div class="contact-name">Micah Wolfe</div>
+            <p><i class="fas fa-briefcase"></i> Co-Founder</p>
+            <p><i class="fas fa-phone"></i> <a href="tel:8673324551">867-332-4551</a></p>
+            <p><i class="fas fa-envelope"></i> <a href="mailto:Micahsage4444@gmail.com">Micahsage4444@gmail.com</a></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Service Areas & Legal -->
+      <div class="footer-col">
+        <h4>Service Areas</h4>
+        <ul class="footer-links">
+          <li><i class="fas fa-map-marker-alt"></i> Whitehorse</li>
+          <li><i class="fas fa-map-marker-alt"></i> Haines Junction</li>
         </ul>
-      </div>
-    </div>
-    
-    <div class="footer-bottom">
-      <div class="copyright">
-        <p>© 2025 Yukon Wildcats Contracting. All Rights Reserved.</p>
-        <p class="legal-notice">Licensed & Insured • Yukon Territory Business License Required • GST/HST: Applicable</p>
-      </div>
-      
-      <div class="footer-disclaimers">
-        <p><strong>Important:</strong> Services available in Whitehorse and Haines Junction areas only. Payment required upon completion. No refunds for completed work without property damage or service failure. Weather-dependent services subject to safety conditions. Travel charges may apply outside Whitehorse city limits.</p>
+        <h4 style="margin-top: 2rem;">Legal</h4>
+        <ul class="footer-links">
+          <li><a href="legal.html"><i class="fas fa-file-contract"></i> Terms & Conditions</a></li>
+          <li><a href="legal.html#privacy"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+        </ul>
       </div>
     </div>
   </div>
-  
-  <a href="admin-login.html" class="footer-admin" title="Team Admin Access">
-    <img src="assets/logo.png" alt="Team Admin" height="24">
-  </a>
+
+  <div class="footer-bottom">
+    <div class="footer-bottom-container">
+      <div class="copyright">
+        &copy; 2025 Yukon Wildcats Contracting. All Rights Reserved.
+      </div>
+      <div class="footer-bottom-links">
+        <a href="legal.html" class="footer-admin-link">
+          <i class="fas fa-gavel"></i> Legal
+        </a>
+        <a href="admin-login.html" class="footer-admin-link">
+          <i class="fas fa-user-shield"></i> Admin
+        </a>
+      </div>
+    </div>
+  </div>
 </footer>
 </body>
 </html>
