@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /admin-login.html
+Disallow: /admin.html
+Disallow: /dashboard.html
+Disallow: /server/
+Disallow: /uploads/
+Disallow: /*.bak$
+Disallow: /*.backup$
+
+Sitemap: https://yukon-wildcats.ca/sitemap.xml

@@ -1,3 +1,10 @@
+/* =====================================================================
+   OBSOLETE CODE - Page Loader Removed (Nov 2025)
+   The page loader has been removed from all HTML pages for faster load times
+   Keeping this code commented for reference but it is no longer in use
+   ===================================================================== */
+
+/*
 // Advanced Page Loader Management
 function initializePageLoader() {
   const loader = document.getElementById('page-loader');
@@ -102,6 +109,7 @@ function initializePageLoader() {
   window.addEventListener('error', ()=>{if(isLoading){console.error('[Loader] window error - forcing hide'); forceHide();}}, true);
   window.addEventListener('unhandledrejection', ()=>{if(isLoading){console.error('[Loader] unhandled rejection - forcing hide'); forceHide();}});
 }
+*/ // END OBSOLETE PAGE LOADER CODE
 
 // Advanced Announcement System
 class AdvancedAnnouncement {
@@ -440,8 +448,8 @@ if (!localStorage.getItem('yw_announcement')) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize page loader first
-  initializePageLoader();
+  // Initialize page loader first - OBSOLETE - page loader removed Nov 2025
+  // initializePageLoader();
   
   // Initialize announcement banner
   initializeAnnouncement();
@@ -497,15 +505,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // === Contact Form Submission ===
   const contactForm = document.getElementById('contactForm');
   const quoteForm = document.getElementById('quoteForm');
-
-  // Basic input sanitizer to reduce XSS risk before storage/submission
-  const sanitize = (v) => {
-    if (typeof v !== 'string') return v;
-    return v.replace(/[\u0000-\u001F\u007F-\u009F]/g,'')
-            .replace(/[<>"'\\]/g, (c)=>({
-              '<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;','\\':'\\'
-            })[c] || '');
-  };
   
   const handleFormSubmit = async (form, isQuoteForm = false) => {
     const formData = {
@@ -524,20 +523,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
-      // Prefer internal API for privacy and reliability
-      const payload = {};
-      Object.keys(formData).forEach(k=> payload[k] = sanitize(formData[k]));
-      const res = await fetch('/api/submissions', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+      // Send to Google Apps Script
+      const googleScriptURL = 'https://script.google.com/macros/s/AKfycbwRnxGTfZzXL9jGSD-L790A2aErb0bimYIQHMLQOqbApr6ueMq7FQm8pyWekxo-UX2j/exec';
+      const formDataForGoogle = new FormData();
+      Object.keys(formData).forEach(key => {
+        formDataForGoogle.append(key, formData[key]);
       });
-      if (!res.ok) throw new Error('Server rejected submission');
-      alert('Form submitted successfully!');
-      form.reset();
+
+      const response = await fetch(googleScriptURL, {
+        method: 'POST',
+        body: formDataForGoogle
+      });
+
+      if (response.ok) {
+        alert('Form submitted successfully!');
+        form.reset();
+      } else {
+        throw new Error('Form submission failed');
+      }
     } catch (error) {
-      console.error('Submission error:', error);
-      alert('We could not send your form right now. Your data is safe locally and we will retry shortly.');
+      console.error('Error:', error);
+      alert('Error submitting form. Please try again.');
     }
   };
 
@@ -568,24 +574,19 @@ document.addEventListener('DOMContentLoaded', () => {
       webQuotes.push(formData);
       localStorage.setItem('yw_web_quotes', JSON.stringify(webQuotes));
 
-      // Submit to internal public service request endpoint
+      // Send to Google Apps Script
       try {
-        const payload = {
-          name: sanitize(formData.name),
-          email: sanitize(formData.email),
-          phone: sanitize(formData.phone),
-          company: '',
-          serviceType: 'Web Development',
-          packageDetails: { title: sanitize(formData.package) },
-          timeline: sanitize(formData.timeline),
-          budget: '',
-          message: sanitize(formData.requirements)
-        };
-        const response = await fetch('/api/public-service-request', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
+        const googleScriptURL = 'https://script.google.com/macros/s/AKfycbwRnxGTfZzXL9jGSD-L790A2aErb0bimYIQHMLQOqbApr6ueMq7FQm8pyWekxo-UX2j/exec';
+        const formDataForGoogle = new FormData();
+        Object.keys(formData).forEach(key => {
+          formDataForGoogle.append(key, formData[key]);
         });
+
+        const response = await fetch(googleScriptURL, {
+          method: 'POST',
+          body: formDataForGoogle
+        });
+
         if (response.ok) {
           alert('Quote request submitted successfully! We\'ll get back to you soon.');
           webQuoteForm.reset();
@@ -2952,7 +2953,7 @@ function isValidEmail(email) {
 // === DOCUMENT MANAGEMENT FUNCTIONALITY ===
 document.addEventListener('DOMContentLoaded', function() {
   initializeDocumentManagement();
-  animateStats();
+  initializeStatsAnimation();
 });
 
 function initializeDocumentManagement() {
@@ -2961,7 +2962,23 @@ function initializeDocumentManagement() {
   checkUserAuthentication();
 }
 
-// Animate statistics counters
+// Animate statistics counters when section comes into view
+function initializeStatsAnimation() {
+  const statsSection = document.querySelector('.company-stats');
+  if (!statsSection) return;
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateStats();
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  
+  observer.observe(statsSection);
+}
+
 function animateStats() {
   const statNumbers = document.querySelectorAll('.stat-number');
   
