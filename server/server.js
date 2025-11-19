@@ -14,6 +14,17 @@ const crypto = require('crypto');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Email transporter configuration
+const emailTransporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST || 'smtp.gmail.com',
+  port: process.env.SMTP_PORT || 587,
+  secure: false,
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS
+  }
+});
+
 // Trust first proxy (e.g., when behind Nginx) so rate limiting & IP logging work correctly
 // Prevents express-rate-limit ValidationError about unexpected X-Forwarded-For
 app.set('trust proxy', 1);
@@ -223,6 +234,42 @@ app.post('/api/submissions', strictLimiter, async (req, res) => {
     // Atomic write to prevent data corruption
     fs.writeFileSync(tempPath, JSON.stringify(submissions, null, 2));
     fs.renameSync(tempPath, submissionsPath);
+    
+    // Send email notification if SMTP is configured
+    if (process.env.SMTP_USER && process.env.SMTP_PASS) {
+      try {
+        await emailTransporter.sendMail({
+          from: process.env.SMTP_USER,
+          to: 'lazarusvanbibber@yukon-wildcats.ca',
+          subject: `New Quote Request - ${submission.service || 'General'}`,
+          html: `
+            <h2>New Quote Request from Yukon Wildcats Website</h2>
+            <p><strong>Request ID:</strong> ${submission.id}</p>
+            <p><strong>Date:</strong> ${new Date(submission.timestamp).toLocaleString()}</p>
+            <hr>
+            <h3>Customer Information:</h3>
+            <p><strong>Name:</strong> ${submission.name}</p>
+            <p><strong>Email:</strong> <a href="mailto:${submission.email}">${submission.email}</a></p>
+            <p><strong>Phone:</strong> ${submission.phone}</p>
+            ${submission.location ? `<p><strong>Location:</strong> ${submission.location}</p>` : ''}
+            <hr>
+            <h3>Service Details:</h3>
+            <p><strong>Service:</strong> ${submission.service || 'Not specified'}</p>
+            ${submission.priority ? `<p><strong>Priority:</strong> ${submission.priority}</p>` : ''}
+            ${submission.urgency ? `<p><strong>Urgency:</strong> ${submission.urgency}</p>` : ''}
+            <hr>
+            <h3>Message:</h3>
+            <p>${(submission.message || '').replace(/\n/g, '<br>')}</p>
+            <hr>
+            <p><em>Submitted from IP: ${submission.ip}</em></p>
+          `
+        });
+        console.log('Quote email sent successfully to lazarusvanbibber@yukon-wildcats.ca');
+      } catch (emailError) {
+        console.error('Error sending email notification:', emailError.message);
+        // Don't fail the request if email fails
+      }
+    }
     
     res.json({ 
       message: 'Submission saved successfully',
